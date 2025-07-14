@@ -2,7 +2,7 @@ import React from 'react'
 
 const alumini = () => {
   return (
-    <div>alumini</div>
+    <div>alum</div>
   )
 }
 
