@@ -1,9 +1,13 @@
 import React from 'react'
 
-const header = () => {
+const Header = () => {
   return (
-    <div>header</div>
+    <>
+      <h1>sdsda</h1>
+      <h2>jnadjsn</h2>
+    </>
+    
   )
 }
 
-export default header
+export default Header

@@ -1,9 +1,13 @@
 import React from 'react'
 
-const alumini = () => {
+const AluminiCard = () => {
   return (
-    <div>alum</div>
+    <>
+      <h1>sdsda</h1>
+      <h2>jnadjsn</h2>
+    </>
+    
   )
 }
 
-export default alumini
+export default AluminiCard
