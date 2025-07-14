@@ -1,14 +1,26 @@
 import { useState } from 'react'
 import './App.css'
+import Header from './components/header';
+import AluminiCard from './components/alumini';
+import EventCardModal from './components/eventCardModal';
+import EventCard from "./components/eventCard";
+import Footer from './components/footer';
+import ProjectCard from "./components/footer";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
+
     <>
-      <h1 className='text-5xl'>ROBOGYAAN </h1>
+      <AluminiCard />
+      <EventCardModal />
+      <EventCard/>
+      <Header />
+      <Footer />
+      <ProjectCard/>
     </>
-  )
+
+  );
 }
 
 export default App

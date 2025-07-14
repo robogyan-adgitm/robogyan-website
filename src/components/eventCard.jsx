@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
-const eventCard = () => {
+const EventCard = () => {
   return (
-    <div>eventCard</div>
-  )
-}
+    <>
+      <h1>sdsda</h1>
+      <h2>jnadjsn</h2>
+    </>
+  );
+};
 
-export default eventCard
+export default EventCard;

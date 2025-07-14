@@ -1,9 +1,13 @@
 import React from 'react'
 
-const eventCardModal = () => {
+const EventCardModal = () => {
   return (
-    <div>eventCardModal</div>
+    <>
+      <h1>sdsda</h1>
+      <h2>jnadjsn</h2>
+    </>
+    
   )
 }
 
-export default eventCardModal
+export default EventCardModal
