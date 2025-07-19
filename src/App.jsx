@@ -5,7 +5,7 @@ import AluminiCard from './components/alumini';
 import EventCardModal from './components/eventCardModal';
 import EventCard from "./components/eventCard";
 import Footer from './components/footer';
-import ProjectCard from "./components/footer";
+import ProjectCard from "./components/projectCard";
 
 function App() {
 
