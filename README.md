@@ -15,6 +15,7 @@ If you are developing a production application, we recommend using TypeScript wi
 ## Run the site
 
 To run the website:
+
     npm install
     
     npx vite
