@@ -21,14 +21,16 @@ export function useIntersectionObserver(
       },
       {
         threshold: options.threshold || 0.1,
-        rootMargin: options.rootMargin || "0px",
+        rootMargin: options.rootMargin || "0px 0px -50px 0px",
       }
     );
 
     observer.observe(element);
 
     return () => {
-      observer.unobserve(element);
+      if (element) {
+        observer.unobserve(element);
+      }
     };
   }, [elementRef, options.threshold, options.rootMargin]);
 
