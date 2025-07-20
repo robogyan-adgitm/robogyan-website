@@ -37,7 +37,7 @@ export default function Footer() {
               ROBOGYAN
             </motion.div>
             <p className="text-gray-400 mb-4">
-              Innovating the future through technology, one project at a time.
+              Experience Engineering!
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => {
@@ -106,7 +106,7 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-center space-x-2">
                 <Mail size={16} className="text-[hsl(235,75%,65%)]" />
-                <span>robogyan@college.edu</span>
+                <span>robogyan.contact@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={16} className="text-[hsl(220,70%,55%)]" />
@@ -114,7 +114,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <MapPin size={16} className="text-[hsl(150,45%,60%)]" />
-                <span>Engineering College Campus</span>
+                <span>Basement, 5th Block, ADGIPS</span>
               </li>
             </ul>
           </div>
@@ -123,7 +123,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 Robogyan. All rights reserved. | Built with ❤️ by the Robogyan Team
+            © 2025 Robogyan. All rights reserved. | Built with ❤️ by the Robogyan Team
           </p>
         </div>
       </div>

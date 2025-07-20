@@ -19,7 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroImage = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600";
+const heroImage = "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rglab1.jpg";
 
 const achievements = [
   { number: "50+", label: "Epic Projects" },
@@ -180,9 +180,6 @@ export default function LifeAtRG() {
               transition={{ duration: 1 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
-            <div className="absolute top-4 right-4">
-              <Badge className="bg-red-500 text-white animate-pulse">Live</Badge>
-            </div>
             <div className="absolute bottom-6 left-6 text-left px-4">
               <h1 className="font-orbitron text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
                 Life at RoboGyan
