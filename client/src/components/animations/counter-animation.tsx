@@ -15,28 +15,68 @@ export default function CounterAnimation({
 }: CounterAnimationProps) {
   const [count, setCount] = useState(0);
   const elementRef = useRef<HTMLDivElement>(null);
-  const isIntersecting = useIntersectionObserver(elementRef, { threshold: 0.3 });
+  const isIntersecting = useIntersectionObserver(elementRef, { threshold: 0.1 });
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (isIntersecting && !hasAnimated) {
+    if (isIntersecting && !hasAnimated && target > 0) {
       setHasAnimated(true);
-      let start = 0;
-      const increment = target / (duration / 16);
       
-      const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-          setCount(target);
-          clearInterval(timer);
+      const startTime = Date.now();
+      const startValue = 0;
+      
+      const animateCount = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Use easing function for smoother animation
+        const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const currentCount = Math.floor(startValue + (target - startValue) * easeOutExpo);
+        
+        setCount(currentCount);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateCount);
         } else {
-          setCount(Math.floor(start));
+          setCount(target);
         }
-      }, 16);
-
-      return () => clearInterval(timer);
+      };
+      
+      requestAnimationFrame(animateCount);
     }
   }, [isIntersecting, target, duration, hasAnimated]);
+
+  // Fallback: animate after a delay if intersection observer doesn't trigger
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      if (!hasAnimated && target > 0) {
+        setHasAnimated(true);
+        
+        const startTime = Date.now();
+        const startValue = 0;
+        
+        const animateCount = () => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+          const currentCount = Math.floor(startValue + (target - startValue) * easeOutExpo);
+          
+          setCount(currentCount);
+          
+          if (progress < 1) {
+            requestAnimationFrame(animateCount);
+          } else {
+            setCount(target);
+          }
+        };
+        
+        requestAnimationFrame(animateCount);
+      }
+    }, 1000); // Start animation after 1 second as fallback
+
+    return () => clearTimeout(fallbackTimer);
+  }, [target, duration, hasAnimated]);
 
   return (
     <motion.div

@@ -7,10 +7,10 @@ import CounterAnimation from "@/components/animations/counter-animation";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink } from "lucide-react";
 
 const achievements = [
-  { label: "Active Members", value: 150, color: "text-[hsl(150,45%,60%)]" },
-  { label: "Total Winnings", value: 50, color: "text-[hsl(275,85%,70%)]" },
-  { label: "Projects Completed", value: 200, color: "text-[hsl(220,70%,55%)]" },
-  { label: "Years of Excellence", value: 5, color: "text-[hsl(235,85%,65%)]" },
+  { label: "Active Members", value: 38, color: "text-[hsl(150,45%,60%)]" },
+  { label: "Competetion Winnings", value: 50, color: "text-[hsl(275,85%,70%)]" },
+  { label: "Projects Completed", value: 52, color: "text-[hsl(220,70%,55%)]" },
+  { label: "Years of Excellence", value: 16, color: "text-[hsl(235,85%,65%)]" },
 ];
 
 const aboutPoints = [
@@ -34,15 +34,15 @@ const aboutPoints = [
 const featuredProjects = [
   {
     id: 1,
-    title: "Autonomous Rover",
+    title: "LivPol",
     description: "AI-powered rover for terrain mapping and obstacle avoidance using computer vision.",
-    category: "Hardware",
-    icon: "🤖",
+    category: "Mixed",
+    icon: "🎮",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
   },
   {
     id: 2,
-    title: "Smart Campus",
+    title: "Deafiator",
     description: "IoT-based campus management system with real-time monitoring and automation.",
     category: "Software",
     icon: "🧠",
@@ -50,41 +50,41 @@ const featuredProjects = [
   },
   {
     id: 3,
-    title: "VR Learning Platform",
+    title: "Manouvre Bot",
     description: "Immersive virtual reality platform for engineering education and simulation.",
-    category: "Mixed",
-    icon: "🎮",
+    category: "Hardware",
+    icon: "🤖",
     gradient: "from-[hsl(275,75%,70%)] to-[hsl(235,75%,65%)]",
   },
 ];
 
 const coreTeam = [
   {
-    name: "Arjun Sharma",
+    name: "Amogh Saxena",
     position: "President",
-    specialization: "AI/ML Specialist",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    specialization: "Android, ML Specialist",
+    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
-    name: "Priya Patel",
+    name: "Macle (Aditya Goel)",
     position: "Vice President",
-    specialization: "Robotics Engineer",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b5f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    specialization: "Embedded Master",
+    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//macle.png",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
-    name: "Rahul Kumar",
-    position: "Technical Head",
-    specialization: "Full Stack Developer",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    name: "Nikunj Sharma",
+    position: "Management Head",
+    specialization: "Frontend & Design",
+    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
   {
-    name: "Sneha Singh",
-    position: "Design Head",
+    name: "Ayush Kumar Jha",
+    position: "Firmware & Research Head",
     specialization: "UI/UX Designer",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
 ];
@@ -117,7 +117,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto px-4"
           >
-            Where Innovation Meets Excellence. Join the Future of Technology.
+            Engineering comes alive at Robogyan. Dive into hands-on innovation, master your skills, and build what's next.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -128,13 +128,13 @@ export default function Home() {
               size="lg"
               className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
             >
-              Explore Our Journey
+              Join Now
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Achievements Section */}
+      {/* Facts Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto">
           <motion.h3
@@ -142,7 +142,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
           >
-            Our Achievements
+            Our Achievements & Facts
           </motion.h3>
           <div className="grid md:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
@@ -213,23 +213,23 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Students collaborating on tech project"
+                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//iiitdRobo.jpg"
+                alt="Working at IIITD"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Electronic circuit board"
+                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//plane%20(1).jpg"
+                alt="RG Lab & Plane"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Code on computer screen"
+                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rglab1.jpg"
+                alt="RG Lab"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Robotic arm in action"
+                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rg_working.jpg"
+                alt="RG lab before Techkriti"
                 className="rounded-xl card-hover"
               />
             </motion.div>
