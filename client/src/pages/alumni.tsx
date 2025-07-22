@@ -37,7 +37,7 @@ const alumniBatches: AlumniBatch[] = [
       {
         id: "1",
         name: "Vidhi Gupta",
-        position: "Team Lead",
+        position: "President",
         currentCompany: "Google",
         currentRole: "Software Engineer",
         image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//vidhi.png",
@@ -47,7 +47,7 @@ const alumniBatches: AlumniBatch[] = [
       {
         id: "2",
         name: "Jayam Shrivastav",
-        position: "AI Specialist",
+        position: "Vice-President",
         currentCompany: "Microsoft",
         currentRole: "ML Engineer",
         image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//jayam.jpg",
