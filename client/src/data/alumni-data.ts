@@ -123,7 +123,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Fabrication Lead",
         currentCompany: "TechLanz",
         currentRole: "Engineer Trainee",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//ramakant.jpeg",
+        image: "/src/data/images/alumni/ramakant.jpeg",
         linkedin: "https://www.linkedin.com/in/rama-kant-kumar/",
       },
       {
