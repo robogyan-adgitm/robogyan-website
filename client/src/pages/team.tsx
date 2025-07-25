@@ -143,8 +143,11 @@ export default function Team() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-[hsl(0,0%,4%)] hover:scale-105 transition-transform animate-glow font-semibold px-8 py-4"
+              onClick={() => {
+                window.open('https://chat.whatsapp.com/GP8hZUbEV8G2b3jb0uIBWY?mode=r_c', '_blank');
+              }}
             >
-              Apply Now
+              Join WhatsApp Group
             </Button>
           </GlassmorphismCard>
         </motion.div>
