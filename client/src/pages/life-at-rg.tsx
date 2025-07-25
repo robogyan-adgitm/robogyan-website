@@ -3,6 +3,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import sihImage from '../data/images/lifeatrg/SIH2024.png';
+import hackimg from '../data/images/lifeatrg/HackBMU.png';
+import farewellimg from '../data/images/lifeatrg/Farewell2025.png';
+import techimg from '../data/images/lifeatrg/Techkriti.png';
+import workshopimg from '../data/images/lifeatrg/workshops.png';
+import talksimg from '../data/images/lifeatrg/techtalks.png';
+import hackathonsimg from '../data/images/lifeatrg/hackathons.png';
+import teamimg from '../data/images/lifeatrg/teambuilding.png';
+import demoimg from '../data/images/lifeatrg/demos.png';
+import competitionimg from '../data/images/lifeatrg/competition.png';
+import aimg from '../data/images/lifeatrg/1.png';
+import bimg from '../data/images/lifeatrg/2.png';
+import cimg from '../data/images/lifeatrg/3.png';
+import dimg from '../data/images/lifeatrg/4.png';
+import eimg from '../data/images/lifeatrg/5.png';
+import fimg from '../data/images/lifeatrg/6.png';
+import gimg from '../data/images/lifeatrg/7.png';
+import himg from '../data/images/lifeatrg/8.png';
 import { 
   Heart, 
   Zap, 
@@ -31,78 +49,76 @@ const achievements = [
 const moments = [
   {
     id: "1",
-    title: "National Robotics Championship Victory",
+    title: "Smart India Hackathon 2024",
     year: "2024",
-    location: "Mumbai Tech Arena",
-    category: "Achievement",
-    attendees: "2000+",
-    description: "Our team dominated the autonomous navigation challenge, showcasing months of dedication and innovation.",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    badges: ["First Place", "Best Innovation", "Team Spirit Award"]
+    location: "ADGIPS",
+    category: "SIH2024",
+    attendees: "200+",
+    description: "Robogyan conducted the SIH2024 Internal round with over 200 participants.",
+    image:  sihImage,
+    badges: []
   },
   {
     id: "2",
-    title: "Tech Fest Innovation Showcase",
-    year: "2023",
-    location: "IIT Delhi",
-    category: "Innovation",
+    title: "HackBMU 6.0 Hackathon",
+    year: "2024",
+    location: "BML Munjal University, Haryana",
     attendees: "5000+",
-    description: "Unveiled our AI-powered companion robot that stole the hearts of everyone at the festival.",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    badges: ["Best Innovation", "People's Choice", "Industry Recognition"]
+    category: "HackBMU",
+    description: "Achieved 2nd position at HackBMU 6.0 along with a cash prize",
+    image:  hackimg,
+    badges: ["2nd Runner Up"]
   },
   {
     id: "3",
-    title: "Community Impact Initiative",
-    year: "2022",
-    location: "15 Schools",
-    category: "Community",
-    attendees: "500+ Students",
-    description: "Reached out to rural schools, inspiring the next generation with hands-on robotics workshops.",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    badges: ["500+ Students Taught", "15 Schools Visited", "Local Media Coverage"]
+    title: "RG Farewell 2025 Batch",
+    year: "2025",
+    location: "Robogyan Lab, Block 5",
+    category: "Farewell 2025",
+    description: "Robogyan conducted farewell for the 2025 Batch, in presence of some esteemed alumni.",
+    image: farewellimg ,
+    badges: []
   },
   {
     id: "4",
-    title: "Research Breakthrough",
-    year: "2021",
-    location: "Online Publication",
-    category: "Research",
-    attendees: "Global Reach",
-    description: "Published groundbreaking research on swarm robotics in international journal.",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    badges: ["International Publication", "Citation Impact", "Industry Collaboration"]
+    title: "Techkriti 2025 at IIT Kanpur",
+    year: "2025",
+    location: "IIT Kanpur",
+    category: "Techkriti 2025",
+    description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
+    image: techimg ,
+    badges: ["Multiple Wins"]
   }
 ];
 
 const activitiesData = [
   {
-    src: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src:  workshopimg ,
     alt: "Hands-on workshop session with students learning",
     title: "Workshop Sessions"
   },
   {
-    src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src: talksimg ,
     alt: "Tech talk presentation with industry expert",
     title: "Tech Talks"
   },
   {
-    src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src: hackathonsimg ,
     alt: "Hackathon in progress with teams working intensively",
     title: "Hackathons"
   },
   {
-    src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src: competitionimg ,
     alt: "Competition day with participants presenting projects",
     title: "Competitions"
   },
   {
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src: demoimg ,
     alt: "Project demonstration and showcase event",
     title: "Project Demos"
   },
   {
-    src: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    src: teamimg ,
     alt: "Team building activity with collaborative challenges",
     title: "Team Building"
   }
@@ -110,36 +126,36 @@ const activitiesData = [
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Group photo of tech society members"
+    src: aimg ,
+    
   },
   {
-    src: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Robotic arm demonstration in modern lab"
+    src: bimg ,
+   
   },
   {
-    src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Coding workspace with multiple screens"
+    src: cimg ,
+   
   },
   {
-    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "State-of-the-art laboratory environment"
+    src: dimg ,
+   
   },
   {
-    src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Electronics setup with sensors and microcontrollers"
+    src: eimg ,
+  
   },
   {
-    src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Award ceremony with trophies and certificates"
+    src: fimg ,
+    
   },
   {
-    src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Development setup with latest technology"
+    src: gimg ,
+    
   },
   {
-    src: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-    alt: "Group discussion and knowledge sharing"
+    src: himg ,
+   
   }
 ];
 
