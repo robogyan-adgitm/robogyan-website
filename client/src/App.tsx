@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import ScrollToTop from "@/components/layout/scroll-to-top";
 import ParticleBackground from "@/components/animations/particle-background";
 import Home from "@/pages/home";
 import Team from "@/pages/team";
@@ -18,6 +19,7 @@ import NotFound from "@/pages/not-found";
 function Router() {
   return (
     <div className="min-h-screen relative">
+      <ScrollToTop />
       <ParticleBackground />
       <Navbar />
       <main className="relative z-10">

@@ -4,7 +4,6 @@ import { Mail, Phone, MapPin, Instagram, Linkedin, Github, Twitter } from "lucid
 
 export default function Footer() {
   const quickLinks = [
-    { label: "Home", href: "/" },
     { label: "Team", href: "/team" },
     { label: "Projects", href: "/projects" },
     { label: "Events", href: "/events" },
@@ -14,14 +13,11 @@ export default function Footer() {
     { label: "Alumni", href: "/alumni" },
     { label: "Life at RG", href: "/life-at-rg" },
     { label: "Contact", href: "/contact" },
-    { label: "Documentation", href: "#" },
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "#", color: "text-[hsl(275,75%,70%)]" },
-    { icon: Linkedin, href: "#", color: "text-[hsl(220,70%,55%)]" },
-    { icon: Github, href: "#", color: "text-[hsl(235,75%,65%)]" },
-    { icon: Twitter, href: "#", color: "text-[hsl(150,45%,60%)]" },
+    { icon: Instagram, href: "https://www.instagram.com/robogyan_official/", color: "text-[hsl(275,75%,70%)]" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/robogyan/", color: "text-[hsl(220,70%,55%)]" },
   ];
 
   return (
@@ -109,12 +105,14 @@ export default function Footer() {
                 <span>robogyan.contact@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone size={16} className="text-[hsl(220,70%,55%)]" />
-                <span>+91 98765 43210</span>
-              </li>
-              <li className="flex items-center space-x-2">
-                <MapPin size={16} className="text-[hsl(150,45%,60%)]" />
-                <span>Basement, 5th Block, ADGIPS</span>
+                <MapPin size={20} className="text-[hsl(150,45%,60%)]" />
+                <span>
+                  Basement, 5th Block
+                  <br />
+                  Dr. Akhilesh Das Gupta Institute of Professional Studies
+                  <br />
+                  Shastri Park, Delhi-110053
+                </span>
               </li>
             </ul>
           </div>

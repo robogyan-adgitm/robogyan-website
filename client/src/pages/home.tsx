@@ -35,7 +35,7 @@ const featuredProjects = [
   {
     id: 1,
     title: "LivPol",
-    description: "AI-powered rover for terrain mapping and obstacle avoidance using computer vision.",
+    description: "A queue detection algorithm software paired with dedicated hardware device",
     category: "Mixed",
     icon: "🎮",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
@@ -43,7 +43,7 @@ const featuredProjects = [
   {
     id: 2,
     title: "Deafiator",
-    description: "IoT-based campus management system with real-time monitoring and automation.",
+    description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
     category: "Software",
     icon: "🧠",
     gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
@@ -51,7 +51,7 @@ const featuredProjects = [
   {
     id: 3,
     title: "Manouvre Bot",
-    description: "Immersive virtual reality platform for engineering education and simulation.",
+    description: "A powerful bot with special clamps to hold objects and manouvre through obstacles.",
     category: "Hardware",
     icon: "🤖",
     gradient: "from-[hsl(275,75%,70%)] to-[hsl(235,75%,65%)]",
@@ -63,28 +63,28 @@ const coreTeam = [
     name: "Amogh Saxena",
     position: "President",
     specialization: "Android, ML Specialist",
-    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//amogh.jpg",
+    image: "/src/data/images/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
     name: "Macle (Aditya Goel)",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//macle.png",
+    image: "/src/data/images/macle.png",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
     name: "Nikunj Sharma",
     position: "Management Head",
     specialization: "Frontend & Design",
-    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//nikunj.jpg",
+    image: "/src/data/images/nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
     specialization: "UI/UX Designer",
-    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//ayush.jpg",
+    image: "/src/data/images/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
 ];
@@ -124,12 +124,15 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
-            >
-              Join Now
-            </Button>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                Join Now
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -213,22 +216,22 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//iiitdRobo.jpg"
+                src="/src/data/images/iiitdRobo.jpg"
                 alt="Working at IIITD"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//plane%20(1).jpg"
+                src="/src/data/images/plane.jpg"
                 alt="RG Lab & Plane"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rglab1.jpg"
+                src="/src/data/images/rglab2.jpg"
                 alt="RG Lab"
                 className="rounded-xl card-hover"
               />
               <img
-                src="https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rg_working.jpg"
+                src="/src/data/images/rg_working.jpg"
                 alt="RG lab before Techkriti"
                 className="rounded-xl card-hover"
               />
@@ -317,6 +320,7 @@ export default function Home() {
                 variant="outline"
                 size="lg"
                 className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 View Full Team
               </Button>
