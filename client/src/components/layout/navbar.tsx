@@ -18,6 +18,11 @@ export default function Navbar() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleNavClick = () => {
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -30,6 +35,7 @@ export default function Navbar() {
         <Link href="/">
           <motion.div
             whileHover={{ scale: 1.05 }}
+            onClick={handleNavClick}
             className="font-orbitron text-2xl font-bold gradient-text cursor-pointer"
           >
             ROBOGYAN
@@ -42,6 +48,7 @@ export default function Navbar() {
             <Link key={item.href} href={item.href}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
+                onClick={handleNavClick}
                 className={`nav-item cursor-pointer transition-colors ${
                   location === item.href
                     ? "text-[hsl(235,85%,65%)] active"
@@ -76,7 +83,10 @@ export default function Navbar() {
             <Link key={item.href} href={item.href}>
               <motion.div
                 whileHover={{ x: 10 }}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  handleNavClick();
+                }}
                 className={`block py-2 cursor-pointer transition-colors ${
                   location === item.href
                     ? "text-[hsl(235,85%,65%)]"
