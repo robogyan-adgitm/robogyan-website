@@ -1,272 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { alumniBatches } from "@/data/alumni-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, ExternalLink, Linkedin, Github, Twitter, MapPin, Building, Calendar } from "lucide-react";
-
-interface AlumniMember {
-  id: string;
-  name: string;
-  position: string;
-  currentCompany: string;
-  currentRole: string;
-  image: string;
-  linkedin?: string;
-  github?: string;
-  twitter?: string;
-}
-
-interface AlumniBatch {
-  year: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  members: AlumniMember[];
-  achievements: string[];
-}
-
-const alumniBatches: AlumniBatch[] = [
-  {
-    year: "2024-25",
-    subtitle: "Core of 2024-25",
-    description: "Meet the innovative team members who made their mark this year.",
-    image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rg202425.png",
-    achievements: ["SIH2024 Grand Finalists", "Winners @IITK Techkriti", "Xylem International Winners"],
-    members: [
-      {
-        id: "1",
-        name: "Vidhi Gupta",
-        position: "President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//vidhi.png",
-        linkedin: "https://www.linkedin.com/in/vidhi2410/",
-        github: "#",
-      },
-      {
-        id: "2",
-        name: "Jayam Shrivastav",
-        position: "Vice-President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//jayam.jpg",
-        linkedin: "https://www.linkedin.com/in/jayamshrivastav-dev/",
-        github: "#",
-      },
-      {
-        id: "3",
-        name: "Amogh Saxena",
-        position: "Software Lead",
-        currentCompany: "Pre final year",
-        currentRole: "Btech CSE",
-        image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//amogh.jpg",
-        linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
-        github: "https://github.com/SaxenaAmogh/SaxenaAmogh",
-      },
-      {
-        id: "4",
-        name: "Macle (Aditya Goel)",
-        position: "Hardware Lead",
-        currentCompany: "Pre final year",
-        currentRole: "Btech CSE",
-        image: "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/members//macle.png",
-        linkedin: "https://www.linkedin.com/in/macle57/",
-        github: "#",
-      },
-      {
-        id: "5",
-        name: "Deep Jyoti",
-        position: "Graphics Lead",
-        currentCompany: "Pre final year",
-        currentRole: "Btech CSE",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//dj.jpg",
-        linkedin: "https://www.linkedin.com/in/deep-jyoti-das-4148bb31a/",
-        github: "#",
-      }
-    ],
-  },
-  {
-    year: "2023-24",
-    subtitle: "Class of 2023-24",
-    description: "Meet the innovative team members who made their mark this year",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop&crop=faces",
-    achievements: ["International Hackathon Winners", "Open Source Contributors", "Industry Innovation Awards"],
-    members: [
-      {
-        id: "6",
-        name: "Ashish",
-        position: "President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//ashish.jpg",
-        linkedin: "https://www.linkedin.com/in/ashishhhh/",
-      },
-      {
-        id: "7",
-        name: "Sushant",
-        position: "Vice President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//sushant.png",
-        linkedin: "NA",
-      },
-      {
-        id: "8",
-        name: "Vidhi Gupta",
-        position: "Women in tech",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//vidhigupta.jpg",
-        linkedin: "https://www.linkedin.com/in/vidhi2410/",
-      },
-      {
-        id: "8",
-        name: "Sumit kumar",
-        position: "Embedded lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//sumit.png",
-        linkedin: "NA",
-      },
-      {
-        id: "9",
-        name: "Ramakant Kumar",
-        position: "Fabrication Lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//ramakant.jpeg",
-        linkedin: "NA",
-      },
-      {
-        id: "10",
-        name: "Faizan Khan",
-        position: "ML lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//faizan.jpg",
-        linkedin: "NA",
-      },
-      {
-        id: "11",
-        name: "Vanshika Goel",
-        position: "UI/UX Lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//vanshika.png",
-        linkedin: "NA",
-      },
-    ],
-  },
-  {
-    year: "2022-23",
-    subtitle: "Class of 2022-23",
-    description: "Meet the innovative team members who made their mark this year",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop&crop=faces",
-    achievements: ["Tech Innovation Summit", "Multiple Patent Holders", "Startup Founders"],
-    members: [
-      {
-        id: "12",
-        name: "Vaibhav Khanna",
-        position: "President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//vaibhav.jpg",
-        linkedin: "#",
-      },
-      {
-        id: "13",
-        name: "Ashish",
-        position: "Vice President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//ashish.jpg",
-        linkedin: "#",
-      },
-    ],
-  },  
-  {
-    year: "2021-22",
-    subtitle: "Class of 2021-22",
-    description: "Meet the innovative team members who made their mark this year",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop&crop=faces",
-    achievements: ["Tech Innovation Summit", "Multiple Patent Holders", "Startup Founders"],
-    members: [
-      {
-        id: "14",
-        name: "Jai garg",
-        position: "President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//jai.jpg",
-        linkedin: "#",
-      },
-      {
-        id: "15",
-        name: "Bhavya Sharma",
-        position: "Vice President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//bhavya.png",
-        linkedin: "#",
-      },
-    ],       
-  },
-  {
-    year: "2020-21",
-    subtitle: "Class of 2020-21",
-    description: "Meet the innovative team members who made their mark this year",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop&crop=faces",
-    achievements: ["Tech Innovation Summit", "Multiple Patent Holders", "Startup Founders"],
-    members: [
-      {
-        id: "17",
-        name: "Hardik Gossain",
-        position: "President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//hardik.png",
-        linkedin: "#",
-      },
-      {
-        id: "18",
-        name: "Aditya Aggarwal",
-        position: "Vice President",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//aditya.png",
-        linkedin: "#",
-      },
-      {
-        id: "19",
-        name: "Bhavya Sharma",
-        position: "IOT, drone and research lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//bhavya.png",
-        linkedin: "#",
-      },
-      {
-        id: "20",
-        name: "Mohit Gupta",
-        position: "Web dev lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//mohit.jpg",
-        linkedin: "#",
-      },
-      {
-        id: "21",
-        name: "Jai garg",
-        position: "Fabrication and product design lead",
-        currentCompany: "NA",
-        currentRole: "NA",
-        image: "https://ppkzdsdigqukcgwtpafu.supabase.co/storage/v1/object/public/members//jai.jpg",
-        linkedin: "#",
-      },
-    ],       
-  }
-];
 
 export default function Alumni() {
   const [expandedBatch, setExpandedBatch] = useState<string | null>(null);
@@ -285,10 +23,10 @@ export default function Alumni() {
           className="text-center mb-16"
         >
           <h1 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-bold mb-6 gradient-text">
-            Our Alumni
+            Our Esteemed Alumni
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
-            Celebrating the brilliant minds who have shaped the future of robotics and innovation
+            Celebrating the brilliant minds who have shaped the future of robotics and innovation.
           </p>
         </motion.div>
 
@@ -380,7 +118,7 @@ export default function Alumni() {
                                   <img
                                     src={member.image}
                                     alt={member.name}
-                                    className="w-16 h-16 rounded-full border-2 border-[hsl(235,85%,65%)]"
+                                    className="w-24 h-24 rounded-full border-2 border-[hsl(235,85%,65%)]"
                                   />
                                   <div className="flex-1 text-center sm:text-left">
                                     <h5 className="font-orbitron font-bold text-white text-sm sm:text-base">{member.name}</h5>
@@ -398,16 +136,6 @@ export default function Alumni() {
                                         <Linkedin size={14} />
                                       </a>
                                     )}
-                                    {member.github && (
-                                      <a href={member.github} className="text-[hsl(235,85%,65%)] hover:text-white transition-colors">
-                                        <Github size={14} />
-                                      </a>
-                                    )}
-                                    {member.twitter && (
-                                      <a href={member.twitter} className="text-[hsl(275,85%,70%)] hover:text-white transition-colors">
-                                        <Twitter size={14} />
-                                      </a>
-                                    )}
                                   </div>
                                 </div>
                               </motion.div>
@@ -422,72 +150,7 @@ export default function Alumni() {
             </motion.div>
           ))}
         </div>
-
-        {/* Success Stories */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mt-20"
-        >
-          <GlassmorphismCard hover={false} className="p-6 sm:p-8 md:p-12 text-center">
-            <h3 className="font-orbitron text-2xl sm:text-3xl font-bold mb-8 gradient-text">
-              Success Stories
-            </h3>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto px-4">
-              Our alumni continue to make their mark in leading tech companies and innovative startups worldwide.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="text-center"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
-                  alt="Success story"
-                  className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-[hsl(235,85%,65%)]"
-                />
-                <h4 className="font-orbitron text-lg font-bold text-white mb-2">
-                  Aditya Kumar
-                </h4>
-                <p className="text-[hsl(235,85%,65%)] text-sm mb-2">Class of 2021</p>
-                <p className="text-gray-400 text-sm">Software Engineer at Google</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="text-center"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
-                  alt="Success story"
-                  className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-[hsl(275,85%,70%)]"
-                />
-                <h4 className="font-orbitron text-lg font-bold text-white mb-2">
-                  Shreya Agarwal
-                </h4>
-                <p className="text-[hsl(275,85%,70%)] text-sm mb-2">Class of 2020</p>
-                <p className="text-gray-400 text-sm">Founder, TechStart Solutions</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="text-center"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
-                  alt="Success story"
-                  className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-[hsl(220,70%,55%)]"
-                />
-                <h4 className="font-orbitron text-lg font-bold text-white mb-2">
-                  Arjun Malhotra
-                </h4>
-                <p className="text-[hsl(220,70%,55%)] text-sm mb-2">Class of 2019</p>
-                <p className="text-gray-400 text-sm">Research Scientist, MIT</p>
-              </motion.div>
-            </div>
-          </GlassmorphismCard>
-        </motion.div>
+        
       </div>
     </div>
   );
