@@ -198,7 +198,7 @@ export default function LifeAtRG() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
             <div className="absolute bottom-6 left-6 text-left px-4">
               <h1 className="font-orbitron text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
-                Life at RoboGyan
+                Life at Robogyan
               </h1>
               <p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-2xl">
                 Where innovation meets passion, and dreams become reality. Join us on an incredible journey of robotics, friendship, and endless possibilities! 🚀
@@ -406,7 +406,6 @@ export default function LifeAtRG() {
                   >
                     <img
                       src={image.src}
-                      alt={image.alt}
                       className="w-full h-48 object-cover rounded-xl"
                     />
                   </motion.div>
@@ -494,8 +493,11 @@ export default function LifeAtRG() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
+              onClick={() => {
+                window.open('https://chat.whatsapp.com/GP8hZUbEV8G2b3jb0uIBWY?mode=r_c', '_blank');
+              }}
             >
-              Join RoboGyan Now
+              Join Robogyan
             </Button>
           </GlassmorphismCard>
         </motion.div>

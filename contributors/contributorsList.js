@@ -14,4 +14,14 @@ contributors = [
     fullname: "Krish",
     username: "https://github.com/Krish-Gupta24",
     },
+    {
+    id: 4,
+    fullname: "Achintya",
+    username: "https://github.com/Achintyabhardwaj",
+    },
+    {
+    id: 5,
+    fullname: "Avanya",
+    username: "https://github.com/avanya06",
+    },
 ];
