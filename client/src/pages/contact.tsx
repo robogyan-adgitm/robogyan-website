@@ -147,7 +147,7 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-orbitron text-5xl font-bold mb-8 gradient-text">
+          <h1 className="font-russo text-5xl mb-8 text-[hsl(180,100%,50%)] neon-text">
             Contact Us
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -165,7 +165,7 @@ export default function Contact() {
           >
             {/* Contact Details */}
             <GlassmorphismCard>
-              <h3 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
+              <h3 className="font-russo text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
                 Get in Touch
               </h3>
               <div className="space-y-6">
@@ -201,7 +201,7 @@ export default function Contact() {
 
             {/* Office Hours */}
             <GlassmorphismCard>
-              <h3 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
+              <h3 className="font-russo text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
                 Office Hours
               </h3>
               <div className="space-y-3">
@@ -225,7 +225,7 @@ export default function Contact() {
 
             {/* Social Links */}
             <GlassmorphismCard>
-              <h3 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
+              <h3 className="font-russo text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
                 Follow Us
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -257,7 +257,7 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <GlassmorphismCard className="p-8">
-              <h3 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
+              <h3 className="font-russo text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
                 Send us a Message
               </h3>
               
@@ -399,7 +399,7 @@ export default function Contact() {
           className="text-center"
         >
           <GlassmorphismCard hover={false} className="p-8">
-            <h3 className="font-orbitron text-3xl font-bold mb-6 gradient-text">
+            <h3 className="font-russo text-3xl font-bold mb-6 gradient-text">
               Find Us on Campus
             </h3>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -415,7 +415,7 @@ export default function Contact() {
                 >
                   <MapPin className="text-6xl text-[hsl(235,75%,65%)] mb-4 mx-auto" size={96} />
                 </motion.div>
-                <h4 className="font-orbitron text-xl font-bold text-white mb-2">
+                <h4 className="font-russo text-xl font-bold text-white mb-2">
                   Interactive Campus Map
                 </h4>
                 <p className="text-gray-300 mb-4">

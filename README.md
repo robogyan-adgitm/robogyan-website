@@ -83,7 +83,7 @@ Shoutout to the team who made this project a reality!
 
 Stay updated with our events and activities!
 
--   **Instagram:** [@robogyan_oficial](https://www.instagram.com/robogyan_official/)
+-   **Instagram:** [@robogyan_official](https://www.instagram.com/robogyan_official/)
 -   **LinkedIn:** [Robogyan](https://www.linkedin.com/company/robogyan/)
 -   **Email:** `robogyan.contact@gmail.com`
 

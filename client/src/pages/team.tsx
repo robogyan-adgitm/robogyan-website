@@ -14,7 +14,7 @@ export default function Team() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-orbitron text-5xl font-bold mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-5xl font-bold mb-8 text-[hsl(180,100%,50%)] neon-text">
             Our Team
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -39,7 +39,7 @@ export default function Team() {
                   whileHover={{ scale: 1.05, rotate: 3 }}
                   transition={{ duration: 0.3 }}
                 />
-                <h3 className="font-orbitron text-xl font-bold text-[hsl(150,100%,50%)] mb-2">
+                <h3 className="font-russo text-xl gradient-text mb-2">
                   {member.name}
                 </h3>
                 <p className="text-[hsl(180,100%,50%)] mb-2">{member.position}</p>

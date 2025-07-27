@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
-import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink } from "lucide-react";
+import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy } from "lucide-react";
 
 const achievements = [
   { label: "Active Members", value: 38, color: "text-[hsl(150,45%,60%)]" },
-  { label: "Competetion Winnings", value: 50, color: "text-[hsl(275,85%,70%)]" },
+  { label: "Competetion Winnings", value: 110, color: "text-[hsl(275,85%,70%)]" },
   { label: "Projects Completed", value: 52, color: "text-[hsl(220,70%,55%)]" },
   { label: "Years of Excellence", value: 16, color: "text-[hsl(235,85%,65%)]" },
 ];
@@ -28,6 +28,11 @@ const aboutPoints = [
     icon: Cog,
     title: "Hands-on Learning",
     color: "text-[hsl(275,75%,70%)]",
+  },
+  {
+    icon: Trophy,
+    title: "Participate in Competetions",
+    color: "text-[hsl(180,100%,50%)]",
   },
 ];
 
@@ -63,28 +68,28 @@ const coreTeam = [
     name: "Amogh Saxena",
     position: "President",
     specialization: "Android, ML Specialist",
-    image: "/src/data/images/amogh.jpg",
+    image: "/src/data/images/coreTeam/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
     name: "Macle (Aditya Goel)",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "/src/data/images/macle.png",
+    image: "/src/data/images/coreTeam/macle.png",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
     name: "Nikunj Sharma",
     position: "Management Head",
     specialization: "Frontend & Design",
-    image: "/src/data/images/nikunj.jpg",
+    image: "/src/data/images/coreTeam/nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
     specialization: "UI/UX Designer",
-    image: "/src/data/images/ayush.jpg",
+    image: "/src/data/images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
 ];
@@ -99,7 +104,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-orbitron text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-white"
+            className="font-russo text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-white"
           >
             WELCOME TO
           </motion.h1>
@@ -107,7 +112,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-orbitron text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
+            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
           >
             ROBOGYAN
           </motion.h2>
@@ -143,7 +148,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Our Achievements & Facts
           </motion.h3>
@@ -174,7 +179,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             About Robogyan
           </motion.h3>
@@ -184,12 +189,11 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h4 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,100%,50%)]">
+              <h4 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(180,100%,50%)] neon-text">
                 Our Mission
               </h4>
               <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                At Robogyan, we bridge the gap between theoretical knowledge and practical innovation.
-                Our mission is to foster a community of tech enthusiasts who push the boundaries of what's possible.
+                Robogyan is all about the sheer joy of learning. At Robogyan, you don't just learn through workshops; you learn by experimenting and doing stuff you never thought you could.
               </p>
               <div className="space-y-4">
                 {aboutPoints.map((point, index) => {
@@ -216,24 +220,24 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="/src/data/images/iiitdRobo.jpg"
+                src="/src/data/images/ourMission/2.jpg"
                 alt="Working at IIITD"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/plane.jpg"
+                src="/src/data/images/ourMission/1.jpg"
                 alt="RG Lab & Plane"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/rglab2.jpg"
+                src="/src/data/images/ourMission/3.jpg"
                 alt="RG Lab"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/rg_working.jpg"
+                src="/src/data/images/ourMission/4.jpg"
                 alt="RG lab before Techkriti"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
             </motion.div>
           </div>
@@ -246,7 +250,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Featured Projects
           </motion.h3>
@@ -262,7 +266,7 @@ export default function Home() {
                   <div className={`bg-gradient-to-br ${project.gradient} rounded-lg p-4 mb-4 text-center`}>
                     <div className="text-3xl text-[hsl(0,0%,4%)]">{project.icon}</div>
                   </div>
-                  <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(150,45%,60%)]">
+                  <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(180,100%,50%)] neon-text">
                     {project.title}
                   </h4>
                   <p className="text-gray-300 mb-4 text-sm">{project.description}</p>
@@ -287,7 +291,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Meet Our Core Team
           </motion.h3>
@@ -305,7 +309,7 @@ export default function Home() {
                     alt={member.name}
                     className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
                   />
-                  <h4 className="font-orbitron text-lg font-bold text-[hsl(150,45%,60%)] mb-2">
+                  <h4 className="font-orbitron text-lg font-bold mb-2 text-[hsl(180,100%,50%)] neon-text">
                     {member.name}
                   </h4>
                   <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>
@@ -320,7 +324,7 @@ export default function Home() {
                 variant="outline"
                 size="lg"
                 className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => window.scrollTo(0, 0)}
               >
                 View Full Team
               </Button>

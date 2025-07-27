@@ -22,7 +22,7 @@ export default function Alumni() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-bold mb-6 gradient-text">
+          <h1 className="font-russo text-3xl sm:text-4xl md:text-5xl mb-6 mb-8 text-[hsl(180,100%,50%)] neon-text">
             Our Esteemed Alumni
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
