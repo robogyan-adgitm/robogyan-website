@@ -30,7 +30,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
       github: "https://github.com/SaxenaAmogh",
     },
-    image: "/src/data/images/amogh.jpg",
+    image: "/src/data/images/coreTeam/amogh.jpg",
   },
   {
     id: "2",
@@ -44,7 +44,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/macle57/",
       github: "https://github.com/Macle57",
     },
-    image: "/src/data/images/macle.png",
+    image: "/src/data/images/coreTeam/macle.png",
   },
   {
     id: "3",
@@ -58,7 +58,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/nikunj-sharma-4aa823286/",
       github: "https://github.com/Nicksharmaaa",
     },
-    image: "/src/data/images/nikunj.jpg",
+    image: "/src/data/images/coreTeam/nikunj.jpg",
   },
   {
     id: "4",
@@ -72,7 +72,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/ayush-kumar-jha-a16107279/",
       github: "https://github.com/Zalverine",
     },
-    image: "/src/data/images/ayush.jpg",
+    image: "/src/data/images/coreTeam/ayush.jpg",
   },
   {
     id: "5",
@@ -86,7 +86,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/pranav-bisht-00b76b35b",
       github: "#",
     },
-    image: "/src/data/images/pranav.jpg",
+    image: "/src/data/images/coreTeam/pranav.jpg",
   },
   {
     id: "6",
@@ -100,21 +100,21 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/aditya-agarwal-289972275/",
       github: "https://github.com/CyberPolymath",
     },
-    image: "/src/data/images/aditya.jpg",
+    image: "/src/data/images/coreTeam/aditya.jpg",
   },
   {
     id: "7",
-    name: "?",
+    name: "Krish Gupta",
     position: "WebDev Head",
     period: "2025-2026",
     description: "Robotics and computer vision specialist working on autonomous systems.",
     techStack: ["ROS", "OpenCV", "Python", "MATLAB"],
-    email: "karan@robogyan.edu",
+    email: "krishg053@gmail.com",
     social: {
       linkedin: "#",
       github: "#",
     },
-    image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    image: "/src/data/images/coreTeam/krish.jpg",
   },
   {
     id: "8",
@@ -128,7 +128,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/dev-chandra-1594a4335/",
       github: "https://github.com/Boss95684",
     },
-    image: "/src/data/images/dev.jpg",
+    image: "/src/data/images/coreTeam/dev.jpg",
   },
   {
     id: "9",
@@ -142,7 +142,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/avanya-sharma-21794b310?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       github: "https://github.com/avanya06",
     },
-    image: "/src/data/images/avanya.png",
+    image: "/src/data/images/coreTeam/avanya.png",
   },
   {
     id: "10",
@@ -156,22 +156,34 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/nirmaan-vashisht-a2552a343/",
       github: "https://github.com/Nir2575",
     },
-    image: "/src/data/images/nirmaan.png",
+    image: "/src/data/images/coreTeam/nirmaan.png",
   },
   {
     id: "11",
-    name: "?",
+    name: "Achintya Bhardwaj",
     position: "Women in Tech",
     period: "2025-2026",
     description: "Digital marketing expert managing social media and community outreach.",
     techStack: ["Social Media", "Content Creation", "Analytics"],
-    email: "isha@robogyan.edu",
-    
+    email: "achi.bhardwaj@gmail.com",
     social: {
       linkedin: "#",
       github: "#",
-
     },
-    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+    image: "/src/data/images/coreTeam/achintya.jpg",
+  },
+  {
+    id: "12",
+    name: "Aman Kumar",
+    position: "Content Head",
+    period: "2025-2026",
+    description: "Digital marketing expert managing social media and community outreach.",
+    techStack: ["Social Media", "Content Creation", "Analytics"],
+    email: "amankumar11076@gmail.com",
+    social: {
+      linkedin: "#",
+      github: "#",
+    },
+    image: "/src/data/images/coreTeam/aman.jpg",
   },
 ];

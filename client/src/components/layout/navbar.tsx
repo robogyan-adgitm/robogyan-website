@@ -30,9 +30,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = () => {
+  const handleNavClick = (href: string) => {
     // Scroll to top when navigating
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    if (href === "/team") {
+      window.scrollTo(0, 0); // Instant scroll for team page
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); // Smooth scroll for others
+    }
   };
 
   return (
@@ -51,7 +55,7 @@ export default function Navbar() {
         <Link href="/">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            onClick={handleNavClick}
+            onClick={() => handleNavClick("/")}
             className="font-russo text-3xl font-bold gradient-text cursor-pointer"
           >
             ROBOGYAN
@@ -64,7 +68,7 @@ export default function Navbar() {
             <Link key={item.href} href={item.href}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                onClick={handleNavClick}
+                onClick={() => handleNavClick(item.href)}
                 className={`nav-item cursor-pointer transition-colors ${
                   location === item.href
                     ? "text-[hsl(235,85%,65%)] active"
@@ -101,7 +105,7 @@ export default function Navbar() {
                 whileHover={{ x: 10 }}
                 onClick={() => {
                   setIsOpen(false);
-                  handleNavClick();
+                  handleNavClick(item.href);
                 }}
                 className={`block py-2 cursor-pointer transition-colors ${
                   location === item.href

@@ -78,7 +78,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2023-24",
     subtitle: "Core of 2023-24",
     description: "Meet the innovative team members who made their mark this year",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop&crop=faces",
+    image: "/src/data/images/alumni/2023.jpg",
     achievements: ["Xylem Gobal Winners", "Techkriti IITK Winners", "SIH 2023 Semi Finalists"],
     members: [
       {
@@ -150,7 +150,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2022-23",
     subtitle: "Core of 2022-23",
     description: "Meet the innovative team members who made their mark this year.",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop&crop=faces",
+    image: "/src/data/images/alumni/2022.jpg",
     achievements: ["IIT Kanpur Techkriti Winners", "Considition ML Hackathon Winners"],
     members: [
       {

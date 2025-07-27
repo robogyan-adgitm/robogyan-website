@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
-import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink } from "lucide-react";
+import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy } from "lucide-react";
 
 const achievements = [
   { label: "Active Members", value: 38, color: "text-[hsl(150,45%,60%)]" },
-  { label: "Competetion Winnings", value: 50, color: "text-[hsl(275,85%,70%)]" },
+  { label: "Competetion Winnings", value: 110, color: "text-[hsl(275,85%,70%)]" },
   { label: "Projects Completed", value: 52, color: "text-[hsl(220,70%,55%)]" },
   { label: "Years of Excellence", value: 16, color: "text-[hsl(235,85%,65%)]" },
 ];
@@ -28,6 +28,11 @@ const aboutPoints = [
     icon: Cog,
     title: "Hands-on Learning",
     color: "text-[hsl(275,75%,70%)]",
+  },
+  {
+    icon: Trophy,
+    title: "Participate in Competetions",
+    color: "text-[hsl(180,100%,50%)]",
   },
 ];
 
@@ -63,28 +68,28 @@ const coreTeam = [
     name: "Amogh Saxena",
     position: "President",
     specialization: "Android, ML Specialist",
-    image: "/src/data/images/amogh.jpg",
+    image: "/src/data/images/coreTeam/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
     name: "Macle (Aditya Goel)",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "/src/data/images/macle.png",
+    image: "/src/data/images/coreTeam/macle.png",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
     name: "Nikunj Sharma",
     position: "Management Head",
     specialization: "Frontend & Design",
-    image: "/src/data/images/nikunj.jpg",
+    image: "/src/data/images/coreTeam/nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
     specialization: "UI/UX Designer",
-    image: "/src/data/images/ayush.jpg",
+    image: "/src/data/images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
 ];
@@ -188,8 +193,7 @@ export default function Home() {
                 Our Mission
               </h4>
               <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                At Robogyan, we bridge the gap between theoretical knowledge and practical innovation.
-                Our mission is to foster a community of tech enthusiasts who push the boundaries of what's possible.
+                Robogyan is all about the sheer joy of learning. At Robogyan, you don't just learn through workshops; you learn by experimenting and doing stuff you never thought you could.
               </p>
               <div className="space-y-4">
                 {aboutPoints.map((point, index) => {
@@ -320,7 +324,7 @@ export default function Home() {
                 variant="outline"
                 size="lg"
                 className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => window.scrollTo(0, 0)}
               >
                 View Full Team
               </Button>
