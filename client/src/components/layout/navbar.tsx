@@ -52,7 +52,7 @@ export default function Navbar() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             onClick={handleNavClick}
-            className="font-orbitron text-2xl font-bold gradient-text cursor-pointer"
+            className="font-russo text-3xl font-bold gradient-text cursor-pointer"
           >
             ROBOGYAN
           </motion.div>

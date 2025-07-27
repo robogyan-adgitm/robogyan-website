@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Linkedin, Github, Twitter, Youtube } from "lucide-react";
 
 export default function Footer() {
   const quickLinks = [
@@ -18,6 +18,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: Instagram, href: "https://www.instagram.com/robogyan_official/", color: "text-[hsl(275,75%,70%)]" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/robogyan/", color: "text-[hsl(220,70%,55%)]" },
+    { icon: Youtube, href: "https://www.youtube.com/@robogyan_official", color: "text-[hsl(0,80%,60%)]" },
   ];
 
   return (
@@ -28,7 +29,7 @@ export default function Footer() {
           <div>
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="font-orbitron text-2xl font-bold gradient-text mb-4"
+              className="font-russo text-2xl font-bold gradient-text mb-4"
             >
               ROBOGYAN
             </motion.div>
@@ -54,7 +55,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-orbitron text-lg font-bold text-[hsl(150,45%,60%)] mb-4">
+            <h4 className="font-orbitron text-lg font-bold mb-4 text-[hsl(180,100%,50%)] neon-text">
               Quick Links
             </h4>
             <ul className="space-y-2">
@@ -75,7 +76,7 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-orbitron text-lg font-bold text-[hsl(150,45%,60%)] mb-4">
+            <h4 className="font-orbitron text-lg font-bold mb-4 text-[hsl(180,100%,50%)] neon-text">
               Resources
             </h4>
             <ul className="space-y-2">
@@ -96,7 +97,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-orbitron text-lg font-bold text-[hsl(150,45%,60%)] mb-4">
+            <h4 className="font-orbitron text-lg font-bold mb-4 text-[hsl(180,100%,50%)] neon-text">
               Contact Info
             </h4>
             <ul className="space-y-2 text-gray-400">

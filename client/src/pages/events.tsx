@@ -29,7 +29,7 @@ export default function Events() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-orbitron text-5xl font-bold mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-5xl mb-8 text-[hsl(180,100%,50%)] neon-text">
             Events
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -42,7 +42,7 @@ export default function Events() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-3xl font-bold mb-8 text-[hsl(150,100%,50%)]"
+            className="font-orbitron text-3xl font-bold mb-8 gradient-text"
           >
             Upcoming Events
           </motion.h3>
@@ -128,7 +128,7 @@ export default function Events() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-3xl font-bold mb-8 text-[hsl(150,100%,50%)]"
+            className="font-orbitron text-3xl font-bold mb-8 gradient-text"
           >
             Past Events
           </motion.h3>

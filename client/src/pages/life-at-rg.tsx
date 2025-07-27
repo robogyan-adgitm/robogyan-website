@@ -197,7 +197,7 @@ export default function LifeAtRG() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
             <div className="absolute bottom-6 left-6 text-left px-4">
-              <h1 className="font-orbitron text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
+              <h1 className="font-russo text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
                 Life at Robogyan
               </h1>
               <p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-2xl">
@@ -246,7 +246,7 @@ export default function LifeAtRG() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="font-orbitron text-3xl font-bold text-center mb-12 gradient-text">
+              <h2 className="font-russo text-3xl text-center mb-12 gradient-text">
                 Unforgettable Moments
               </h2>
               
@@ -354,7 +354,7 @@ export default function LifeAtRG() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="font-orbitron text-3xl font-bold text-center mb-12 gradient-text">
+              <h2 className="font-russo text-3xl text-center mb-12 gradient-text">
                 Our Activities
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
@@ -391,7 +391,7 @@ export default function LifeAtRG() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="font-orbitron text-3xl font-bold text-center mb-12 gradient-text">
+              <h2 className="font-russo text-3xl text-center mb-12 gradient-text">
                 Gallery
               </h2>
               <div className="grid md:grid-cols-4 gap-4">

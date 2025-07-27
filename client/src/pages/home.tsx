@@ -99,7 +99,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-orbitron text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-white"
+            className="font-russo text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-white"
           >
             WELCOME TO
           </motion.h1>
@@ -107,7 +107,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-orbitron text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
+            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
           >
             ROBOGYAN
           </motion.h2>
@@ -143,7 +143,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Our Achievements & Facts
           </motion.h3>
@@ -174,7 +174,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             About Robogyan
           </motion.h3>
@@ -184,7 +184,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h4 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(150,100%,50%)]">
+              <h4 className="font-orbitron text-2xl font-bold mb-6 text-[hsl(180,100%,50%)] neon-text">
                 Our Mission
               </h4>
               <p className="text-gray-300 mb-8 leading-relaxed text-lg">
@@ -246,7 +246,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Featured Projects
           </motion.h3>
@@ -262,7 +262,7 @@ export default function Home() {
                   <div className={`bg-gradient-to-br ${project.gradient} rounded-lg p-4 mb-4 text-center`}>
                     <div className="text-3xl text-[hsl(0,0%,4%)]">{project.icon}</div>
                   </div>
-                  <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(150,45%,60%)]">
+                  <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(180,100%,50%)] neon-text">
                     {project.title}
                   </h4>
                   <p className="text-gray-300 mb-4 text-sm">{project.description}</p>
@@ -287,7 +287,7 @@ export default function Home() {
           <motion.h3
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="font-orbitron text-4xl font-bold text-center mb-16 gradient-text"
+            className="font-russo text-4xl font-bold text-center mb-16 gradient-text"
           >
             Meet Our Core Team
           </motion.h3>
@@ -305,7 +305,7 @@ export default function Home() {
                     alt={member.name}
                     className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
                   />
-                  <h4 className="font-orbitron text-lg font-bold text-[hsl(150,45%,60%)] mb-2">
+                  <h4 className="font-orbitron text-lg font-bold mb-2 text-[hsl(180,100%,50%)] neon-text">
                     {member.name}
                   </h4>
                   <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>
