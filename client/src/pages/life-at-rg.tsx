@@ -3,24 +3,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import sihImage from '../data/images/lifeatrg/SIH2024.png';
+import sihImage from '../data/images/lifeatrg/SIH2024.jpg';
 import hackimg from '../data/images/lifeatrg/HackBMU.png';
-import farewellimg from '../data/images/lifeatrg/Farewell2025.png';
-import techimg from '../data/images/lifeatrg/Techkriti.png';
-import workshopimg from '../data/images/lifeatrg/workshops.png';
-import talksimg from '../data/images/lifeatrg/techtalks.png';
-import hackathonsimg from '../data/images/lifeatrg/hackathons.png';
-import teamimg from '../data/images/lifeatrg/teambuilding.png';
-import demoimg from '../data/images/lifeatrg/demos.png';
-import competitionimg from '../data/images/lifeatrg/competition.png';
-import aimg from '../data/images/lifeatrg/1.png';
-import bimg from '../data/images/lifeatrg/2.png';
-import cimg from '../data/images/lifeatrg/3.png';
-import dimg from '../data/images/lifeatrg/4.png';
-import eimg from '../data/images/lifeatrg/5.png';
-import fimg from '../data/images/lifeatrg/6.png';
-import gimg from '../data/images/lifeatrg/7.png';
-import himg from '../data/images/lifeatrg/8.png';
+import farewellimg from '../data/images/lifeatrg/Farewell2025.jpg';
+import techimg from '../data/images/lifeatrg/Techkriti.jpg';
+import workshopimg from '../data/images/lifeatrg/workshops.jpg';
+import talksimg from '../data/images/lifeatrg/techtalks.jpg';
+import hackathonsimg from '../data/images/lifeatrg/hackathons.jpg';
+import teamimg from '../data/images/lifeatrg/teambuilding.jpg';
+import demoimg from '../data/images/lifeatrg/demos.jpg';
+import competitionimg from '../data/images/lifeatrg/competition.jpg';
+import aimg from '../data/images/lifeatrg/1.jpg';
+import bimg from '../data/images/lifeatrg/2.jpg';
+import cimg from '../data/images/lifeatrg/3.jpg';
+import dimg from '../data/images/lifeatrg/4.jpg';
+import eimg from '../data/images/lifeatrg/5.jpg';
+import fimg from '../data/images/lifeatrg/6.jpg';
+import gimg from '../data/images/lifeatrg/7.jpg';
+import himg from '../data/images/lifeatrg/8.jpg';
 import { 
   Heart, 
   Zap, 
@@ -37,7 +37,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroImage = "https://fcggshuizjjpdmkshfkx.supabase.co/storage/v1/object/public/images//rglab1.jpg";
+const heroImage = "src/data/images/rglab2.jpg";
 
 const achievements = [
   { number: "50+", label: "Epic Projects" },

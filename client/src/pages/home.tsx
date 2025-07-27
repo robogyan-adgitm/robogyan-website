@@ -216,24 +216,24 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="/src/data/images/iiitdRobo.jpg"
+                src="/src/data/images/ourMission/2.jpg"
                 alt="Working at IIITD"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/plane.jpg"
+                src="/src/data/images/ourMission/1.jpg"
                 alt="RG Lab & Plane"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/rglab2.jpg"
+                src="/src/data/images/ourMission/3.jpg"
                 alt="RG Lab"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/rg_working.jpg"
+                src="/src/data/images/ourMission/4.jpg"
                 alt="RG lab before Techkriti"
-                className="rounded-xl card-hover"
+                className="w-full h-56 object-cover rounded-xl card-hover"
               />
             </motion.div>
           </div>
