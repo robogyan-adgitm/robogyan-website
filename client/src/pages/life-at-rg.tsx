@@ -3,24 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import sihImage from '../data/images/lifeatrg/SIH2024.jpg';
-import hackimg from '../data/images/lifeatrg/HackBMU.png';
-import farewellimg from '../data/images/lifeatrg/Farewell2025.jpg';
-import techimg from '../data/images/lifeatrg/Techkriti.jpg';
-import workshopimg from '../data/images/lifeatrg/workshops.jpg';
-import talksimg from '../data/images/lifeatrg/techtalks.jpg';
-import hackathonsimg from '../data/images/lifeatrg/hackathons.jpg';
-import teamimg from '../data/images/lifeatrg/teambuilding.jpg';
-import demoimg from '../data/images/lifeatrg/demos.jpg';
-import competitionimg from '../data/images/lifeatrg/competition.jpg';
-import aimg from '../data/images/lifeatrg/1.jpg';
-import bimg from '../data/images/lifeatrg/2.jpg';
-import cimg from '../data/images/lifeatrg/3.jpg';
-import dimg from '../data/images/lifeatrg/4.jpg';
-import eimg from '../data/images/lifeatrg/5.jpg';
-import fimg from '../data/images/lifeatrg/6.jpg';
-import gimg from '../data/images/lifeatrg/7.jpg';
-import himg from '../data/images/lifeatrg/8.jpg';
 import { 
   Heart, 
   Zap, 
@@ -37,7 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroImage = "src/data/images/rglab2.jpg";
+const heroImage = "/src/data/images/rglab2.jpg";
 
 const achievements = [
   { number: "50+", label: "Epic Projects" },
@@ -55,7 +37,7 @@ const moments = [
     category: "SIH2024",
     attendees: "200+",
     description: "Robogyan conducted the SIH2024 Internal round with over 200 participants.",
-    image:  sihImage,
+    image: "/src/data/images/lifeatrg/sih24.jpg",
     badges: []
   },
   {
@@ -63,10 +45,10 @@ const moments = [
     title: "HackBMU 6.0 Hackathon",
     year: "2024",
     location: "BML Munjal University, Haryana",
-    attendees: "5000+",
-    category: "HackBMU",
+    attendees: "500+",
+    category: "Hackhathon",
     description: "Achieved 2nd position at HackBMU 6.0 along with a cash prize",
-    image:  hackimg,
+    image: "/src/data/images/lifeatrg/HackBMU.png",
     badges: ["2nd Runner Up"]
   },
   {
@@ -74,9 +56,9 @@ const moments = [
     title: "RG Farewell 2025 Batch",
     year: "2025",
     location: "Robogyan Lab, Block 5",
-    category: "Farewell 2025",
+    category: "Lab Event",
     description: "Robogyan conducted farewell for the 2025 Batch, in presence of some esteemed alumni.",
-    image: farewellimg ,
+    image: "/src/data/images/lifeatrg/Farewell2025.jpg" ,
     badges: []
   },
   {
@@ -84,79 +66,55 @@ const moments = [
     title: "Techkriti 2025 at IIT Kanpur",
     year: "2025",
     location: "IIT Kanpur",
-    category: "Techkriti 2025",
+    category: "Competition",
     description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
-    image: techimg ,
+    image: "/src/data/images/lifeatrg/Techkriti.jpg" ,
     badges: ["Multiple Wins"]
   }
 ];
 
 const activitiesData = [
   {
-    src:  workshopimg ,
+    src: "/src/data/images/lifeatrg/workshops.jpg",
     alt: "Hands-on workshop session with students learning",
     title: "Workshop Sessions"
   },
   {
-    src: talksimg ,
+    src: "/src/data/images/lifeatrg/techtalks.jpg" ,
     alt: "Tech talk presentation with industry expert",
     title: "Tech Talks"
   },
   {
-    src: hackathonsimg ,
+    src: "/src/data/images/lifeatrg/hackathons.jpg" ,
     alt: "Hackathon in progress with teams working intensively",
     title: "Hackathons"
   },
   {
-    src: competitionimg ,
+    src: "/src/data/images/lifeatrg/competition.jpg" ,
     alt: "Competition day with participants presenting projects",
     title: "Competitions"
   },
   {
-    src: demoimg ,
+    src: "/src/data/images/lifeatrg/demos.jpg" ,
     alt: "Project demonstration and showcase event",
     title: "Project Demos"
   },
   {
-    src: teamimg ,
+    src: "/src/data/images/lifeatrg/teambuilding.jpg" ,
     alt: "Team building activity with collaborative challenges",
     title: "Team Building"
   }
 ];
 
 const galleryImages = [
-  {
-    src: aimg ,
-    
-  },
-  {
-    src: bimg ,
-   
-  },
-  {
-    src: cimg ,
-   
-  },
-  {
-    src: dimg ,
-   
-  },
-  {
-    src: eimg ,
-  
-  },
-  {
-    src: fimg ,
-    
-  },
-  {
-    src: gimg ,
-    
-  },
-  {
-    src: himg ,
-   
-  }
+  { src: "/src/data/images/lifeatrg/1.jpg" },
+  { src: "/src/data/images/lifeatrg/2.jpg" },
+  { src: "/src/data/images/lifeatrg/3.jpg" },
+  { src: "/src/data/images/lifeatrg/4.jpg" },
+  { src: "/src/data/images/lifeatrg/5.jpg" },
+  { src: "/src/data/images/lifeatrg/6.jpg" },
+  { src: "/src/data/images/lifeatrg/7.jpg" },
+  { src: "/src/data/images/lifeatrg/8.jpg" }
 ];
 
 const categories = [
@@ -168,6 +126,15 @@ const categories = [
 export default function LifeAtRG() {
   const [activeCategory, setActiveCategory] = useState("moments");
   const [currentMoment, setCurrentMoment] = useState(0);
+  const [imageLoading, setImageLoading] = useState<Record<string, boolean>>({});
+
+  const handleImageLoad = (imageSrc: string) => {
+    setImageLoading(prev => ({ ...prev, [imageSrc]: false }));
+  };
+
+  const handleImageLoadStart = (imageSrc: string) => {
+    setImageLoading(prev => ({ ...prev, [imageSrc]: true }));
+  };
 
   const nextMoment = () => {
     setCurrentMoment((prev) => (prev + 1) % moments.length);
@@ -187,6 +154,11 @@ export default function LifeAtRG() {
           className="text-center mb-16"
         >
           <div className="relative mb-8">
+            {imageLoading[heroImage] && (
+              <div className="w-full h-96 bg-gray-800 rounded-2xl flex items-center justify-center mb-4">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[hsl(235,85%,65%)]"></div>
+              </div>
+            )}
             <motion.img
               src={heroImage}
               alt="RoboGyan Life"
@@ -194,6 +166,10 @@ export default function LifeAtRG() {
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1 }}
+              loading="eager"
+              onLoadStart={() => handleImageLoadStart(heroImage)}
+              onLoad={() => handleImageLoad(heroImage)}
+              onError={() => handleImageLoad(heroImage)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
             <div className="absolute bottom-6 left-6 text-left px-4">
@@ -255,6 +231,11 @@ export default function LifeAtRG() {
                 <GlassmorphismCard className="p-8">
                   <div className="grid lg:grid-cols-2 gap-8 items-center">
                     <div>
+                      {imageLoading[moments[currentMoment].image] && (
+                        <div className="w-full h-80 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[hsl(235,85%,65%)]"></div>
+                        </div>
+                      )}
                       <motion.img
                         key={currentMoment}
                         src={moments[currentMoment].image}
@@ -263,6 +244,10 @@ export default function LifeAtRG() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
+                        loading="lazy"
+                        onLoadStart={() => handleImageLoadStart(moments[currentMoment].image)}
+                        onLoad={() => handleImageLoad(moments[currentMoment].image)}
+                        onError={() => handleImageLoad(moments[currentMoment].image)}
                       />
                     </div>
                     
@@ -368,11 +353,22 @@ export default function LifeAtRG() {
                     className="card-hover cursor-pointer"
                   >
                     <GlassmorphismCard className="p-6">
-                      <img
-                        src={activity.src}
-                        alt={activity.alt}
-                        className="w-full h-48 object-cover rounded-xl mb-4"
-                      />
+                      <div className="relative">
+                        {imageLoading[activity.src] && (
+                          <div className="absolute inset-0 bg-gray-800 rounded-xl flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(235,85%,65%)]"></div>
+                          </div>
+                        )}
+                        <img
+                          src={activity.src}
+                          alt={activity.alt}
+                          className="w-full h-48 object-cover rounded-xl mb-4"
+                          loading="lazy"
+                          onLoadStart={() => handleImageLoadStart(activity.src)}
+                          onLoad={() => handleImageLoad(activity.src)}
+                          onError={() => handleImageLoad(activity.src)}
+                        />
+                      </div>
                       <h3 className="font-orbitron text-lg font-bold text-center gradient-text">
                         {activity.title}
                       </h3>
@@ -402,11 +398,21 @@ export default function LifeAtRG() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="card-hover cursor-pointer"
+                    className="card-hover cursor-pointer relative"
                   >
+                    {imageLoading[image.src] && (
+                      <div className="absolute inset-0 bg-gray-800 rounded-xl flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(235,85%,65%)]"></div>
+                      </div>
+                    )}
                     <img
                       src={image.src}
+                      alt={`Gallery image ${index + 1}`}
                       className="w-full h-48 object-cover rounded-xl"
+                      loading="lazy"
+                      onLoadStart={() => handleImageLoadStart(image.src)}
+                      onLoad={() => handleImageLoad(image.src)}
+                      onError={() => handleImageLoad(image.src)}
                     />
                   </motion.div>
                 ))}
