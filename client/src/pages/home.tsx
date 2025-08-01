@@ -39,10 +39,10 @@ const aboutPoints = [
 const featuredProjects = [
   {
     id: 1,
-    title: "LivPol",
-    description: "A queue detection algorithm software paired with dedicated hardware device",
-    category: "Mixed",
-    icon: "🎮",
+    title: "RC Plane",
+    description: "A custom built rc plane, using various electronic components and tools.",
+    category: "Hardware",
+    image: "/src/data/images/projects/rcplane.jpg",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
   },
   {
@@ -50,7 +50,7 @@ const featuredProjects = [
     title: "Deafiator",
     description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
     category: "Software",
-    icon: "🧠",
+    image: "/src/data/images/projects/deafiator.jpg",
     gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
   },
   {
@@ -58,7 +58,7 @@ const featuredProjects = [
     title: "Manouvre Bot",
     description: "A powerful bot with special clamps to hold objects and manouvre through obstacles.",
     category: "Hardware",
-    icon: "🤖",
+    image: "/src/data/images/projects/maneuvre.jpg",
     gradient: "from-[hsl(275,75%,70%)] to-[hsl(235,75%,65%)]",
   },
 ];
@@ -67,7 +67,7 @@ const coreTeam = [
   {
     name: "Amogh Saxena",
     position: "President",
-    specialization: "Android, ML Specialist",
+    specialization: "Android Specialist",
     image: "/src/data/images/coreTeam/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
@@ -88,7 +88,7 @@ const coreTeam = [
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
-    specialization: "UI/UX Designer",
+    specialization: "Problem Solving Wizard",
     image: "/src/data/images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
@@ -263,8 +263,12 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <GlassmorphismCard>
-                  <div className={`bg-gradient-to-br ${project.gradient} rounded-lg p-4 mb-4 text-center`}>
-                    <div className="text-3xl text-[hsl(0,0%,4%)]">{project.icon}</div>
+                  <div className={`bg-gradient-to-br ${project.gradient} rounded-lg p-2 mb-4 overflow-hidden`}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
                   </div>
                   <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(180,100%,50%)] neon-text">
                     {project.title}
@@ -274,9 +278,16 @@ export default function Home() {
                     <Badge variant="secondary" className="bg-[hsl(235,75%,65%,0.2)] text-[hsl(235,75%,65%)]">
                       {project.category}
                     </Badge>
-                    <Button variant="ghost" size="sm" className="text-[hsl(220,70%,55%)] hover:text-white p-0">
-                      <ArrowRight size={16} />
-                    </Button>
+                    <Link href="/projects">
+                      <Button 
+                        variant="ghost"
+                        size="sm"
+                        className="text-[hsl(220,70%,55%)] hover:text-white p-0"
+                        onClick={() => window.scrollTo(0, 0)}
+                      >
+                        <ArrowRight size={16} />
+                      </Button>
+                    </Link>
                   </div>
                 </GlassmorphismCard>
               </motion.div>
@@ -309,7 +320,7 @@ export default function Home() {
                     alt={member.name}
                     className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
                   />
-                  <h4 className="font-orbitron text-lg font-bold mb-2 text-[hsl(180,100%,50%)] neon-text">
+                  <h4 className="font-russo text-lg mb-2 text-[hsl(180,100%,50%)] neon-text">
                     {member.name}
                   </h4>
                   <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>
