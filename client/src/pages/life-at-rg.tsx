@@ -25,7 +25,7 @@ const achievements = [
   { number: "50+", label: "Epic Projects" },
   { number: "200+", label: "Amazing Members" },
   { number: "15+", label: "Prestigious Awards" },
-  { number: "12", label: "Years of Excellence" },
+  { number: "14", label: "Years of Excellence" },
 ];
 
 const moments = [
