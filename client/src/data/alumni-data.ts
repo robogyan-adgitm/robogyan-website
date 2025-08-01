@@ -77,7 +77,7 @@ export const alumniBatches: AlumniBatch[] = [
   {
     year: "2023-24",
     subtitle: "Core of 2023-24",
-    description: "Meet the innovative team members who made their mark this year",
+    description: "To the 2023-24 team - your legacy lives on in every wire, every line of code, and every milestone we reach.",
     image: "/src/data/images/alumni/2023.jpg",
     achievements: ["Xylem Gobal Winners", "Techkriti IITK Winners", "SIH 2023 Semi Finalists"],
     members: [
@@ -149,7 +149,7 @@ export const alumniBatches: AlumniBatch[] = [
   {
     year: "2022-23",
     subtitle: "Core of 2022-23",
-    description: "Meet the innovative team members who made their mark this year.",
+    description: "The 2022-23 team wasn't just a part of Robogyan — they were its driving force. Their leadership, innovation, and teamwork still echo in everything we do.",
     image: "/src/data/images/alumni/2022.jpg",
     achievements: ["IIT Kanpur Techkriti Winners", "Considition ML Hackathon Winners"],
     members: [

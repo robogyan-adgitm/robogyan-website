@@ -22,10 +22,10 @@ import {
 const heroImage = "/src/data/images/rglab2.jpg";
 
 const achievements = [
-  { number: "50+", label: "Epic Projects" },
-  { number: "200+", label: "Amazing Members" },
-  { number: "15+", label: "Prestigious Awards" },
-  { number: "14", label: "Years of Excellence" },
+  { number: "30+", label: "Amazing Members" },
+  { number: "50+", label: "Innovative Projects" },
+  { number: "100+", label: "Prestigious Awards" },
+  { number: "14", label: "Years of Excellence and Counting..." },
 ];
 
 const moments = [
@@ -35,8 +35,8 @@ const moments = [
     year: "2024",
     location: "ADGIPS",
     category: "SIH2024",
-    attendees: "200+",
-    description: "Robogyan conducted the SIH2024 Internal round with over 200 participants.",
+    attendees: "300+",
+    description: "Robogyan conducted the SIH2024 Internal round with over 300 participants.",
     image: "/src/data/images/lifeatrg/sih24.jpg",
     badges: []
   },
@@ -69,7 +69,7 @@ const moments = [
     category: "Competition",
     description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
     image: "/src/data/images/lifeatrg/Techkriti.jpg" ,
-    badges: ["Multiple Wins"]
+    badges: ["Multiple Positions"]
   }
 ];
 
@@ -455,7 +455,7 @@ export default function LifeAtRG() {
         >
           <GlassmorphismCard hover={false} className="p-12">
             <h3 className="font-orbitron text-4xl font-bold mb-6 gradient-text">
-              Ready to Join the Adventure?
+              Want to Join the Adventure?
             </h3>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
               Be part of our incredible journey. Create memories, build robots, and shape the future with us!

@@ -6,7 +6,6 @@ export interface TeamMember {
   description: string;
   techStack: string[];
   email: string;
-  phone?: string;
   social: {
     linkedin?: string;
     github?: string;
@@ -20,9 +19,9 @@ export const teamMembers: TeamMember[] = [
     name: "Amogh Saxena",
     position: "President",
     period: "2025-2026",
-    description: "Android & ML specialist leading innovation in app development and machine learning projects.",
+    description: "Android specialist leading innovation in app development and software development projects.",
     techStack: ["Python", "Kotlin", "Java", "Jetpack"],
-    email: "amoghsaxena@gmail.com",
+    email: "amogh.saxena028@adgitmdelhi.ac.in",
     
     social: {
       linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
@@ -49,8 +48,8 @@ export const teamMembers: TeamMember[] = [
     name: "Nikunj Sharma",
     position: "Management Head",
     period: "2025-2026",
-    description: "Young mind in the ML department with great management and leadership skills.",
-    techStack: ["Frontend", "Design", "ML", "Hardware"],
+    description: "Interested in software, hardware, and machine learning; building intelligent systems that connect technology and the real world.",
+    techStack: ["Frontend", "Design", "Python", "JavaScript"],
     email: "nikunjsharmaa483@gmail.com",
     social: {
       linkedin: "https://www.linkedin.com/in/nikunj-sharma-4aa823286/",
@@ -64,7 +63,7 @@ export const teamMembers: TeamMember[] = [
     position: "Firmware & Research Head",
     period: "2025-2026",
     description: "Creative design visionary specializing in UI/UX and 3D modeling.",
-    techStack: ["Figma", "Adobe XD", "Blender", "After Effects"],
+    techStack: ["Python", "C++", "Hardware"],
     email: "ayushjha207@gmail.com",
     social: {
       linkedin: "https://www.linkedin.com/in/ayush-kumar-jha-a16107279/",
@@ -161,7 +160,7 @@ export const teamMembers: TeamMember[] = [
     name: "Achintya Bhardwaj",
     position: "Women in Tech",
     period: "2025-2026",
-    description: "a dynamic person in our Women in Tech team - driven by innovation, curiosity, and a passion for creating impact.",
+    description: "Representing women in tech fields - driven by innovation, curiosity, and a passion for creating impact.",
     techStack: ["MongoDB, express.js, react.js, node.js, tailwind, sql, java"],
     email: "achi.bhardwaj@gmail.com",
     social: {
