@@ -44,12 +44,6 @@ const contactInfo = [
     color: "text-[hsl(235,75%,65%)]",
   },
   {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 98765 43210",
-    color: "text-[hsl(220,70%,55%)]",
-  },
-  {
     icon: MessageSquare,
     label: "WhatsApp Group",
     value: "Join our community chat",
@@ -59,7 +53,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Address",
-    value: "Engineering College Campus\nTech Park, Innovation District\nCity, State - 123456",
+    value: "Basement, 5th Block Dr. Akhilesh Das Gupta Institute of Professional Studies Shastri Park, Delhi-110053",
     color: "text-[hsl(275,75%,70%)]",
   },
 ];
@@ -69,13 +63,13 @@ const socialLinks = [
     icon: Instagram,
     label: "Instagram",
     color: "text-[hsl(275,75%,70%)]",
-    href: "#",
+    href: "https://www.instagram.com/robogyan_official/",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
     color: "text-[hsl(220,70%,55%)]",
-    href: "#",
+    href: "https://www.linkedin.com/company/robogyan/posts/?feedView=all",
   },
   {
     icon: Github,
@@ -84,30 +78,15 @@ const socialLinks = [
     href: "#",
   },
   {
-    icon: Twitter,
-    label: "Twitter",
-    color: "text-[hsl(150,45%,60%)]",
-    href: "#",
-  },
-  {
     icon: Youtube,
     label: "YouTube",
     color: "text-red-500",
-    href: "#",
+    href: "https://www.youtube.com/@robogyan_official",
   },
-  {
-    icon: MessageSquare,
-    label: "Discord",
-    color: "text-[hsl(275,75%,70%)]",
-    href: "#",
-  },
+  
 ];
 
-const officeHours = [
-  { day: "Monday - Friday", time: "9:00 AM - 6:00 PM" },
-  { day: "Saturday", time: "10:00 AM - 4:00 PM" },
-  { day: "Sunday", time: "Closed" },
-];
+
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -198,30 +177,7 @@ export default function Contact() {
                 })}
               </div>
             </GlassmorphismCard>
-
-            {/* Office Hours */}
-            <GlassmorphismCard>
-              <h3 className="font-russo text-2xl font-bold mb-6 text-[hsl(150,45%,60%)]">
-                Office Hours
-              </h3>
-              <div className="space-y-3">
-                {officeHours.map((hours, index) => (
-                  <motion.div
-                    key={hours.day}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Clock className="text-[hsl(235,75%,65%)]" size={18} />
-                      <span className="text-white font-medium">{hours.day}</span>
-                    </div>
-                    <span className="text-gray-300">{hours.time}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </GlassmorphismCard>
+            
 
             {/* Social Links */}
             <GlassmorphismCard>
@@ -419,7 +375,7 @@ export default function Contact() {
                   Interactive Campus Map
                 </h4>
                 <p className="text-gray-300 mb-4">
-                  Tech Building, Room 205<br />
+                  basement, block-5<br />
                   Engineering College Campus
                 </p>
                 <Button

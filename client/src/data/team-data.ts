@@ -10,8 +10,6 @@ export interface TeamMember {
   social: {
     linkedin?: string;
     github?: string;
-    twitter?: string;
-    instagram?: string;
   };
   image: string;
 }
@@ -84,7 +82,7 @@ export const teamMembers: TeamMember[] = [
     email: "pranav0bisht@gmail.com",
     social: {
       linkedin: "https://www.linkedin.com/in/pranav-bisht-00b76b35b",
-      github: "#",
+      github: "https://github.com/keyboard-warrior-og",
     },
     image: "/src/data/images/coreTeam/pranav.jpg",
   },
@@ -107,12 +105,12 @@ export const teamMembers: TeamMember[] = [
     name: "Krish Gupta",
     position: "WebDev Head",
     period: "2025-2026",
-    description: "Robotics and computer vision specialist working on autonomous systems.",
-    techStack: ["ROS", "OpenCV", "Python", "MATLAB"],
+    description: "Full-stack developer building modern, AI-integrated web apps with clean design and robust backend systems",
+    techStack: ["Next.js, React, Node.js, Prisma, PostgreSQL"],
     email: "krishg053@gmail.com",
     social: {
-      linkedin: "#",
-      github: "#",
+      linkedin: "https://www.linkedin.com/in/krishgupta24/",
+      github: "https://github.com/Krish-Gupta24",
     },
     image: "/src/data/images/coreTeam/krish.jpg",
   },
@@ -163,12 +161,12 @@ export const teamMembers: TeamMember[] = [
     name: "Achintya Bhardwaj",
     position: "Women in Tech",
     period: "2025-2026",
-    description: "Digital marketing expert managing social media and community outreach.",
-    techStack: ["Social Media", "Content Creation", "Analytics"],
+    description: "a dynamic person in our Women in Tech team - driven by innovation, curiosity, and a passion for creating impact.",
+    techStack: ["MongoDB, express.js, react.js, node.js, tailwind, sql, java"],
     email: "achi.bhardwaj@gmail.com",
     social: {
-      linkedin: "#",
-      github: "#",
+      linkedin: "https://www.linkedin.com/in/achintya23/",
+      github: "https://github.com/Achintyabhardwaj",
     },
     image: "/src/data/images/coreTeam/achintya.jpg",
   },
@@ -177,11 +175,11 @@ export const teamMembers: TeamMember[] = [
     name: "Aman Kumar",
     position: "Content Head",
     period: "2025-2026",
-    description: "Digital marketing expert managing social media and community outreach.",
+    description: "Leading with clarity, writing with purpose-driving content that makes tech talk human.",
     techStack: ["Social Media", "Content Creation", "Analytics"],
     email: "amankumar11076@gmail.com",
     social: {
-      linkedin: "#",
+      linkedin: "https://www.linkedin.com/in/amankumar-social/",
       github: "#",
     },
     image: "/src/data/images/coreTeam/aman.jpg",

@@ -10,7 +10,7 @@ const achievements = [
   { label: "Active Members", value: 38, color: "text-[hsl(150,45%,60%)]" },
   { label: "Competetion Winnings", value: 110, color: "text-[hsl(275,85%,70%)]" },
   { label: "Projects Completed", value: 52, color: "text-[hsl(220,70%,55%)]" },
-  { label: "Years of Excellence", value: 16, color: "text-[hsl(235,85%,65%)]" },
+  { label: "Years of Excellence", value: 14, color: "text-[hsl(235,85%,65%)]" },
 ];
 
 const aboutPoints = [
