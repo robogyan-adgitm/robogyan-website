@@ -3,6 +3,16 @@ import { projects } from "@/data/projects-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Calendar, Clock, Code, ExternalLink, FileText, Github, Lightbulb, Rocket, Users } from "lucide-react";
 
 const statusColors = {
@@ -20,6 +30,60 @@ const categoryIcons = {
   "AI/ML": "🧠",
   Robotics: "🤖",
   IoT: "📡",
+};
+
+// Helper component for action buttons with alert dialog
+const ActionButton = ({ url, icon: Icon, label, color }: {
+  url?: string;
+  icon: any;
+  label: string;
+  color: string;
+}) => {
+  const isAvailable = url && url !== "" && url !== "#";
+  
+  if (isAvailable) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className={`${color} hover:text-white p-0`}
+        onClick={() => window.open(url, '_blank')}
+      >
+        <Icon size={16} className="mr-1" />
+        {label}
+      </Button>
+    );
+  }
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`${color} hover:text-white p-0`}
+        >
+          <Icon size={16} className="mr-1" />
+          {label}
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="bg-[hsl(0,0%,8%)] border-[hsl(0,0%,20%)]">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-white font-orbitron">
+            Currently Not Available
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-gray-400">
+            This {label.toLowerCase()} is not available at the moment. Please check back later.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform">
+            OK
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 };
 
 export default function Projects() {
@@ -103,35 +167,21 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <div className="flex justify-between">
-                  {project.githubUrl && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-[hsl(220,100%,50%)] hover:text-white p-0"
-                    >
-                      <Github size={16} className="mr-1" />
-                      Code
-                    </Button>
+                  {project.githubUrl !== undefined && (
+                    <ActionButton
+                      url={project.githubUrl}
+                      icon={Github}
+                      label="Code"
+                      color="text-[hsl(220,100%,50%)]"
+                    />
                   )}
-                  {project.demoUrl && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-[hsl(150,100%,50%)] hover:text-white p-0"
-                    >
-                      <ExternalLink size={16} className="mr-1" />
-                      Demo
-                    </Button>
-                  )}
-                  {project.docsUrl && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-[hsl(270,100%,70%)] hover:text-white p-0"
-                    >
-                      <FileText size={16} className="mr-1" />
-                      Docs
-                    </Button>
+                  {project.docsUrl !== undefined && (
+                    <ActionButton
+                      url={project.docsUrl}
+                      icon={FileText}
+                      label="Docs"
+                      color="text-[hsl(270,100%,70%)]"
+                    />
                   )}
                 </div>
               </GlassmorphismCard>

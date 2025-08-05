@@ -50,24 +50,6 @@ export default function Team() {
                   <p className="text-xs text-gray-400">{member.description}</p>
                 </div>
 
-                {/* Contact Info - Hidden by default, shown on hover */}
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  whileInView={{ opacity: 1, height: "auto" }}
-                  className="mb-4 space-y-2"
-                >
-                  <div className="flex items-center justify-center space-x-2 text-sm">
-                    <Mail size={14} className="text-[hsl(180,100%,50%)]" />
-                    <span className="text-gray-300">{member.email}</span>
-                  </div>
-                  {member.phone && (
-                    <div className="flex items-center justify-center space-x-2 text-sm">
-                      <Phone size={14} className="text-[hsl(220,100%,50%)]" />
-                      <span className="text-gray-300">{member.phone}</span>
-                    </div>
-                  )}
-                </motion.div>
-
                 {/* Social Links */}
                 <div className="flex justify-center space-x-3">
                   {member.social.linkedin && (
@@ -86,24 +68,6 @@ export default function Team() {
                       className="text-[hsl(180,100%,50%)] hover:text-white transition-colors"
                     >
                       <Github size={18} />
-                    </motion.a>
-                  )}
-                  {member.social.twitter && (
-                    <motion.a
-                      href={member.social.twitter}
-                      whileHover={{ scale: 1.2 }}
-                      className="text-[hsl(270,100%,70%)] hover:text-white transition-colors"
-                    >
-                      <Twitter size={18} />
-                    </motion.a>
-                  )}
-                  {member.social.instagram && (
-                    <motion.a
-                      href={member.social.instagram}
-                      whileHover={{ scale: 1.2 }}
-                      className="text-[hsl(270,100%,70%)] hover:text-white transition-colors"
-                    >
-                      <Instagram size={18} />
                     </motion.a>
                   )}
                 </div>
