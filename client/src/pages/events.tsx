@@ -61,7 +61,7 @@ export default function Events() {
                     <motion.img
                       src={event.image}
                       alt={event.name}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
+                      className="w-full h-64 object-cover rounded-lg mb-4"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -100,12 +100,6 @@ export default function Events() {
                         <MapPin className="text-[hsl(220,100%,50%)]" size={18} />
                         <span className="text-gray-300">{event.venue}</span>
                       </div>
-                      {event.maxParticipants && (
-                        <div className="flex items-center space-x-3">
-                          <Users className="text-[hsl(220,100%,50%)]" size={18} />
-                          <span className="text-gray-300">Max {event.maxParticipants} participants</span>
-                        </div>
-                      )}
                       {event.prizePool && (
                         <div className="flex items-center space-x-3">
                           <Trophy className="text-[hsl(220,100%,50%)]" size={18} />

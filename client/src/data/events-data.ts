@@ -10,25 +10,23 @@ export interface Event {
   venue: string;
   image: string;
   registrationUrl?: string;
-  maxParticipants?: number;
   prizePool?: string;
 }
 
 export const upcomingEvents: Event[] = [
-  // {
-  //   id: "1",
-  //   name: "AI/ML Bootcamp",
-  //   type: "Workshop",
-  //   status: "Open",
-  //   description: "Intensive 3-day workshop covering machine learning fundamentals, neural networks, and practical AI applications.",
-  //   date: "2024-12-15",
-  //   endDate: "2024-12-17",
-  //   time: "9:00 AM - 5:00 PM",
-  //   venue: "Tech Lab, Building A",
-  //   image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-  //   registrationUrl: "#",
-  //   maxParticipants: 50,
-  // },
+   {
+     id: "1",
+     name: "SIH Internal Hackathon",
+     type: "Hackathon",
+     status: "Upcoming",
+     description: "We're back with SIH Internal Hackathon 2025! Details will be released soon. Stay tuned!!",
+     date: "Coming Soon",
+     endDate: "",
+     time: "Coming Soon",
+     venue: "Coming Soon",
+     image: "/src/data/images/sih.jpg",
+     registrationUrl: "#",
+   },
 ];
 
 export const pastEvents: Event[] = [
@@ -45,7 +43,7 @@ export const pastEvents: Event[] = [
   },
   {
     id: "2",
-    name: "Drone Event",
+    name: "Drone Workshop",
     type: "Workshop",
     status: "Ended",
     description: "A workshop on drones and their tech, with industry leading startup DTown Robotics!",

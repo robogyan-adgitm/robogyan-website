@@ -19,7 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroImage = "/src/data/images/rglab2.jpg";
+const heroImage = "/src/data/images/CoreTeam2025.jpg";
 
 const achievements = [
   { number: "30+", label: "Amazing Members" },

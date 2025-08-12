@@ -6,6 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, Linkedin, Github, Twitter, Instagram } from "lucide-react";
 
 export default function Team() {
+  // Filter leadership and general members
+  const president = teamMembers.find(member => member.position === "President");
+  const vicePresident = teamMembers.find(member => member.position === "Vice President");
+  const generalMembers = teamMembers.filter(
+    member => member.position !== "President" && member.position !== "Vice President"
+  );
+
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">
       <div className="container mx-auto">
@@ -22,59 +29,210 @@ export default function Team() {
           </p>
         </motion.div>
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <GlassmorphismCard className="text-center group">
-                <motion.img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-32 h-32 rounded-full mx-auto mb-4 border-3 border-[hsl(180,100%,50%)]"
-                  whileHover={{ scale: 1.05, rotate: 3 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <h3 className="font-russo text-xl gradient-text mb-2">
-                  {member.name}
-                </h3>
-                <p className="text-[hsl(180,100%,50%)] mb-2">{member.position}</p>
-                <p className="text-gray-400 text-sm mb-3">{member.period}</p>
-                
-                <div className="space-y-2 mb-4">
-                  <p className="text-xs text-gray-300">{member.techStack.join(", ")}</p>
-                  <p className="text-xs text-gray-400">{member.description}</p>
-                </div>
+        {/* Leadership Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-20"
+        >
+          <div className="flex flex-wrap justify-center gap-12 max-w-6xl mx-auto">
+            {president && (
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="w-full lg:w-[calc(50%-24px)] max-w-lg"
+              >
+                <GlassmorphismCard className="text-center group leadership-card">
+                  <div className="relative mb-6">
+                    <motion.img
+                      src={president.image}
+                      alt={president.name}
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(180,100%,50%)] leadership-image"
+                      whileHover={{ scale: 1.08, rotate: 3 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+                  <Badge className="mb-4 bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-black font-bold px-4 py-1">
+                    {president.position}
+                  </Badge>
+                  <h3 className="font-russo text-2xl gradient-text mb-2">
+                    {president.name}
+                  </h3>
+                  <p className="text-[hsl(180,100%,50%)] mb-2 font-semibold">{president.period}</p>
+                  
+                  <div className="space-y-3 mb-6">
+                    <p className="text-sm text-gray-300 leading-relaxed">{president.description}</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {president.techStack.map((tech, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.2)] text-[hsl(180,100%,50%)]">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* Social Links */}
-                <div className="flex justify-center space-x-3">
-                  {member.social.linkedin && (
-                    <motion.a
-                      href={member.social.linkedin}
-                      whileHover={{ scale: 1.2 }}
-                      className="text-[hsl(220,100%,50%)] hover:text-white transition-colors"
-                    >
-                      <Linkedin size={18} />
-                    </motion.a>
-                  )}
-                  {member.social.github && (
-                    <motion.a
-                      href={member.social.github}
-                      whileHover={{ scale: 1.2 }}
-                      className="text-[hsl(180,100%,50%)] hover:text-white transition-colors"
-                    >
-                      <Github size={18} />
-                    </motion.a>
-                  )}
-                </div>
-              </GlassmorphismCard>
-            </motion.div>
-          ))}
-        </div>
+                  {/* Social Links */}
+                  <div className="flex justify-center space-x-4">
+                    {president.social.linkedin && (
+                      <motion.a
+                        href={president.social.linkedin}
+                        whileHover={{ scale: 1.3 }}
+                        className="text-[hsl(220,100%,50%)] hover:text-white transition-colors"
+                      >
+                        <Linkedin size={20} />
+                      </motion.a>
+                    )}
+                    {president.social.github && (
+                      <motion.a
+                        href={president.social.github}
+                        whileHover={{ scale: 1.3 }}
+                        className="text-[hsl(180,100%,50%)] hover:text-white transition-colors"
+                      >
+                        <Github size={20} />
+                      </motion.a>
+                    )}
+                  </div>
+                </GlassmorphismCard>
+              </motion.div>
+            )}
+
+            {vicePresident && (
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="w-full lg:w-[calc(50%-24px)] max-w-lg"
+              >
+                <GlassmorphismCard className="text-center group leadership-card">
+                  <div className="relative mb-6">
+                    <motion.img
+                      src={vicePresident.image}
+                      alt={vicePresident.name}
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(270,100%,70%)] leadership-image"
+                      whileHover={{ scale: 1.08, rotate: -3 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+                  <Badge className="mb-4 bg-gradient-to-r from-[hsl(270,100%,70%)] to-[hsl(300,100%,60%)] text-black font-bold px-4 py-1">
+                    {vicePresident.position}
+                  </Badge>
+                  <h3 className="font-russo text-2xl gradient-text mb-2">
+                    {vicePresident.name}
+                  </h3>
+                  <p className="text-[hsl(270,100%,70%)] mb-2 font-semibold">{vicePresident.period}</p>
+                  
+                  <div className="space-y-3 mb-6">
+                    <p className="text-sm text-gray-300 leading-relaxed">{vicePresident.description}</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {vicePresident.techStack.map((tech, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(270,100%,70%,0.2)] text-[hsl(270,100%,70%)]">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Social Links */}
+                  <div className="flex justify-center space-x-4">
+                    {vicePresident.social.linkedin && (
+                      <motion.a
+                        href={vicePresident.social.linkedin}
+                        whileHover={{ scale: 1.3 }}
+                        className="text-[hsl(220,100%,50%)] hover:text-white transition-colors"
+                      >
+                        <Linkedin size={20} />
+                      </motion.a>
+                    )}
+                    {vicePresident.social.github && (
+                      <motion.a
+                        href={vicePresident.social.github}
+                        whileHover={{ scale: 1.3 }}
+                        className="text-[hsl(270,100%,70%)] hover:text-white transition-colors"
+                      >
+                        <Github size={20} />
+                      </motion.a>
+                    )}
+                  </div>
+                </GlassmorphismCard>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Core Team Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mb-20"
+        >
+          <div className="flex flex-wrap justify-center gap-6">
+            {generalMembers.map((member, index) => (
+              <motion.div
+                key={member.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.9 + index * 0.05 }}
+                className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm"
+              >
+                <GlassmorphismCard className="text-center group h-full">
+                  <motion.img
+                    src={member.image || "/default-avatar.png"}
+                    alt={member.name}
+                    className="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-[hsl(180,100%,50%)]"
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <h3 className="font-russo text-lg gradient-text mb-2">
+                    {member.name}
+                  </h3>
+                  <p className="text-[hsl(180,100%,50%)] mb-2 text-sm font-medium">{member.position}</p>
+                  <p className="text-gray-400 text-xs mb-3">{member.period}</p>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {member.techStack.slice(0, 3).map((tech, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
+                          {tech}
+                        </Badge>
+                      ))}
+                      {member.techStack.length > 3 && (
+                        <Badge variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
+                          +{member.techStack.length - 3}
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-400 line-clamp-2">{member.description}</p>
+                  </div>
+
+                  {/* Social Links */}
+                  <div className="flex justify-center space-x-3">
+                    {member.social.linkedin && (
+                      <motion.a
+                        href={member.social.linkedin}
+                        whileHover={{ scale: 1.2 }}
+                        className="text-[hsl(220,100%,50%)] hover:text-white transition-colors"
+                      >
+                        <Linkedin size={16} />
+                      </motion.a>
+                    )}
+                    {member.social.github && member.social.github !== "#" && (
+                      <motion.a
+                        href={member.social.github}
+                        whileHover={{ scale: 1.2 }}
+                        className="text-[hsl(180,100%,50%)] hover:text-white transition-colors"
+                      >
+                        <Github size={16} />
+                      </motion.a>
+                    )}
+                  </div>
+                </GlassmorphismCard>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Join Team Section */}
         <motion.div

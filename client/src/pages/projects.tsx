@@ -166,15 +166,7 @@ export default function Projects() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-between">
-                  {project.githubUrl !== undefined && (
-                    <ActionButton
-                      url={project.githubUrl}
-                      icon={Github}
-                      label="Code"
-                      color="text-[hsl(220,100%,50%)]"
-                    />
-                  )}
+                <div className="flex justify-start">
                   {project.docsUrl !== undefined && (
                     <ActionButton
                       url={project.docsUrl}
@@ -187,6 +179,55 @@ export default function Projects() {
               </GlassmorphismCard>
             </motion.div>
           ))}
+
+          {/* More Projects Coming Soon Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: projects.length * 0.1 }}
+          >
+            <GlassmorphismCard className="text-center flex flex-col justify-center items-center h-full min-h-[400px]">
+              {/* Coming Soon Icon */}
+              <motion.div
+                animate={{ 
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+                className="mb-6"
+              >
+                <Rocket size={64} className="text-[hsl(180,100%,50%)] mx-auto" />
+              </motion.div>
+
+              <h3 className="font-orbitron text-2xl font-bold gradient-text mb-4">
+                More Projects Coming Soon
+              </h3>
+
+              <p className="text-gray-300 mb-6 max-w-sm leading-relaxed">
+                We're constantly innovating and working on exciting new projects. Stay tuned for more cutting-edge developments!
+              </p>
+
+              {/* Animated badges */}
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                <Badge variant="secondary" className="bg-[hsl(180,100%,50%,0.2)] text-[hsl(180,100%,50%)]">
+                  <Lightbulb size={12} className="mr-1" />
+                  Innovation
+                </Badge>
+                <Badge variant="secondary" className="bg-[hsl(270,100%,70%,0.2)] text-[hsl(270,100%,70%)]">
+                  <Code size={12} className="mr-1" />
+                  Development
+                </Badge>
+                <Badge variant="secondary" className="bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)]">
+                  <Users size={12} className="mr-1" />
+                  Collaboration
+                </Badge>
+              </div>
+            </GlassmorphismCard>
+          </motion.div>
         </div>      
       </div>
     </div>

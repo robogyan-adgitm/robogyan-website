@@ -105,8 +105,8 @@ export default function Footer() {
                 <Mail size={16} className="text-[hsl(235,75%,65%)]" />
                 <span>robogyan.contact@gmail.com</span>
               </li>
-              <li className="flex items-center space-x-2">
-                <MapPin size={20} className="text-[hsl(150,45%,60%)]" />
+              <li className="flex items-start space-x-2">
+                <MapPin size={18} className="text-[hsl(150,45%,60%)] mt-0.5" />
                 <span>
                   Basement, 5th Block
                   <br />
