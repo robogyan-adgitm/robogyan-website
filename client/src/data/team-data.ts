@@ -193,7 +193,7 @@ export const teamMembers: TeamMember[] = [
     email: "amankumar11076@gmail.com",
     social: {
       linkedin: "https://www.linkedin.com/in/amankumar-social/",
-      github: "#",
+      github: "https://github.com/aman-social",
     },
     image: "/src/data/images/coreTeam/aman.jpg",
   },
