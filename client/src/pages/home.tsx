@@ -75,7 +75,7 @@ const coreTeam = [
     name: "Macle (Aditya Goel)",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "/src/data/images/coreTeam/macle.png",
+    image: "/src/data/images/coreTeam/macle.jpg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {

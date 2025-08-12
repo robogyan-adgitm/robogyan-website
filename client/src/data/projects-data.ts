@@ -7,8 +7,6 @@ export interface Project {
   techStack: string[];
   category: "Hardware" | "Software" | "Mixed" | "AI/ML" | "Robotics" | "IoT";
   image: string;
-  githubUrl?: string;
-  demoUrl?: string;
   docsUrl?: string;
 }
 
@@ -21,7 +19,6 @@ export const projects: Project[] = [
     techStack: ["Embedded", "Aerodynamics", "C++", "Servo Motors"],
     category: "Robotics",
     image: "/src/data/images/projects/rcplane.jpg",
-    githubUrl: "",
     docsUrl: "#",
   },
   {
@@ -33,7 +30,6 @@ export const projects: Project[] = [
     techStack: ["12V Motors", "Motor Driver", "Arduino Nano"],
     category: "Robotics",
     image: "/src/data/images/projects/maneuvre.jpg",
-    githubUrl: "",
     docsUrl: "#",
   },
   {
@@ -45,8 +41,6 @@ export const projects: Project[] = [
     techStack: ["Esp32", "Vibration Motor", "Buzzer", "Battery"],
     category: "IoT",
     image: "/src/data/images/projects/deafiator.jpg",
-    githubUrl: "",
-    demoUrl: "",
     docsUrl: "#",
   },
   {
@@ -58,7 +52,6 @@ export const projects: Project[] = [
     techStack: ["LiPo Batteries", "2200kV Motors", "ESCs"],
     category: "Robotics",
     image: "/src/data/images/projects/hovercraft.jpg",
-    githubUrl: "",
     docsUrl: "#",
   },
 ];
