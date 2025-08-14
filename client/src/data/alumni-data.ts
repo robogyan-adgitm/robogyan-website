@@ -70,7 +70,7 @@ export const alumniBatches: AlumniBatch[] = [
     subtitle: "Core of 2023-24",
     description: "To the 2023-24 team - your legacy lives on in every wire, every line of code, and every milestone we reach.",
     image: "/images/alumni/2023-24.jpg",
-    achievements: ["Xylem Gobal Winners", "Techkriti IITK Winners", "SIH 2023 Semi Finalists"],
+    achievements: ["Xylem Gobal Winners", "Techkriti IITK Winners", "SIH 2023 Semi Finalists", "EYantra @IITB Semi-Finalists"],
     members: [
       {
         id: "6",
@@ -151,7 +151,7 @@ export const alumniBatches: AlumniBatch[] = [
     subtitle: "Core of 2022-23",
     description: "The 2022-23 team wasn't just a part of Robogyan — they were its driving force. Their leadership, innovation, and teamwork still echo in everything we do.",
     image: "/images/alumni/2022-23.jpg",
-    achievements: ["IIT Kanpur Techkriti Winners", "Considition ML Hackathon Winners", "SIH Finalist"],
+    achievements: ["IIT Kanpur Techkriti Winners", "Considition ML Hackathon Finalists", "SIH Finalist"],
     members: [
       {
         id: "13",
@@ -304,7 +304,7 @@ export const alumniBatches: AlumniBatch[] = [
     subtitle: "Core of 2020-21",
     description: "Their legacy is our inspiration. Meet the remarkable team from 2020 who left an indelible mark on Robogyan.",
     image: "/images/alumni/2021.jpg",
-    achievements: ["SIH Winners", "Tata Crucible Winners"],
+    achievements: ["SIH Winners", "Tata Crucible Winners", "Aero Modelling - Boeing, IIT Bombay", "National EKart Racing, Noida - 2nd pole position", "LPU EKart - Runner Up Bussiness"],
     members: [
       {
         id: "20",
@@ -388,5 +388,32 @@ export const alumniBatches: AlumniBatch[] = [
         linkedin: "https://www.linkedin.com/in/nikunjagg/",
       },
     ],       
+  },
+  {
+    year: "2019-20",
+    subtitle: "Core of 2019-20",
+    description: "Their dedication continues to inspire us. Meet the exceptional team from 2019 whose contributions shaped Robogyan's legacy.",
+    image: "",
+    achievements: ["Updating soon..."],
+    members: [
+      {
+        id: "20",
+        name: "Maninder Bir Singh G.",
+        position: "President",
+        currentCompany: "McGill University, Canada",
+        currentRole: "Teaching Assistant",
+        image: "/images/alumni/maninder.jpeg",
+        linkedin: "https://www.linkedin.com/in/maninder-bir-singh-gulshan/",
+      },
+      {
+        id: "21",
+        name: "Mohd Shayan Khan",
+        position: "Vice President",
+        currentCompany: "FluxTech Trading",
+        currentRole: "Senior Electronics Engineer",
+        image: "/images/alumni/shayan.jpeg",
+        linkedin: "https://www.linkedin.com/in/mohdshayankhan/",
+      },
+    ]
   }
 ];
