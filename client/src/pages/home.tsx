@@ -42,7 +42,7 @@ const featuredProjects = [
     title: "RC Plane",
     description: "A custom built rc plane, using various electronic components and tools.",
     category: "Hardware",
-    image: "images/projects/rcplane.jpg",
+    image: "/images/projects/rcplane.jpg",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
   },
   {
