@@ -4,19 +4,19 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-
-  // 1. Set the base path for GitHub Pages.
-  // This MUST match your repository name.
-  base: "/robogyan-website/",
-
-  // 2. We are REMOVING the `root` property to keep things simple.
-  // This means Vite will run from your main project folder.
-
-  // 3. Keep your aliases, they are correct.
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"), // Adjusted path
+      "@": path.resolve(__dirname, "client", "src"),
       "@shared": path.resolve(__dirname, "shared"),
     },
+  },
+  root: path.resolve(__dirname, "client"),
+  build: {
+    outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: true,
+  },
+  server: {
+    port: 5173,
+    host: true,
   },
 });

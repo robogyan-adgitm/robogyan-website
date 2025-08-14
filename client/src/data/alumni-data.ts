@@ -24,7 +24,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2024-25",
     subtitle: "Core of 2024-25",
     description: "Meet the innovative team members who made their mark this year.",
-    image: "images/alumni/rg202425.png",
+    image: "/images/alumni/rg202425.png",
     achievements: ["SIH2024 Grand Finalists", "Winners @IITK Techkriti", "Xylem International Winners"],
     members: [
       {
@@ -33,7 +33,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "President",
         currentCompany: "Veripoint Technologies",
         currentRole: "Data Research Analyst",
-        image: "images/alumni/vidhi.png",
+        image: "/images/alumni/vidhi.png",
         linkedin: "https://www.linkedin.com/in/vidhi2410/",
       },
       {
@@ -42,7 +42,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Vice-President",
         currentCompany: "Finkeda",
         currentRole: "Technology Trainee",
-        image: "images/alumni/jayam.jpg",
+        image: "/images/alumni/jayam.jpg",
         linkedin: "https://www.linkedin.com/in/jayamshrivastav-dev/",
       },
       {
@@ -51,7 +51,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Software Lead",
         currentCompany: "Pre final year",
         currentRole: "Btech CSE",
-        image: "images/alumni/amogh.jpg",
+        image: "/images/alumni/amogh.jpg",
         linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
       },
       {
@@ -60,7 +60,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Hardware Lead",
         currentCompany: "Pre final year",
         currentRole: "Btech CSE",
-        image: "images/alumni/macle.png",
+        image: "/images/alumni/macle.png",
         linkedin: "https://www.linkedin.com/in/macle57/",
       },
     ],
@@ -69,7 +69,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2023-24",
     subtitle: "Core of 2023-24",
     description: "To the 2023-24 team - your legacy lives on in every wire, every line of code, and every milestone we reach.",
-    image: "images/alumni/2023-24.jpg",
+    image: "/images/alumni/2023-24.jpg",
     achievements: ["Xylem Gobal Winners", "Techkriti IITK Winners", "SIH 2023 Semi Finalists"],
     members: [
       {
@@ -78,7 +78,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "President",
         currentCompany: "Ministry of Science and Technology",
         currentRole: "Project Associate",
-        image: "images/alumni/ashish.jpg",
+        image: "/images/alumni/ashish.jpg",
         linkedin: "https://www.linkedin.com/in/ashishhhh/",
       },
       {
@@ -87,7 +87,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Vice President",
         currentCompany: "Final Year, M.tech",
         currentRole: "NSUT",
-        image: "images/alumni/sushant.png",
+        image: "/images/alumni/sushant.png",
         linkedin: "https://www.linkedin.com/in/sushant-kumar-11a242225/",
       },
       {
@@ -96,7 +96,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Women in Tech",
         currentCompany: "Veripoint Technologies",
         currentRole: "Data Research Analyst",
-        image: "images/alumni/vidhi.png",
+        image: "/images/alumni/vidhi.png",
         linkedin: "https://www.linkedin.com/in/vidhi2410/",
       },
       {
@@ -105,7 +105,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Embedded lead",
         currentCompany: "Nippon Audiotronix",
         currentRole: "Embedded Software Developer",
-        image: "images/alumni/sumit.png",
+        image: "/images/alumni/sumit.png",
         linkedin: "https://www.linkedin.com/in/sumit-kumar-1b3511241/",
       },
       {
@@ -114,7 +114,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Fabrication Lead",
         currentCompany: "TechLanz",
         currentRole: "Engineer Trainee",
-        image: "images/alumni/ramakant.jpeg",
+        image: "/images/alumni/ramakant.jpeg",
         linkedin: "https://www.linkedin.com/in/rama-kant-kumar/",
       },
       {
@@ -123,7 +123,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "ML lead",
         currentCompany: "NA",
         currentRole: "NA",
-        image: "images/alumni/faizan.jpg",
+        image: "/images/alumni/faizan.jpg",
         linkedin: "https://www.linkedin.com/in/faizan-khan-ai/",
       },
       {
@@ -132,7 +132,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "UI/UX Lead",
         currentCompany: "Graphic Designer",
         currentRole: "JK Paper Ltd.",
-        image: "images/alumni/vanshika.png",
+        image: "/images/alumni/vanshika.png",
         linkedin: "https://www.linkedin.com/in/vanshika-goel-692328226/",
       },
     ],
@@ -141,7 +141,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2022-23",
     subtitle: "Core of 2022-23",
     description: "The 2022-23 team wasn't just a part of Robogyan — they were its driving force. Their leadership, innovation, and teamwork still echo in everything we do.",
-    image: "images/alumni/2022-23.jpg",
+    image: "/images/alumni/2022-23.jpg",
     achievements: ["IIT Kanpur Techkriti Winners", "Considition ML Hackathon Winners", "SIH Finalist"],
     members: [
       {
@@ -150,7 +150,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "President",
         currentCompany: "Hardware Engineer",
         currentRole: "Zaptics Research",
-        image: "images/alumni/vaibhav.jpg",
+        image: "/images/alumni/vaibhav.jpg",
         linkedin: "https://www.linkedin.com/in/vaibhav-khanna-198017195/",
       },
       {
@@ -159,7 +159,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Vice President",
         currentCompany: "Ministry of Science and Technology",
         currentRole: "Project Associate",
-        image: "images/alumni/ashish.jpg",
+        image: "/images/alumni/ashish.jpg",
         linkedin: "https://www.linkedin.com/in/ashishhhh/",
       },
       {
@@ -168,7 +168,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "VLSI Lead",
         currentCompany: "Cadence",
         currentRole: "Design Engineer",
-        image: "images/alumni/safal.jpeg",
+        image: "/images/alumni/safal.jpeg",
         linkedin: "https://www.linkedin.com/in/safal-singh-0724101b8/",
       },
       {
@@ -177,7 +177,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Web Dev Lead",
         currentCompany: "HRS Navigation",
         currentRole: "Software Developer",
-        image: "images/alumni/simran.jpg",
+        image: "/images/alumni/simran.jpg",
         linkedin: "https://www.linkedin.com/in/simran-s-3964b6131/",
       },
       {
@@ -186,7 +186,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Hardware Lead",
         currentCompany: "Final Year, M.tech",
         currentRole: "NSUT",
-        image: "images/alumni/sushant.png",
+        image: "/images/alumni/sushant.png",
         linkedin: "https://www.linkedin.com/in/sushant-kumar-11a242225/",
       },
       {
@@ -195,7 +195,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Embedded lead",
         currentCompany: "Nippon Audiotronix",
         currentRole: "Embedded Software Developer",
-        image: "images/alumni/sumit.png",
+        image: "/images/alumni/sumit.png",
         linkedin: "https://www.linkedin.com/in/sumit-kumar-1b3511241/",
       },
       {
@@ -204,7 +204,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Fabrication Lead",
         currentCompany: "TechLanz",
         currentRole: "Engineer Trainee",
-        image: "images/alumni/ramakant.jpeg",
+        image: "/images/alumni/ramakant.jpeg",
         linkedin: "https://www.linkedin.com/in/rama-kant-kumar/",
       },
       {
@@ -213,7 +213,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "ML lead",
         currentCompany: "",
         currentRole: "Ml Engineer",
-        image: "images/alumni/faizan.jpg",
+        image: "/images/alumni/faizan.jpg",
         linkedin: "https://www.linkedin.com/in/faizan-khan-ai/",
       },
       {
@@ -222,7 +222,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Women in Tech",
         currentCompany: "Veripoint Technologies",
         currentRole: "Data Research Analyst",
-        image: "images/alumni/vidhi.png",
+        image: "/images/alumni/vidhi.png",
         linkedin: "https://www.linkedin.com/in/vidhi2410/",
       },
     ],
@@ -231,7 +231,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2021-22",
     subtitle: "Core of 2021-22",
     description: "Let's turn back the clock to 2021 and recognize the dedicated members whose passion powered our progress.",
-    image: "images/alumni/2021-22.jpg",
+    image: "/images/alumni/2021-22.jpg",
     achievements: ["SIH Winners", "EYantra Winners"],
     members: [
       {
@@ -240,7 +240,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "President",
         currentCompany: "Massive Mobility",
         currentRole: "Product Manager",
-        image: "images/alumni/jai.jpg",
+        image: "/images/alumni/jai.jpg",
         linkedin: "https://www.linkedin.com/in/jai-garg/",
       },
       {
@@ -249,7 +249,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Vice President",
         currentCompany: "Pentair",
         currentRole: "Lead Electronics Engineer",
-        image: "images/alumni/bhavya.png",
+        image: "/images/alumni/bhavya.png",
         linkedin: "https://www.linkedin.com/in/bhavya-sharma-969662180/",
       },
       {
@@ -258,7 +258,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Embedded Lead",
         currentCompany: "Google",
         currentRole: "Technical Soutions Engineer II",
-        image: "images/alumni/Nitesh.png",
+        image: "/images/alumni/Nitesh.png",
         linkedin: "https://www.linkedin.com/in/nitesh-garg-/",
       },
       {
@@ -267,7 +267,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Android Lead",
         currentCompany: "Bharatpe",
         currentRole: "SDE-2",
-        image: "images/alumni/Nikunj.png",
+        image: "/images/alumni/Nikunj.png",
         linkedin: "https://www.linkedin.com/in/nikunjagg/",
       },
       {
@@ -276,7 +276,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Data Science Lead",
         currentCompany: "Google",
         currentRole: "ML Software Engineer III",
-        image: "images/alumni/Vansh.jpeg",
+        image: "/images/alumni/Vansh.jpeg",
         linkedin: "https://www.linkedin.com/in/imvansh25/",
       },
     ],       
@@ -285,7 +285,7 @@ export const alumniBatches: AlumniBatch[] = [
     year: "2020-21",
     subtitle: "Core of 2020-21",
     description: "Their legacy is our inspiration. Meet the remarkable team from 2020 who left an indelible mark on Robogyan.",
-    image: "images/alumni/2021.jpg",
+    image: "/images/alumni/2021.jpg",
     achievements: ["SIH Winners", "Tata Crucible Winners"],
     members: [
       {
@@ -294,7 +294,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "President",
         currentCompany: "Evertz",
         currentRole: "Test & Validation Specialist",
-        image: "images/alumni/hardik.png",
+        image: "/images/alumni/hardik.png",
         linkedin: "https://www.linkedin.com/in/hardikgossain/",
       },
       {
@@ -303,7 +303,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Vice President",
         currentCompany: "Amazon",
         currentRole: "SDE2",
-        image: "images/alumni/aditya.png",
+        image: "/images/alumni/aditya.png",
         linkedin: "https://www.linkedin.com/in/adityaagrawaldelhi/",
       },
       {
@@ -312,7 +312,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "IOT, Drone and Research lead",
         currentCompany: "Pentair",
         currentRole: "Lead Electronics Engineer",
-        image: "images/alumni/bhavya.png",
+        image: "/images/alumni/bhavya.png",
         linkedin: "https://www.linkedin.com/in/bhavya-sharma-969662180/",
       },
       {
@@ -321,7 +321,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Web Dev lead",
         currentCompany: "Mercedes-Benz",
         currentRole: "AI Engineer",
-        image: "images/alumni/mohit.jpg",
+        image: "/images/alumni/mohit.jpg",
         linkedin: "#https://www.linkedin.com/in/mohit-gupta-114711178/",
       },
       {
@@ -330,7 +330,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Fabrication and Product Design lead",
         currentCompany: "Massive Mobility",
         currentRole: "Product Manager",
-        image: "images/alumni/jai.jpg",
+        image: "/images/alumni/jai.jpg",
         linkedin: "https://www.linkedin.com/in/jai-garg/",
       },
       {
@@ -339,7 +339,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Embedded Lead",
         currentCompany: "Google",
         currentRole: "Technical Soutions Engineer II",
-        image: "images/alumni/Nitesh.png",
+        image: "/images/alumni/Nitesh.png",
         linkedin: "https://www.linkedin.com/in/nitesh-garg-/",
       },
       {
@@ -348,7 +348,7 @@ export const alumniBatches: AlumniBatch[] = [
         position: "Android Lead",
         currentCompany: "Bharatpe",
         currentRole: "SDE-2",
-        image: "images/alumni/Nikunj.png",
+        image: "/images/alumni/Nikunj.png",
         linkedin: "https://www.linkedin.com/in/nikunjagg/",
       },
     ],       
