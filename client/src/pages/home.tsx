@@ -42,7 +42,7 @@ const featuredProjects = [
     title: "RC Plane",
     description: "A custom built rc plane, using various electronic components and tools.",
     category: "Hardware",
-    image: "/images/projects/rcplane.jpg",
+    image: "images/projects/rcplane.jpg",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
   },
   {
@@ -50,7 +50,7 @@ const featuredProjects = [
     title: "Deafiator",
     description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
     category: "IoT",
-    image: "/images/projects/deafiator.jpg",
+    image: "images/projects/deafiator.jpg",
     gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
   },
   {
@@ -58,7 +58,7 @@ const featuredProjects = [
     title: "Manoeuvre Bot",
     description: "A powerful bot with special clamps to hold objects and manouvre through obstacles.",
     category: "Hardware",
-    image: "/images/projects/maneuvre.jpg",
+    image: "images/projects/maneuvre.jpg",
     gradient: "from-[hsl(275,75%,70%)] to-[hsl(235,75%,65%)]",
   },
 ];
@@ -75,21 +75,21 @@ const coreTeam = [
     name: "Aditya Goel",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "/images/coreTeam/macle.jpg",
+    image: "images/coreTeam/macle.jpg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
     specialization: "Problem Solving Wizard",
-    image: "/images/coreTeam/ayush.jpg",
+    image: "images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
   {
     name: "Nikunj Sharma",
     position: "Management Head",
     specialization: "Frontend & Design",
-    image: "/images/coreTeam/nikunj.jpg",
+    image: "images/coreTeam/nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
 ];
@@ -226,22 +226,22 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="/images/ourMission/2.jpg"
+                src="images/ourMission/2.jpg"
                 alt="Working at IIITD"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/images/ourMission/1.jpg"
+                src="images/ourMission/1.jpg"
                 alt="RG Lab & Plane"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/images/ourMission/3.jpg"
+                src="images/ourMission/3.jpg"
                 alt="RG Lab"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/images/ourMission/4.jpg"
+                src="images/ourMission/4.jpg"
                 alt="RG lab before Techkriti"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
