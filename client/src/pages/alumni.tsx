@@ -283,10 +283,10 @@ export default function Alumni() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                        className="bg-gradient-to-br from-[hsl(180,100%,50%,0.1)] to-[hsl(220,100%,50%,0.1)] rounded-xl p-4 border border-[hsl(180,100%,50%,0.3)]"
+                        className="bg-gradient-to-br from-[hsl(180,100%,50%,0.1)] to-[hsl(220,100%,50%,0.1)] rounded-xl p-3 sm:p-4 border border-[hsl(180,100%,50%,0.3)]"
                       >
-                        <div className="flex items-center gap-4">
-                          <div className="w-24 h-24 bg-gradient-to-br from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[hsl(180,100%,50%,0.3)]">
+                        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[hsl(180,100%,50%,0.3)]">
                             <img 
                               src={member.image} 
                               alt={member.name}
@@ -294,18 +294,18 @@ export default function Alumni() {
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = 'none';
-                                target.parentElement!.innerHTML = `<Trophy size={24} className="text-white" />`;
+                                target.parentElement!.innerHTML = `<Trophy size={20} className="text-white" />`;
                               }}
                             />
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-russo text-xl text-[hsl(150,45%,60%)] truncate">
+                          <div className="flex-1 min-w-0 text-center sm:text-left">
+                            <h4 className="font-russo text-lg sm:text-xl text-[hsl(150,45%,60%)] truncate">
                               {member.name}
                             </h4>
-                            <p className="text-gray-300 text-m truncate">
+                            <p className="text-gray-300 text-sm sm:text-base truncate">
                               {member.position}
                             </p>
-                            <p className="text-gray-400 text-sm truncate">
+                            <p className="text-gray-400 text-xs sm:text-sm truncate">
                               {member.currentRole} • {member.currentCompany}
                             </p>
                           </div>
@@ -314,9 +314,9 @@ export default function Alumni() {
                               href={member.linkedin}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[hsl(180,100%,50%)] hover:text-white transition-colors flex-shrink-0"
+                              className="text-[hsl(180,100%,50%)] hover:text-white transition-colors flex-shrink-0 mt-2 sm:mt-0"
                             >
-                              <Linkedin size={20} />
+                              <Linkedin size={18} className="sm:w-5 sm:h-5" />
                             </a>
                           )}
                         </div>
