@@ -204,7 +204,7 @@ export default function Team() {
                 Revealing Soon
               </h3>
               <p className="text-gray-400 text-sm mb-6">
-                We're working on introducing our core team to our core team. 
+                We're working on introducing our new core team. 
                 Check back soon for updates!
               </p>
               
