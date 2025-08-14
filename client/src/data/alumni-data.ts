@@ -245,7 +245,7 @@ export const alumniBatches: AlumniBatch[] = [
     members: [
       {
         id: "15",
-        name: "Jai garg",
+        name: "Jai Garg",
         position: "President",
         currentCompany: "Massive Mobility",
         currentRole: "Product Manager",
@@ -344,7 +344,7 @@ export const alumniBatches: AlumniBatch[] = [
       },
       {
         id: "24",
-        name: "Jai garg",
+        name: "Jai Garg",
         position: "Fabrication and Product Design lead",
         currentCompany: "Massive Mobility",
         currentRole: "Product Manager",
