@@ -78,20 +78,20 @@ const coreTeam = [
     image: "/images/coreTeam/macle.jpg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
-  {
-    name: "Ayush Kumar Jha",
-    position: "Firmware & Research Head",
-    specialization: "Problem Solving Wizard",
-    image: "/images/coreTeam/ayush.jpg",
-    borderColor: "border-[hsl(220,70%,55%)]",
-  },
-  {
-    name: "Nikunj Sharma",
-    position: "Management Head",
-    specialization: "Frontend & Design",
-    image: "/images/coreTeam/nikunj.jpg",
-    borderColor: "border-[hsl(275,75%,70%)]",
-  },
+  // {
+  //   name: "Ayush Kumar Jha",
+  //   position: "Firmware & Research Head",
+  //   specialization: "Problem Solving Wizard",
+  //   image: "/images/coreTeam/ayush.jpg",
+  //   borderColor: "border-[hsl(220,70%,55%)]",
+  // },
+  // {
+  //   name: "Nikunj Sharma",
+  //   position: "Management Head",
+  //   specialization: "Frontend & Design",
+  //   image: "/images/coreTeam/nikunj.jpg",
+  //   borderColor: "border-[hsl(275,75%,70%)]",
+  // },
 ];
 
 export default function Home() {
@@ -312,28 +312,65 @@ export default function Home() {
           >
             Meet Our Core Team
           </motion.h3>
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            {coreTeam.map((member, index) => (
+          <div className="flex justify-center">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-4xl">
+              {coreTeam.map((member, index) => (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <GlassmorphismCard className="text-center">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
+                    />
+                    <h4 className="font-russo text-lg mb-2 text-[hsl(150,45%,60%)] neon-text">
+                      {member.name}
+                    </h4>
+                    <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>
+                    <p className="text-gray-400 text-xs">{member.specialization}</p>
+                  </GlassmorphismCard>
+                </motion.div>
+              ))}
+              
+              {/* Revealing Soon Card */}
               <motion.div
-                key={member.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: coreTeam.length * 0.1 }}
               >
                 <GlassmorphismCard className="text-center">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
-                  />
+                  <motion.div
+                    animate={{ 
+                      opacity: [0.5, 1, 0.5],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-dashed border-[hsl(180,100%,50%)] flex items-center justify-center bg-[hsl(180,100%,50%,0.1)]">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Cog size={32} className="text-[hsl(180,100%,50%)]" />
+                      </motion.div>
+                    </div>
+                  </motion.div>
                   <h4 className="font-russo text-lg mb-2 text-[hsl(150,45%,60%)] neon-text">
-                    {member.name}
+                    Revealing Soon
                   </h4>
-                  <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>
-                  <p className="text-gray-400 text-xs">{member.specialization}</p>
+                  <p className="text-[hsl(235,75%,65%)] text-sm mb-2">New Core Team</p>
+                  <p className="text-gray-400 text-xs">Stay Tuned!</p>
                 </GlassmorphismCard>
               </motion.div>
-            ))}
+            </div>
           </div>
           <div className="text-center">
             <Link href="/team">

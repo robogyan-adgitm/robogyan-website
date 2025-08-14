@@ -3,7 +3,7 @@ import { teamMembers } from "@/data/team-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Linkedin, Github, Twitter, Instagram } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Twitter, Instagram, Cog } from "lucide-react";
 
 export default function Team() {
   // Filter leadership and general members
@@ -161,7 +161,64 @@ export default function Team() {
           </div>
         </motion.div>
 
-        {/* Core Team Section */}
+        {/* Revealing Soon Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="font-russo text-3xl md:text-4xl lg:text-5xl mb-6 gradient-text">
+              Core Team of 2025
+            </h2>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
+              Stay tuned for the new core team.
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <GlassmorphismCard className="text-center p-12 max-w-md">
+              <motion.div
+                animate={{ 
+                  opacity: [0.5, 1, 0.5],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <div className="w-32 h-32 rounded-full mx-auto mb-6 border-2 border-dashed border-[hsl(180,100%,50%)] flex items-center justify-center bg-[hsl(180,100%,50%,0.1)]">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Cog size={48} className="text-[hsl(180,100%,50%)]" />
+                  </motion.div>
+                </div>
+              </motion.div>
+              
+              <h3 className="font-russo text-2xl gradient-text mb-4">
+                Revealing Soon
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">
+                We're working on introducing our core team to our core team. 
+                Check back soon for updates!
+              </p>
+              
+              <div className="flex justify-center space-x-2">
+                <Badge variant="secondary" className="bg-[hsl(180,100%,50%,0.2)] text-[hsl(180,100%,50%)]">
+                  Stay Tuned
+                </Badge>
+              </div>
+            </GlassmorphismCard>
+          </div>
+        </motion.div>
+
+        {/* Core Team Section - Hidden temporarily */}
+        {/* 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -207,7 +264,6 @@ export default function Team() {
                     <p className="text-xs text-gray-400 line-clamp-2">{member.description}</p>
                   </div>
 
-                  {/* Social Links */}
                   <div className="flex justify-center space-x-3">
                     {member.social.linkedin && (
                       <motion.a
@@ -233,6 +289,7 @@ export default function Team() {
             ))}
           </div>
         </motion.div>
+        */}
 
         {/* Join Team Section */}
         <motion.div
