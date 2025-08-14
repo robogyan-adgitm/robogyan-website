@@ -18,7 +18,7 @@ export const projects: Project[] = [
     startDate: "Mar 2025",
     techStack: ["Embedded", "Aerodynamics", "C++", "Servo Motors"],
     category: "Robotics",
-    image: "/public/images/projects/rcplane.jpg",
+    image: "/images/projects/rcplane.jpg",
     docsUrl: "#",
   },
   {
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     endDate: "Mar 2025",
     techStack: ["12V Motors", "Motor Driver", "Arduino Nano"],
     category: "Robotics",
-    image: "/public/images/projects/maneuvre.jpg",
+    image: "/images/projects/maneuvre.jpg",
     docsUrl: "#",
   },
   {
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     endDate: "Sep 2024",
     techStack: ["Esp32", "Vibration Motor", "Buzzer", "Battery"],
     category: "IoT",
-    image: "/public/images/projects/deafiator.jpg",
+    image: "/images/projects/deafiator.jpg",
     docsUrl: "#",
   },
   {
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     endDate: "Nov 2024",
     techStack: ["LiPo Batteries", "2200kV Motors", "ESCs"],
     category: "Robotics",
-    image: "/public/images/projects/hovercraft.jpg",
+    image: "/images/projects/hovercraft.jpg",
     docsUrl: "#",
   },
 ];

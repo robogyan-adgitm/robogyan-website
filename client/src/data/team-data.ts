@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
       github: "https://github.com/SaxenaAmogh",
     },
-    image: "/public/images/coreTeam/amogh.jpg",
+    image: "/images/coreTeam/amogh.jpg",
   },
   {
     id: "2",
@@ -41,7 +41,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/macle57/",
       github: "https://github.com/Macle57",
     },
-    image: "/public/images/coreTeam/macle.jpg",
+    image: "/images/coreTeam/macle.jpg",
   },
   {
     id: "3",
@@ -55,7 +55,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/ayush-kumar-jha-a16107279/",
       github: "https://github.com/Zalverine",
     },
-    image: "/public/images/coreTeam/ayush.jpg",
+    image: "/images/coreTeam/ayush.jpg",
   },
   {
     id: "4",
@@ -69,7 +69,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/pranav-bisht-00b76b35b",
       github: "https://github.com/keyboard-warrior-og",
     },
-    image: "/public/images/coreTeam/pranav.jpg",
+    image: "/images/coreTeam/pranav.jpg",
   },
   {
     id: "5",
@@ -83,7 +83,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/aditya-agarwal-289972275/",
       github: "https://github.com/CyberPolymath",
     },
-    image: "/public/images/coreTeam/aditya.jpg",
+    image: "/images/coreTeam/aditya.jpg",
   },
   {
     id: "6",
@@ -97,7 +97,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/dev-chandra-1594a4335/",
       github: "https://github.com/Boss95684",
     },
-    image: "/public/images/coreTeam/dev.jpg",
+    image: "/images/coreTeam/dev.jpg",
   },
   {
     id: "7",
@@ -111,7 +111,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/krishgupta24/",
       github: "https://github.com/Krish-Gupta24",
     },
-    image: "/public/images/coreTeam/krish.jpg",
+    image: "/images/coreTeam/krish.jpg",
   },
   {
     id: "8",
@@ -125,7 +125,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/nikunj-sharma-4aa823286/",
       github: "https://github.com/Nicksharmaaa",
     },
-    image: "/public/images/coreTeam/nikunj.jpg",
+    image: "/images/coreTeam/nikunj.jpg",
   },
   {
     id: "9",
@@ -139,7 +139,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/nandani0106/",
       github: "https://github.com/nandanisingh-1",
     },
-    image: "/public/images/coreTeam/nandini.jpg",
+    image: "/images/coreTeam/nandini.jpg",
   },
   {
     id: "10",
@@ -153,7 +153,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/achintya23/",
       github: "https://github.com/Achintyabhardwaj",
     },
-    image: "/public/images/coreTeam/achintya.jpg",
+    image: "/images/coreTeam/achintya.jpg",
   },
   {
     id: "11",
@@ -167,7 +167,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/avanya-sharma-21794b310/",
       github: "https://github.com/avanya06",
     },
-    image: "/public/images/coreTeam/avanya.png",
+    image: "/images/coreTeam/avanya.png",
   },
   {
     id: "12",
@@ -181,7 +181,7 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/nirmaan-vashisht-a2552a343/",
       github: "https://github.com/Nir2575",
     },
-    image: "/public/images/coreTeam/nirmaan.jpg",
+    image: "/images/coreTeam/nirmaan.jpg",
   },
   {
     id: "13",
@@ -195,6 +195,6 @@ export const teamMembers: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/amankumar-social/",
       github: "https://github.com/aman-social",
     },
-    image: "/public/images/coreTeam/aman.jpg",
+    image: "/images/coreTeam/aman.jpg",
   },
 ];
