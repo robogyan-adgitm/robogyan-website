@@ -23,7 +23,7 @@ export const projects: Project[] = [
   },
   {
     id: "2",
-    name: "Maneuvre Bot",
+    name: "Manoeuvre Bot",
     status: "Completed",
     startDate: "Feb 2025",
     endDate: "Mar 2025",
