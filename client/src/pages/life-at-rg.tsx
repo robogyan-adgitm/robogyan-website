@@ -19,7 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroVideo = "/src/data/images/heroVideo.mp4";
+const heroVideo = "/public/images/heroVideo.mp4";
 
 const achievements = [
   { number: "30+", label: "Amazing Members" },
@@ -37,7 +37,7 @@ const moments = [
     category: "SIH2024",
     attendees: "300+",
     description: "Robogyan conducted the SIH2024 Internal round with over 300 participants.",
-    image: "/src/data/images/lifeatrg/sih24.jpg",
+    image: "/public/images/lifeatrg/sih24.jpg",
     badges: []
   },
   {
@@ -48,7 +48,7 @@ const moments = [
     attendees: "500+",
     category: "Hackhathon",
     description: "Achieved 2nd position at HackBMU 6.0 along with a cash prize",
-    image: "/src/data/images/lifeatrg/HackBMU.png",
+    image: "/public/images/lifeatrg/HackBMU.png",
     badges: ["2nd Runner Up"]
   },
   {
@@ -58,7 +58,7 @@ const moments = [
     location: "Robogyan Lab, Block 5",
     category: "Lab Event",
     description: "Robogyan conducted farewell for the 2025 Batch, in presence of some esteemed alumni.",
-    image: "/src/data/images/lifeatrg/Farewell2025.jpg" ,
+    image: "/public/images/lifeatrg/Farewell2025.jpg" ,
     badges: []
   },
   {
@@ -68,53 +68,53 @@ const moments = [
     location: "IIT Kanpur",
     category: "Competition",
     description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
-    image: "/src/data/images/lifeatrg/Techkriti.jpg" ,
+    image: "/public/images/lifeatrg/Techkriti.jpg" ,
     badges: ["Multiple Positions"]
   }
 ];
 
 const activitiesData = [
   {
-    src: "/src/data/images/lifeatrg/workshops.jpg",
+    src: "/public/images/lifeatrg/workshops.jpg",
     alt: "Hands-on workshop session with students learning",
     title: "Workshop Sessions"
   },
   {
-    src: "/src/data/images/lifeatrg/techtalks.jpg" ,
+    src: "/public/images/lifeatrg/techtalks.jpg" ,
     alt: "Tech talk presentation with industry expert",
     title: "Tech Talks"
   },
   {
-    src: "/src/data/images/lifeatrg/hackathons.jpg" ,
+    src: "/public/images/lifeatrg/hackathons.jpg" ,
     alt: "Hackathon in progress with teams working intensively",
     title: "Hackathons"
   },
   {
-    src: "/src/data/images/lifeatrg/competition.jpg" ,
+    src: "/public/images/lifeatrg/competition.jpg" ,
     alt: "Competition day with participants presenting projects",
     title: "Competitions"
   },
   {
-    src: "/src/data/images/lifeatrg/demos.jpg" ,
+    src: "/public/images/lifeatrg/demos.jpg" ,
     alt: "Project demonstration and showcase event",
     title: "Project Demos"
   },
   {
-    src: "/src/data/images/lifeatrg/teambuilding.jpg" ,
+    src: "/public/images/lifeatrg/teambuilding.jpg" ,
     alt: "Team building activity with collaborative challenges",
     title: "Team Building"
   }
 ];
 
 const galleryImages = [
-  { src: "/src/data/images/lifeatrg/1.jpg" },
-  { src: "/src/data/images/lifeatrg/2.jpg" },
-  { src: "/src/data/images/lifeatrg/3.jpg" },
-  { src: "/src/data/images/lifeatrg/4.jpg" },
-  { src: "/src/data/images/lifeatrg/5.jpg" },
-  { src: "/src/data/images/lifeatrg/6.jpg" },
-  { src: "/src/data/images/lifeatrg/7.jpg" },
-  { src: "/src/data/images/lifeatrg/8.jpg" }
+  { src: "/public/images/lifeatrg/1.jpg" },
+  { src: "/public/images/lifeatrg/2.jpg" },
+  { src: "/public/images/lifeatrg/3.jpg" },
+  { src: "/public/images/lifeatrg/4.jpg" },
+  { src: "/public/images/lifeatrg/5.jpg" },
+  { src: "/public/images/lifeatrg/6.jpg" },
+  { src: "/public/images/lifeatrg/7.jpg" },
+  { src: "/public/images/lifeatrg/8.jpg" }
 ];
 
 const categories = [

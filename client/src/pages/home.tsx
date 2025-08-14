@@ -42,7 +42,7 @@ const featuredProjects = [
     title: "RC Plane",
     description: "A custom built rc plane, using various electronic components and tools.",
     category: "Hardware",
-    image: "/src/data/images/projects/rcplane.jpg",
+    image: "/public/images/projects/rcplane.jpg",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
   },
   {
@@ -50,7 +50,7 @@ const featuredProjects = [
     title: "Deafiator",
     description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
     category: "IoT",
-    image: "/src/data/images/projects/deafiator.jpg",
+    image: "/public/images/projects/deafiator.jpg",
     gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
   },
   {
@@ -58,7 +58,7 @@ const featuredProjects = [
     title: "Manoeuvre Bot",
     description: "A powerful bot with special clamps to hold objects and manouvre through obstacles.",
     category: "Hardware",
-    image: "/src/data/images/projects/maneuvre.jpg",
+    image: "/public/images/projects/maneuvre.jpg",
     gradient: "from-[hsl(275,75%,70%)] to-[hsl(235,75%,65%)]",
   },
 ];
@@ -68,28 +68,28 @@ const coreTeam = [
     name: "Amogh Saxena",
     position: "President",
     specialization: "Android Specialist",
-    image: "/src/data/images/coreTeam/amogh.jpg",
+    image: "/public/images/coreTeam/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
     name: "Aditya Goel",
     position: "Vice President",
     specialization: "Embedded Master",
-    image: "/src/data/images/coreTeam/macle.jpg",
+    image: "/public/images/coreTeam/macle.jpg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
     name: "Ayush Kumar Jha",
     position: "Firmware & Research Head",
     specialization: "Problem Solving Wizard",
-    image: "/src/data/images/coreTeam/ayush.jpg",
+    image: "/public/images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
   },
   {
     name: "Nikunj Sharma",
     position: "Management Head",
     specialization: "Frontend & Design",
-    image: "/src/data/images/coreTeam/nikunj.jpg",
+    image: "/public/images/coreTeam/nikunj.jpg",
     borderColor: "border-[hsl(275,75%,70%)]",
   },
 ];
@@ -226,22 +226,22 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               <img
-                src="/src/data/images/ourMission/2.jpg"
+                src="/public/images/ourMission/2.jpg"
                 alt="Working at IIITD"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/ourMission/1.jpg"
+                src="/public/images/ourMission/1.jpg"
                 alt="RG Lab & Plane"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/ourMission/3.jpg"
+                src="/public/images/ourMission/3.jpg"
                 alt="RG Lab"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />
               <img
-                src="/src/data/images/ourMission/4.jpg"
+                src="/public/images/ourMission/4.jpg"
                 alt="RG lab before Techkriti"
                 className="w-full h-56 object-cover rounded-xl card-hover"
               />

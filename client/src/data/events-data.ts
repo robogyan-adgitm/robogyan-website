@@ -24,7 +24,7 @@ export const upcomingEvents: Event[] = [
      endDate: "",
      time: "Coming Soon",
      venue: "Coming Soon",
-     image: "/src/data/images/sih.jpg",
+     image: "/public/images/sih.jpg",
      registrationUrl: "#",
    },
 ];
@@ -39,7 +39,7 @@ export const pastEvents: Event[] = [
     date: "19-02-2025",
     time: "10:00 AM - 3:00 PM",
     venue: "Canteen Area",
-    image: "/src/data/images/events/subwayutkarsh25.jpeg",
+    image: "/public/images/events/subwayutkarsh25.jpeg",
   },
   {
     id: "2",
@@ -50,7 +50,7 @@ export const pastEvents: Event[] = [
     date: "09-10-2024",
     time: "11:00 AM - 12:00 PM",
     venue: "Smart Room, Block 5",
-    image: "/src/data/images/events/drone24.jpg",
+    image: "/public/images/events/drone24.jpg",
     prizePool: "",
   },
   {
@@ -63,7 +63,7 @@ export const pastEvents: Event[] = [
     endDate: "2024-09-17",
     time: "2 Days Event",
     venue: "Auditorium and IT Labs",
-    image: "/src/data/images/events/sih24.jpg",
+    image: "/public/images/events/sih24.jpg",
     prizePool: "",
   },
 ];
