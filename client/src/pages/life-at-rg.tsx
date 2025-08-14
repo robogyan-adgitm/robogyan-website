@@ -19,7 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 
-const heroImage = "/src/data/images/CoreTeam2025.jpg";
+const heroVideo = "/src/data/images/heroVideo.mp4";
 
 const achievements = [
   { number: "30+", label: "Amazing Members" },
@@ -127,13 +127,21 @@ export default function LifeAtRG() {
   const [activeCategory, setActiveCategory] = useState("moments");
   const [currentMoment, setCurrentMoment] = useState(0);
   const [imageLoading, setImageLoading] = useState<Record<string, boolean>>({});
+  const [imagesReady, setImagesReady] = useState<Record<string, boolean>>({});
 
   const handleImageLoad = (imageSrc: string) => {
     setImageLoading(prev => ({ ...prev, [imageSrc]: false }));
+    setImagesReady(prev => ({ ...prev, [imageSrc]: true }));
   };
 
   const handleImageLoadStart = (imageSrc: string) => {
     setImageLoading(prev => ({ ...prev, [imageSrc]: true }));
+    setImagesReady(prev => ({ ...prev, [imageSrc]: false }));
+  };
+
+  const handleImageError = (imageSrc: string) => {
+    setImageLoading(prev => ({ ...prev, [imageSrc]: false }));
+    setImagesReady(prev => ({ ...prev, [imageSrc]: false }));
   };
 
   const nextMoment = () => {
@@ -153,32 +161,28 @@ export default function LifeAtRG() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <div className="relative mb-8">
-            {imageLoading[heroImage] && (
-              <div className="w-full h-96 bg-gray-800 rounded-2xl flex items-center justify-center mb-4">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[hsl(235,85%,65%)]"></div>
+          <div className="relative mb-8 flex justify-center">
+            <div className="w-full">
+              <motion.video
+                src={heroVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-[500px] object-cover rounded-2xl"
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1 }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
+              <div className="absolute bottom-6 left-6 text-left px-4">
+                <h1 className="font-russo text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
+                  Life at Robogyan
+                </h1>
+                <p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-2xl">
+                  Where innovation meets passion, and dreams become reality. Join us on an incredible journey of robotics, friendship, and endless possibilities! 🚀
+                </p>
               </div>
-            )}
-            <motion.img
-              src={heroImage}
-              alt="RoboGyan Life"
-              className="w-full h-96 object-cover rounded-2xl"
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1 }}
-              loading="eager"
-              onLoadStart={() => handleImageLoadStart(heroImage)}
-              onLoad={() => handleImageLoad(heroImage)}
-              onError={() => handleImageLoad(heroImage)}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-2xl"></div>
-            <div className="absolute bottom-6 left-6 text-left px-4">
-              <h1 className="font-russo text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 text-white">
-                Life at Robogyan
-              </h1>
-              <p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-2xl">
-                Where innovation meets passion, and dreams become reality. Join us on an incredible journey of robotics, friendship, and endless possibilities! 🚀
-              </p>
             </div>
           </div>
         </motion.div>
@@ -230,24 +234,31 @@ export default function LifeAtRG() {
               <div className="relative mb-16">
                 <GlassmorphismCard className="p-8">
                   <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                      {imageLoading[moments[currentMoment].image] && (
-                        <div className="w-full h-80 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                    <div className="relative w-full h-80 bg-gray-800/50 rounded-xl overflow-hidden">
+                      {/* Loading spinner - only show when actually loading */}
+                      {imageLoading[moments[currentMoment].image] === true && (
+                        <div className="absolute inset-0 flex items-center justify-center z-10">
                           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[hsl(235,85%,65%)]"></div>
                         </div>
                       )}
+                      
+                      {/* Image with smooth fade transition */}
                       <motion.img
-                        key={currentMoment}
+                        key={`${currentMoment}-${moments[currentMoment].image}`}
                         src={moments[currentMoment].image}
                         alt={moments[currentMoment].title}
-                        className="w-full h-80 object-cover rounded-xl"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{
+                          opacity: imagesReady[moments[currentMoment].image] ? 1 : 0,
+                          transition: 'opacity 0.6s ease-in-out'
+                        }}
+                        initial={false}
+                        animate={{ scale: imagesReady[moments[currentMoment].image] ? 1 : 1.05 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
                         loading="lazy"
                         onLoadStart={() => handleImageLoadStart(moments[currentMoment].image)}
                         onLoad={() => handleImageLoad(moments[currentMoment].image)}
-                        onError={() => handleImageLoad(moments[currentMoment].image)}
+                        onError={() => handleImageError(moments[currentMoment].image)}
                       />
                     </div>
                     
@@ -353,20 +364,27 @@ export default function LifeAtRG() {
                     className="card-hover cursor-pointer"
                   >
                     <GlassmorphismCard className="p-6">
-                      <div className="relative">
-                        {imageLoading[activity.src] && (
-                          <div className="absolute inset-0 bg-gray-800 rounded-xl flex items-center justify-center">
+                      <div className="relative w-full h-48 bg-gray-800/50 rounded-xl mb-4 overflow-hidden">
+                        {/* Loading spinner */}
+                        {imageLoading[activity.src] === true && (
+                          <div className="absolute inset-0 flex items-center justify-center z-10">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(235,85%,65%)]"></div>
                           </div>
                         )}
+                        
+                        {/* Image with smooth transition */}
                         <img
                           src={activity.src}
                           alt={activity.alt}
-                          className="w-full h-48 object-cover rounded-xl mb-4"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          style={{
+                            opacity: imagesReady[activity.src] ? 1 : 0,
+                            transition: 'opacity 0.5s ease-in-out'
+                          }}
                           loading="lazy"
                           onLoadStart={() => handleImageLoadStart(activity.src)}
                           onLoad={() => handleImageLoad(activity.src)}
-                          onError={() => handleImageLoad(activity.src)}
+                          onError={() => handleImageError(activity.src)}
                         />
                       </div>
                       <h3 className="font-orbitron text-lg font-bold text-center gradient-text">
@@ -398,21 +416,28 @@ export default function LifeAtRG() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="card-hover cursor-pointer relative"
+                    className="card-hover cursor-pointer relative w-full h-48 bg-gray-800/50 rounded-xl overflow-hidden"
                   >
-                    {imageLoading[image.src] && (
-                      <div className="absolute inset-0 bg-gray-800 rounded-xl flex items-center justify-center">
+                    {/* Loading spinner */}
+                    {imageLoading[image.src] === true && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(235,85%,65%)]"></div>
                       </div>
                     )}
+                    
+                    {/* Image with smooth transition */}
                     <img
                       src={image.src}
                       alt={`Gallery image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-xl"
+                      className="absolute inset-0 w-full h-full object-cover"
+                      style={{
+                        opacity: imagesReady[image.src] ? 1 : 0,
+                        transition: 'opacity 0.5s ease-in-out'
+                      }}
                       loading="lazy"
                       onLoadStart={() => handleImageLoadStart(image.src)}
                       onLoad={() => handleImageLoad(image.src)}
-                      onError={() => handleImageLoad(image.src)}
+                      onError={() => handleImageError(image.src)}
                     />
                   </motion.div>
                 ))}

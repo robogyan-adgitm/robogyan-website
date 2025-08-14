@@ -7,9 +7,9 @@ import CounterAnimation from "@/components/animations/counter-animation";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy } from "lucide-react";
 
 const achievements = [
-  { label: "Active Members", value: 38, color: "text-[hsl(150,45%,60%)]" },
-  { label: "Competetion Winnings", value: 110, color: "text-[hsl(275,85%,70%)]" },
-  { label: "Projects Completed", value: 52, color: "text-[hsl(220,70%,55%)]" },
+  { label: "Active Members", value: "30+", color: "text-[hsl(150,45%,60%)]" },
+  { label: "Competetion Winnings", value: "100+", color: "text-[hsl(275,85%,70%)]" },
+  { label: "Projects Completed", value: "50+", color: "text-[hsl(220,70%,55%)]" },
   { label: "Years of Excellence", value: 14, color: "text-[hsl(235,85%,65%)]" },
 ];
 
@@ -49,13 +49,13 @@ const featuredProjects = [
     id: 2,
     title: "Deafiator",
     description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
-    category: "Software",
+    category: "IoT",
     image: "/src/data/images/projects/deafiator.jpg",
     gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
   },
   {
     id: 3,
-    title: "Manouvre Bot",
+    title: "Manoeuvre Bot",
     description: "A powerful bot with special clamps to hold objects and manouvre through obstacles.",
     category: "Hardware",
     image: "/src/data/images/projects/maneuvre.jpg",
@@ -72,18 +72,11 @@ const coreTeam = [
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
-    name: "Macle (Aditya Goel)",
+    name: "Aditya Goel",
     position: "Vice President",
     specialization: "Embedded Master",
     image: "/src/data/images/coreTeam/macle.jpg",
     borderColor: "border-[hsl(150,45%,60%)]",
-  },
-  {
-    name: "Nikunj Sharma",
-    position: "Management Head",
-    specialization: "Frontend & Design",
-    image: "/src/data/images/coreTeam/nikunj.jpg",
-    borderColor: "border-[hsl(275,75%,70%)]",
   },
   {
     name: "Ayush Kumar Jha",
@@ -91,6 +84,13 @@ const coreTeam = [
     specialization: "Problem Solving Wizard",
     image: "/src/data/images/coreTeam/ayush.jpg",
     borderColor: "border-[hsl(220,70%,55%)]",
+  },
+  {
+    name: "Nikunj Sharma",
+    position: "Management Head",
+    specialization: "Frontend & Design",
+    image: "/src/data/images/coreTeam/nikunj.jpg",
+    borderColor: "border-[hsl(275,75%,70%)]",
   },
 ];
 
@@ -161,10 +161,16 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <GlassmorphismCard className="text-center">
-                  <CounterAnimation
-                    target={achievement.value}
-                    className={`text-4xl mb-2 ${achievement.color}`}
-                  />
+                  {typeof achievement.value === 'number' ? (
+                    <CounterAnimation
+                      target={achievement.value}
+                      className={`text-4xl mb-2 ${achievement.color}`}
+                    />
+                  ) : (
+                    <div className={`text-4xl mb-2 font-bold font-orbitron ${achievement.color}`}>
+                      {achievement.value}
+                    </div>
+                  )}
                   <div className="text-gray-300">{achievement.label}</div>
                 </GlassmorphismCard>
               </motion.div>
@@ -320,7 +326,7 @@ export default function Home() {
                     alt={member.name}
                     className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 ${member.borderColor}`}
                   />
-                  <h4 className="font-russo text-lg mb-2 text-[hsl(180,100%,50%)] neon-text">
+                  <h4 className="font-russo text-lg mb-2 text-[hsl(150,45%,60%)] neon-text">
                     {member.name}
                   </h4>
                   <p className="text-[hsl(235,75%,65%)] text-sm mb-2">{member.position}</p>

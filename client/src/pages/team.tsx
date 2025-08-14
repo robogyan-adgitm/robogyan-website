@@ -21,7 +21,7 @@ export default function Team() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-russo text-5xl font-bold mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-5xl font-bold mb-8 text-[hsl(150,45%,60%)] neon-text">
             Our Team
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -33,7 +33,7 @@ export default function Team() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0, delay: 0.2 }}
           className="mb-20"
         >
           <div className="flex flex-wrap justify-center gap-12 max-w-6xl mx-auto">
@@ -165,7 +165,7 @@ export default function Team() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.2, delay: 0.2 }}
           className="mb-20"
         >
           <div className="flex flex-wrap justify-center gap-6">
@@ -174,7 +174,7 @@ export default function Team() {
                 key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 + index * 0.05 }}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.02 }}
                 className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm"
               >
                 <GlassmorphismCard className="text-center group h-full">

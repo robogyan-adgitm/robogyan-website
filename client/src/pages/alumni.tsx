@@ -22,7 +22,7 @@ export default function Alumni() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-russo text-3xl sm:text-4xl md:text-5xl mb-6 mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-3xl sm:text-4xl md:text-5xl mb-6 mb-8 text-[hsl(150,45%,60%)] neon-text">
             Our Esteemed Alumni
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
@@ -40,7 +40,7 @@ export default function Alumni() {
               key={batch.year}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
               className="relative mb-20"
             >
               {/* Year Badge */}
@@ -111,7 +111,7 @@ export default function Alumni() {
                                 key={member.id}
                                 initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: memberIndex * 0.1 }}
+                                transition={{ duration: 0.3, delay: memberIndex * 0.05 }}
                                 className="bg-[hsl(0,0%,16%)] rounded-lg p-4 hover:bg-[hsl(0,0%,20%)] transition-colors"
                               >
                                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-4">
@@ -150,7 +150,29 @@ export default function Alumni() {
             </motion.div>
           ))}
         </div>
-        
+
+        {/* Data Update Notice */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mt-20"
+        >
+          <GlassmorphismCard className="text-center p-8 sm:p-12">
+            <div className="mb-6">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="text-white" size={32} />
+              </div>
+            </div>
+            <h3 className="font-orbitron text-xl sm:text-2xl font-bold mb-4 gradient-text">
+              Currently updating...
+            </h3>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+              We're currently updating our alumni database with information from previous batches.<br/>
+              <span className="block mt-2">If you are an alumni, help us and future generations know who are behind the RG legacy. Your contribution will inspire and connect the Robogyan family for years to come!</span>
+            </p>
+          </GlassmorphismCard>
+        </motion.div>
       </div>
     </div>
   );

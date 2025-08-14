@@ -29,7 +29,7 @@ export default function Events() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-russo text-5xl mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-5xl mb-8 text-[hsl(150,45%,60%)] neon-text">
             Events
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -109,7 +109,17 @@ export default function Events() {
                     </div>
 
                     <Button
-                      className="w-full bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-[hsl(0,0%,4%)] hover:scale-105 transition-transform font-semibold"
+                      className={`w-full transition-transform font-semibold ${
+                        event.registrationUrl && event.registrationUrl !== "#"
+                          ? "bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-[hsl(0,0%,4%)] hover:scale-105 cursor-pointer"
+                          : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                      }`}
+                      disabled={!event.registrationUrl || event.registrationUrl === "#"}
+                      onClick={() => {
+                        if (event.registrationUrl && event.registrationUrl !== "#") {
+                          window.open(event.registrationUrl, "_blank");
+                        }
+                      }}
                     >
                       Register Now
                     </Button>

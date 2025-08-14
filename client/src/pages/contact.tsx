@@ -63,7 +63,7 @@ const socialLinks = [
     icon: Instagram,
     label: "Instagram",
     color: "text-[hsl(275,75%,70%)]",
-    href: "https://www.instagram.com/robogyan_official/",
+    href: "https://www.instagram.com/robogyan",
   },
   {
     icon: Linkedin,
@@ -75,7 +75,7 @@ const socialLinks = [
     icon: Github,
     label: "GitHub",
     color: "text-[hsl(235,75%,65%)]",
-    href: "#",
+    href: "https://github.com/robogyan-adgitm",
   },
   {
     icon: Youtube,
@@ -98,7 +98,7 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-russo text-5xl mb-8 text-[hsl(180,100%,50%)] neon-text">
+          <h1 className="font-russo text-5xl mb-8 text-[hsl(150,45%,60%)] neon-text">
             Contact Us
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
