@@ -68,7 +68,7 @@ const coreTeam = [
     name: "Amogh Saxena",
     position: "President",
     specialization: "Android Specialist",
-    image: "images/coreTeam/amogh.jpg",
+    image: "/images/coreTeam/amogh.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
