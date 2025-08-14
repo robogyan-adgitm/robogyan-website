@@ -4,10 +4,10 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/robogyan-website/",
+  base: "/robogyan-website",
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client","src"),
+      "@": path.resolve(__dirname, "client", "src"),
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
