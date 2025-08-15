@@ -7,7 +7,7 @@ import CounterAnimation from "@/components/animations/counter-animation";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy } from "lucide-react";
 
 const achievements = [
-  { label: "Active Members", value: "30+", color: "text-[hsl(150,45%,60%)]" },
+  { label: "Active Members", value: "130+", color: "text-[hsl(150,45%,60%)]" },
   { label: "Competition Winnings", value: "100+", color: "text-[hsl(275,85%,70%)]" },
   { label: "Projects Completed", value: "50+", color: "text-[hsl(220,70%,55%)]" },
   { label: "Years of Excellence", value: 14, color: "text-[hsl(235,85%,65%)]" },

@@ -101,7 +101,7 @@ export const alumniBatches: AlumniBatch[] = [
       },
       {
         id: "9",
-        name: "Sumit kumar",
+        name: "Sumit Kumar",
         position: "Embedded lead",
         currentCompany: "Nippon Audiotronix",
         currentRole: "Embedded Software Developer",
@@ -200,7 +200,7 @@ export const alumniBatches: AlumniBatch[] = [
       },
       {
         id: "9",
-        name: "Sumit kumar",
+        name: "Sumit Kumar",
         position: "Embedded lead",
         currentCompany: "Nippon Audiotronix",
         currentRole: "Embedded Software Developer",
