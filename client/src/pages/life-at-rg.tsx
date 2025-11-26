@@ -114,7 +114,11 @@ const galleryImages = [
   { src: "/images/lifeatrg/5.jpg" },
   { src: "/images/lifeatrg/6.jpg" },
   { src: "/images/lifeatrg/7.jpg" },
-  { src: "/images/lifeatrg/8.jpg" }
+  { src: "/images/lifeatrg/8.jpg" },
+  { src: "/images/lifeatrg/9.jpg" },
+  { src: "/images/lifeatrg/10.jpg" },
+  { src: "/images/lifeatrg/11.jpg" },
+  { src: "/images/lifeatrg/12.jpg" },
 ];
 
 const categories = [

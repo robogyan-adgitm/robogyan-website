@@ -49,7 +49,7 @@ export default function Team() {
                     <motion.img
                       src={president.image}
                       alt={president.name}
-                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(180,100%,50%)] leadership-image"
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(180,100%,50%)] leadership-image object-cover"
                       whileHover={{ scale: 1.08, rotate: 3 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -110,7 +110,7 @@ export default function Team() {
                     <motion.img
                       src={vicePresident.image}
                       alt={vicePresident.name}
-                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(270,100%,70%)] leadership-image"
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(270,100%,70%)] leadership-image object-cover"
                       whileHover={{ scale: 1.08, rotate: -3 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -161,7 +161,7 @@ export default function Team() {
           </div>
         </motion.div>
 
-        {/* Revealing Soon Section */}
+        {/* Revealing Soon Section
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -215,63 +215,69 @@ export default function Team() {
               </div>
             </GlassmorphismCard>
           </div>
-        </motion.div>
+        </motion.div> */}
 
-        {/* Core Team Section - Hidden temporarily */}
-        {/* 
+        {/*Core Team Section - Hidden temporarily */}
+        { 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: 0.2 }}
           className="mb-20"
         >
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="text-center mb-12">
+            <h2 className="font-russo text-3xl md:text-4xl mb-6 gradient-text">
+              Core Team 2025
+            </h2>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
             {generalMembers.map((member, index) => (
               <motion.div
                 key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.02 }}
-                className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm"
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-sm"
               >
-                <GlassmorphismCard className="text-center group h-full">
+                <GlassmorphismCard className="text-center group h-full p-6">
                   <motion.img
                     src={member.image || "/default-avatar.png"}
                     alt={member.name}
-                    className="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-[hsl(180,100%,50%)]"
+                    className="w-36 h-36 rounded-full mx-auto mb-4 border-3 border-[hsl(180,100%,50%)] object-cover"
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     transition={{ duration: 0.3 }}
                   />
-                  <h3 className="font-russo text-lg gradient-text mb-2">
+                  <h3 className="font-russo text-xl gradient-text mb-2">
                     {member.name}
                   </h3>
-                  <p className="text-[hsl(180,100%,50%)] mb-2 text-sm font-medium">{member.position}</p>
-                  <p className="text-gray-400 text-xs mb-3">{member.period}</p>
+                  <p className="text-[hsl(180,100%,50%)] mb-2 text-sm font-semibold">{member.position}</p>
+                  <p className="text-gray-400 text-xs mb-4">{member.period}</p>
                   
-                  <div className="space-y-2 mb-4">
-                    <div className="flex flex-wrap justify-center gap-1">
-                      {member.techStack.slice(0, 3).map((tech, i) => (
+                  <div className="space-y-3 mb-4">
+                    <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{member.description}</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {member.techStack.slice(0, 4).map((tech, i) => (
                         <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
                           {tech}
                         </Badge>
                       ))}
-                      {member.techStack.length > 3 && (
+                      {member.techStack.length > 4 && (
                         <Badge variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
-                          +{member.techStack.length - 3}
+                          +{member.techStack.length - 4}
                         </Badge>
                       )}
                     </div>
-                    <p className="text-xs text-gray-400 line-clamp-2">{member.description}</p>
                   </div>
 
-                  <div className="flex justify-center space-x-3">
+                  <div className="flex justify-center space-x-4">
                     {member.social.linkedin && (
                       <motion.a
                         href={member.social.linkedin}
                         whileHover={{ scale: 1.2 }}
                         className="text-[hsl(220,100%,50%)] hover:text-white transition-colors"
                       >
-                        <Linkedin size={16} />
+                        <Linkedin size={18} />
                       </motion.a>
                     )}
                     {member.social.github && member.social.github !== "#" && (
@@ -280,7 +286,7 @@ export default function Team() {
                         whileHover={{ scale: 1.2 }}
                         className="text-[hsl(180,100%,50%)] hover:text-white transition-colors"
                       >
-                        <Github size={16} />
+                        <Github size={18} />
                       </motion.a>
                     )}
                   </div>
@@ -289,7 +295,7 @@ export default function Team() {
             ))}
           </div>
         </motion.div>
-        */}
+        }
 
         {/* Join Team Section */}
         <motion.div
