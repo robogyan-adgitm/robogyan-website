@@ -1,10 +1,11 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
-import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy } from "lucide-react";
+import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy, Award, Medal, Star, Zap, Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const achievements = [
   { label: "Active Members", value: "130+", color: "text-[hsl(150,45%,60%)]" },
@@ -39,19 +40,19 @@ const aboutPoints = [
 const featuredProjects = [
   {
     id: 1,
+    title: "AgroSmart",
+    description: "An IoT Device for Smart Irrigation combined with easy to use software",
+    category: "IoT",
+    image: "/images/projects/agrosmart.png",
+    gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
+  },
+  {
+    id: 2,
     title: "RC Plane",
     description: "A custom built rc plane, using various electronic components and tools.",
     category: "Hardware",
     image: "/images/projects/rcplane.jpg",
     gradient: "from-[hsl(235,75%,65%)] to-[hsl(220,70%,55%)]",
-  },
-  {
-    id: 2,
-    title: "Deafiator",
-    description: "IoT-based device for easy communication in local workspaces and for elderly to alert their known ones.",
-    category: "IoT",
-    image: "/images/projects/deafiator.jpg",
-    gradient: "from-[hsl(150,45%,60%)] to-[hsl(275,75%,70%)]",
   },
   {
     id: 3,
@@ -94,7 +95,64 @@ const coreTeam = [
   },
 ];
 
+const latestAchievements = [
+  {
+    icon: Trophy,
+    title: "Smart India Hackathon",
+    subtitle: "National Winner",
+    description: "Developed an AI-powered IoT solution for smart city infrastructure, impressing judges with real-world implementation.",
+    date: "Dec 2025",
+    image: "/images/events/sihWin.JPG",
+    gradient: "from-blue-400 to-cyan-500",
+  },
+  {
+    icon: Crown,
+    title: "Techkriti IIT Kanpur",
+    subtitle: "1st Position",
+    description: "Dominated the embedded arena with innovative design and flawless execution in multiple competition rounds.",
+    date: "Mar 2024",
+    image: "/images/events/Techkriti.jpg",
+    gradient: "from-green-400 to-emerald-500",
+  }
+  // {
+  //   icon: Zap,
+  //   title: "Innovation Challenge",
+  //   subtitle: "Best Project Award",
+  //   description: "Recognized for groundbreaking work in assistive robotics, creating solutions for differently-abled individuals.",
+  //   date: "Jan 2024",
+  //   image: "/images/events/innovation.jpg",
+  //   gradient: "from-red-400 to-rose-500",
+  // },
+  // {
+  //   icon: Star,
+  //   title: "National Robotics Fest",
+  //   subtitle: "Championship",
+  //   description: "Emerged victorious among 100+ teams with our advanced line-following and obstacle-avoidance robot.",
+  //   date: "Nov 2023",
+  //   image: "/images/events/robotfest.jpg",
+  //   gradient: "from-indigo-400 to-violet-500",
+  // },
+];
+
 export default function Home() {
+  const [currentAchievement, setCurrentAchievement] = useState(0);
+
+  // Auto-advance achievement every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentAchievement((prev) => (prev + 1) % latestAchievements.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextAchievement = () => {
+    setCurrentAchievement((prev) => (prev + 1) % latestAchievements.length);
+  };
+
+  const prevAchievement = () => {
+    setCurrentAchievement((prev) => (prev - 1 + latestAchievements.length) % latestAchievements.length);
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -247,6 +305,167 @@ export default function Home() {
               />
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Latest Achievements Section - Carousel */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 10, 0],
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 3
+              }}
+              className="inline-block mb-4"
+            >
+              <Trophy className="text-yellow-400 w-16 h-16 mx-auto filter drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+            </motion.div>
+            <h3 className="font-russo text-4xl md:text-5xl font-bold gradient-text mb-4">
+              Latest Achievements & Wins
+            </h3>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              Celebrating our recent victories and milestones in robotics competitions
+            </p>
+          </motion.div>
+
+          {/* Achievement Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <GlassmorphismCard className="p-6 md:p-8">
+              <div className="grid lg:grid-cols-2 gap-8 items-center">
+                {/* Image Section */}
+                <motion.div 
+                  key={`image-${currentAchievement}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative h-80 lg:h-96 rounded-xl overflow-hidden group"
+                >
+                  <img
+                    src={latestAchievements[currentAchievement].image}
+                    alt={latestAchievements[currentAchievement].title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  
+                  {/* Floating Icon */}
+                  <motion.div
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute top-4 right-4 z-20"
+                  >
+                    {(() => {
+                      const Icon = latestAchievements[currentAchievement].icon;
+                      return (
+                        <div className={`p-4 rounded-full bg-gradient-to-br ${latestAchievements[currentAchievement].gradient} shadow-2xl border-2 border-white/30`}>
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
+                      );
+                    })()}
+                  </motion.div>
+                </motion.div>
+                
+                {/* Content Section */}
+                <motion.div
+                  key={`content-${currentAchievement}`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <Badge className={`bg-gradient-to-r ${latestAchievements[currentAchievement].gradient} text-white border-0 px-4 py-1`}>
+                      {latestAchievements[currentAchievement].date}
+                    </Badge>
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 180, 360]
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity 
+                      }}
+                    >
+                      <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                    </motion.div>
+                  </div>
+                  
+                  <h4 className="font-orbitron text-2xl md:text-3xl font-bold mb-3 text-white">
+                    {latestAchievements[currentAchievement].title}
+                  </h4>
+                  
+                  <p className={`text-lg md:text-xl font-semibold mb-4 bg-gradient-to-r ${latestAchievements[currentAchievement].gradient} bg-clip-text text-transparent`}>
+                    🏆 {latestAchievements[currentAchievement].subtitle}
+                  </p>
+                  
+                  <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                    {latestAchievements[currentAchievement].description}
+                  </p>
+                </motion.div>
+              </div>
+              
+              {/* Navigation Controls */}
+              <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-700">
+                <Button
+                  onClick={prevAchievement}
+                  variant="ghost"
+                  size="lg"
+                  className="text-[hsl(235,85%,65%)] hover:text-white hover:bg-[hsl(235,85%,65%)]/20"
+                >
+                  <ChevronLeft size={24} className="mr-1" />
+                  Previous
+                </Button>
+                
+                {/* Dot Indicators */}
+                <div className="flex space-x-2">
+                  {latestAchievements.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentAchievement(index)}
+                      className={`transition-all rounded-full ${
+                        index === currentAchievement
+                          ? "w-8 h-3 bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)]"
+                          : "w-3 h-3 bg-gray-500 hover:bg-gray-400"
+                      }`}
+                      aria-label={`Go to achievement ${index + 1}`}
+                    />
+                  ))}
+                </div>
+                
+                <Button
+                  onClick={nextAchievement}
+                  variant="ghost"
+                  size="lg"
+                  className="text-[hsl(235,85%,65%)] hover:text-white hover:bg-[hsl(235,85%,65%)]/20"
+                >
+                  Next
+                  <ChevronRight size={24} className="ml-1" />
+                </Button>
+              </div>
+            </GlassmorphismCard>
+          </motion.div>
         </div>
       </section>
 

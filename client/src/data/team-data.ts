@@ -52,7 +52,7 @@ export const teamMembers: TeamMember[] = [
     techStack: ["Python", "C++", "Auteur", "IoT"],
     email: "chauhanabhishek0806@gmail.com",
     social: {
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/in/abhishek-singh-chauhan-15620038b/",
       github: "",
     },
     image: "/images/coreTeam/abhishek.jpeg",

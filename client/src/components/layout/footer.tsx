@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/robogyan_official/", color: "text-[hsl(275,75%,70%)]" },
+    { icon: Instagram, href: "https://www.instagram.com/robogyan", color: "text-[hsl(275,75%,70%)]" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/robogyan/", color: "text-[hsl(220,70%,55%)]" },
     { icon: Youtube, href: "https://www.youtube.com/@robogyan_official", color: "text-[hsl(0,80%,60%)]" },
   ];

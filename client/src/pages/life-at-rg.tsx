@@ -31,6 +31,17 @@ const achievements = [
 const moments = [
   {
     id: "1",
+    title: "Smart India Hackathon 2025",
+    year: "2025",
+    location: "Manipal University Jaipur",
+    category: "SIH2025",
+    attendees: "National Hackathon",
+    description: "Team from Robogyan won the Smart India Hackathon 2025 - Hardware Edition, conducted at MUJ, Jaipur.",
+    image: "/images/lifeatrg/sihWin.JPG",
+    badges: []
+  },
+  {
+    id: "2",
     title: "Smart India Hackathon 2024",
     year: "2024",
     location: "ADGIPS",
@@ -41,7 +52,7 @@ const moments = [
     badges: []
   },
   {
-    id: "2",
+    id: "3",
     title: "HackBMU 6.0 Hackathon",
     year: "2024",
     location: "BML Munjal University, Haryana",
@@ -52,7 +63,7 @@ const moments = [
     badges: ["2nd Runner Up"]
   },
   {
-    id: "3",
+    id: "4",
     title: "RG Farewell 2025 Batch",
     year: "2025",
     location: "Robogyan Lab, Block 5",
@@ -62,7 +73,7 @@ const moments = [
     badges: []
   },
   {
-    id: "4",
+    id: "5",
     title: "Techkriti 2025 at IIT Kanpur",
     year: "2025",
     location: "IIT Kanpur",
@@ -107,18 +118,22 @@ const activitiesData = [
 ];
 
 const galleryImages = [
-  { src: "/images/lifeatrg/1.jpg" },
-  { src: "/images/lifeatrg/2.jpg" },
-  { src: "/images/lifeatrg/3.jpg" },
-  { src: "/images/lifeatrg/4.jpg" },
-  { src: "/images/lifeatrg/5.jpg" },
-  { src: "/images/lifeatrg/6.jpg" },
-  { src: "/images/lifeatrg/7.jpg" },
-  { src: "/images/lifeatrg/8.jpg" },
-  { src: "/images/lifeatrg/9.jpg" },
-  { src: "/images/lifeatrg/10.jpg" },
-  { src: "/images/lifeatrg/11.jpg" },
-  { src: "/images/lifeatrg/12.jpg" },
+  { src: "/images/lifeatrg/1.webp" },
+  { src: "/images/lifeatrg/2.webp" },
+  { src: "/images/lifeatrg/3.webp" },
+  { src: "/images/lifeatrg/4.webp" },
+  { src: "/images/lifeatrg/5.webp" },
+  { src: "/images/lifeatrg/6.webp" },
+  { src: "/images/lifeatrg/7.webp" },
+  { src: "/images/lifeatrg/8.webp" },
+  { src: "/images/lifeatrg/9.webp" },
+  { src: "/images/lifeatrg/10.webp" },
+  { src: "/images/lifeatrg/11.webp" },
+  { src: "/images/lifeatrg/12.webp" },
+  { src: "/images/lifeatrg/13.webp" },
+  { src: "/images/lifeatrg/14.webp" },
+  { src: "/images/lifeatrg/15.webp" },
+  { src: "/images/lifeatrg/16.webp" },
 ];
 
 const categories = [
