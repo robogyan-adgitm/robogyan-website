@@ -100,7 +100,7 @@ const latestAchievements = [
     icon: Trophy,
     title: "Smart India Hackathon",
     subtitle: "National Winner",
-    description: "Developed an AI-powered IoT solution for smart city infrastructure, impressing judges with real-world implementation.",
+    description: "Developed an AI-powered IoT solution for smart irrigation and aggriculture, impressing judges with a cost effective real-world implementation.",
     date: "Dec 2025",
     image: "/images/events/sihWin.JPG",
     gradient: "from-blue-400 to-cyan-500",

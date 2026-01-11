@@ -118,22 +118,22 @@ const activitiesData = [
 ];
 
 const galleryImages = [
-  { src: "/images/lifeatrg/1.webp" },
-  { src: "/images/lifeatrg/2.webp" },
-  { src: "/images/lifeatrg/3.webp" },
-  { src: "/images/lifeatrg/4.webp" },
-  { src: "/images/lifeatrg/5.webp" },
-  { src: "/images/lifeatrg/6.webp" },
-  { src: "/images/lifeatrg/7.webp" },
-  { src: "/images/lifeatrg/8.webp" },
-  { src: "/images/lifeatrg/9.webp" },
-  { src: "/images/lifeatrg/10.webp" },
-  { src: "/images/lifeatrg/11.webp" },
-  { src: "/images/lifeatrg/12.webp" },
   { src: "/images/lifeatrg/13.webp" },
   { src: "/images/lifeatrg/14.webp" },
   { src: "/images/lifeatrg/15.webp" },
   { src: "/images/lifeatrg/16.webp" },
+  { src: "/images/lifeatrg/9.webp" },
+  { src: "/images/lifeatrg/10.webp" },
+  { src: "/images/lifeatrg/11.webp" },
+  { src: "/images/lifeatrg/12.webp" },
+  { src: "/images/lifeatrg/5.webp" },
+  { src: "/images/lifeatrg/6.webp" },
+  { src: "/images/lifeatrg/7.webp" },
+  { src: "/images/lifeatrg/8.webp" },
+  { src: "/images/lifeatrg/1.webp" },
+  { src: "/images/lifeatrg/2.webp" },
+  { src: "/images/lifeatrg/3.webp" },
+  { src: "/images/lifeatrg/4.webp" },
 ];
 
 const categories = [
