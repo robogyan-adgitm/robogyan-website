@@ -3,6 +3,7 @@ import { upcomingEvents, pastEvents } from "@/data/events-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageWithLoader from "@/components/ui/image-with-loader";
 import { Calendar, Clock, MapPin, Users, Trophy } from "lucide-react";
 
 const statusColors = {
@@ -58,13 +59,17 @@ export default function Events() {
                 >
                   <GlassmorphismCard>
                     {/* Event Image */}
-                    <motion.img
-                      src={event.image}
-                      alt={event.name}
-                      className="w-full h-64 object-cover rounded-lg mb-4"
+                    <motion.div
+                      className="w-full h-64 rounded-lg mb-4 overflow-hidden relative"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
-                    />
+                    >
+                      <ImageWithLoader
+                        src={event.image}
+                        alt={event.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
 
                     {/* Event Header */}
                     <div className="flex items-center justify-between mb-4">
@@ -166,13 +171,17 @@ export default function Events() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <GlassmorphismCard className="opacity-75">
-                  <motion.img
-                    src={event.image}
-                    alt={event.name}
-                    className="w-full h-52 object-cover rounded-lg mb-4"
+                  <motion.div
+                    className="w-full h-52 rounded-lg mb-4 overflow-hidden relative"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
-                  />
+                  >
+                    <ImageWithLoader
+                      src={event.image}
+                      alt={event.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
 
                   <div className="flex items-center justify-between mb-4">
                     <Badge variant="default" className={typeColors[event.type]}>

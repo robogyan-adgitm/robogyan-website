@@ -4,6 +4,7 @@ import { alumniBatches } from "@/data/alumni-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageWithLoader from "@/components/ui/image-with-loader";
 import { ChevronRight, ExternalLink, Linkedin, Github, Twitter, MapPin, Building, Calendar, Trophy } from "lucide-react";
 
 export default function Alumni() {
@@ -77,13 +78,17 @@ export default function Alumni() {
                 <div className="w-full lg:w-1/2">
                   <GlassmorphismCard className="p-4 sm:p-6 md:p-8">
                     {batch.image ? (
-                      <motion.img
-                        src={batch.image}
-                        alt={batch.subtitle}
-                        className="w-full h-64 object-cover rounded-lg mb-6"
+                      <motion.div
+                        className="w-full h-64 rounded-lg mb-6 overflow-hidden relative"
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                      />
+                      >
+                        <ImageWithLoader
+                          src={batch.image}
+                          alt={batch.subtitle}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
                     ) : (
                       // Placeholder for missing images
                       <motion.div
@@ -172,11 +177,13 @@ export default function Alumni() {
                                 className="bg-[hsl(0,0%,16%)] rounded-lg p-4 hover:bg-[hsl(0,0%,20%)] transition-colors"
                               >
                                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-                                  <img
-                                    src={member.image}
-                                    alt={member.name}
-                                    className="w-24 h-24 rounded-full border-2 border-[hsl(235,85%,65%)]"
-                                  />
+                                  <div className="w-24 h-24 rounded-full border-2 border-[hsl(235,85%,65%)] overflow-hidden relative flex-shrink-0">
+                                    <ImageWithLoader
+                                      src={member.image}
+                                      alt={member.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
                                   <div className="flex-1 text-center sm:text-left">
                                     <h5 className="font-orbitron font-bold text-white text-sm sm:text-base">{member.name}</h5>
                                     <p className="text-[hsl(235,85%,65%)] text-xs sm:text-sm">{member.position}</p>
@@ -286,16 +293,12 @@ export default function Alumni() {
                         className="bg-gradient-to-br from-[hsl(180,100%,50%,0.1)] to-[hsl(220,100%,50%,0.1)] rounded-xl p-3 sm:p-4 border border-[hsl(180,100%,50%,0.3)]"
                       >
                         <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[hsl(180,100%,50%,0.3)]">
-                            <img 
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[hsl(180,100%,50%,0.3)] overflow-hidden relative">
+                            <ImageWithLoader
                               src={member.image} 
                               alt={member.name}
-                              className="w-full h-full object-cover rounded-full"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                target.parentElement!.innerHTML = `<Trophy size={20} className="text-white" />`;
-                              }}
+                              className="w-full h-full object-cover"
+                              fallback={<Trophy size={20} className="text-white" />}
                             />
                           </div>
                           <div className="flex-1 min-w-0 text-center sm:text-left">

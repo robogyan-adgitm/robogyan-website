@@ -3,6 +3,7 @@ import { teamMembers } from "@/data/team-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageWithLoader from "@/components/ui/image-with-loader";
 import { Mail, Phone, Linkedin, Github, Twitter, Instagram, Cog } from "lucide-react";
 
 export default function Team() {
@@ -46,13 +47,17 @@ export default function Team() {
               >
                 <GlassmorphismCard className="text-center group leadership-card">
                   <div className="relative mb-6">
-                    <motion.img
-                      src={president.image}
-                      alt={president.name}
-                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(180,100%,50%)] leadership-image object-cover"
+                    <motion.div
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(180,100%,50%)] leadership-image overflow-hidden relative"
                       whileHover={{ scale: 1.08, rotate: 3 }}
                       transition={{ duration: 0.3 }}
-                    />
+                    >
+                      <ImageWithLoader
+                        src={president.image}
+                        alt={president.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
                   </div>
                   <Badge className="mb-4 bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-black font-bold px-4 py-1">
                     {president.position}
@@ -107,13 +112,17 @@ export default function Team() {
               >
                 <GlassmorphismCard className="text-center group leadership-card">
                   <div className="relative mb-6">
-                    <motion.img
-                      src={vicePresident.image}
-                      alt={vicePresident.name}
-                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(270,100%,70%)] leadership-image object-cover"
+                    <motion.div
+                      className="w-40 h-40 rounded-full mx-auto border-4 border-[hsl(270,100%,70%)] leadership-image overflow-hidden relative"
                       whileHover={{ scale: 1.08, rotate: -3 }}
                       transition={{ duration: 0.3 }}
-                    />
+                    >
+                      <ImageWithLoader
+                        src={vicePresident.image}
+                        alt={vicePresident.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
                   </div>
                   <Badge className="mb-4 bg-gradient-to-r from-[hsl(270,100%,70%)] to-[hsl(300,100%,60%)] text-black font-bold px-4 py-1">
                     {vicePresident.position}
@@ -227,7 +236,7 @@ export default function Team() {
         >
           <div className="text-center mb-12">
             <h2 className="font-russo text-3xl md:text-4xl mb-6 gradient-text">
-              Core Team 2025
+              Our Core Team
             </h2>
           </div>
           
@@ -241,13 +250,17 @@ export default function Team() {
                 className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-sm"
               >
                 <GlassmorphismCard className="text-center group h-full p-6">
-                  <motion.img
-                    src={member.image || "/default-avatar.png"}
-                    alt={member.name}
-                    className="w-36 h-36 rounded-full mx-auto mb-4 border-3 border-[hsl(180,100%,50%)] object-cover"
+                  <motion.div
+                    className="w-36 h-36 rounded-full mx-auto mb-4 border-3 border-[hsl(180,100%,50%)] overflow-hidden relative"
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     transition={{ duration: 0.3 }}
-                  />
+                  >
+                    <ImageWithLoader
+                      src={member.image || "/default-avatar.png"}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
                   <h3 className="font-russo text-xl gradient-text mb-2">
                     {member.name}
                   </h3>

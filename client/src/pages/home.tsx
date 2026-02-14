@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
+import ImageWithLoader from "@/components/ui/image-with-loader";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy, Award, Medal, Star, Zap, Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const achievements = [
@@ -97,6 +98,15 @@ const coreTeam = [
 
 const latestAchievements = [
   {
+    icon: Award,
+    title: "RoboCraze 2026",
+    subtitle: "7th Position",
+    description: "The team achieved 7th position in the roborace event and won a cash prize for innovative engineering.",
+    date: "Feb 2026",
+    image: "/images/events/robocraze26.jpeg",
+    gradient: "from-indigo-400 to-violet-500",
+  },
+  {
     icon: Trophy,
     title: "Smart India Hackathon",
     subtitle: "National Winner",
@@ -110,7 +120,7 @@ const latestAchievements = [
     title: "Techkriti IIT Kanpur",
     subtitle: "1st Position",
     description: "Dominated the embedded arena with innovative design and flawless execution in multiple competition rounds.",
-    date: "Mar 2024",
+    date: "Mar 2025",
     image: "/images/events/Techkriti.jpg",
     gradient: "from-green-400 to-emerald-500",
   }
@@ -283,26 +293,34 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="grid grid-cols-2 gap-4"
             >
-              <img
-                src="/images/ourMission/2.jpg"
-                alt="Working at IIITD"
-                className="w-full h-56 object-cover rounded-xl card-hover"
-              />
-              <img
-                src="/images/ourMission/1.jpg"
-                alt="RG Lab & Plane"
-                className="w-full h-56 object-cover rounded-xl card-hover"
-              />
-              <img
-                src="/images/ourMission/3.jpg"
-                alt="RG Lab"
-                className="w-full h-56 object-cover rounded-xl card-hover"
-              />
-              <img
-                src="/images/ourMission/4.jpg"
-                alt="RG lab before Techkriti"
-                className="w-full h-56 object-cover rounded-xl card-hover"
-              />
+              <div className="w-full h-56 rounded-xl card-hover overflow-hidden relative">
+                <ImageWithLoader
+                  src="/images/ourMission/2.jpg"
+                  alt="Working at IIITD"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-full h-56 rounded-xl card-hover overflow-hidden relative">
+                <ImageWithLoader
+                  src="/images/ourMission/1.jpg"
+                  alt="RG Lab & Plane"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-full h-56 rounded-xl card-hover overflow-hidden relative">
+                <ImageWithLoader
+                  src="/images/ourMission/3.jpg"
+                  alt="RG Lab"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-full h-56 rounded-xl card-hover overflow-hidden relative">
+                <ImageWithLoader
+                  src="/images/ourMission/4.jpg"
+                  alt="RG lab before Techkriti"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -354,13 +372,10 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                   className="relative h-80 lg:h-96 rounded-xl overflow-hidden group"
                 >
-                  <img
+                  <ImageWithLoader
                     src={latestAchievements[currentAchievement].image}
                     alt={latestAchievements[currentAchievement].title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
                   />
                   
                   {/* Floating Icon */}
@@ -489,11 +504,13 @@ export default function Home() {
               >
                 <GlassmorphismCard>
                   <div className={`bg-gradient-to-br ${project.gradient} rounded-lg p-2 mb-4 overflow-hidden`}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
+                    <div className="w-full h-32 relative rounded-lg overflow-hidden">
+                      <ImageWithLoader
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                   <h4 className="font-orbitron text-xl font-bold mb-3 text-[hsl(180,100%,50%)] neon-text">
                     {project.title}
@@ -543,11 +560,13 @@ export default function Home() {
                 >
                   <GlassmorphismCard className="text-center h-full flex flex-col justify-between">
                     <div>
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 object-cover ${member.borderColor}`}
-                      />
+                      <div className={`w-24 h-24 rounded-full mx-auto mb-4 border-2 overflow-hidden relative ${member.borderColor}`}>
+                        <ImageWithLoader
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <h4 className="font-russo text-lg mb-2 text-[hsl(150,45%,60%)] neon-text">
                         {member.name}
                       </h4>

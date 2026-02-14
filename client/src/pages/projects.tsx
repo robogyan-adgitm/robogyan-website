@@ -3,6 +3,7 @@ import { projects } from "@/data/projects-data";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageWithLoader from "@/components/ui/image-with-loader";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -114,13 +115,17 @@ export default function Projects() {
             >
               <GlassmorphismCard>
                 {/* Project Image */}
-                <motion.img
-                  src={project.image}
-                  alt={project.name}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                <motion.div
+                  className="w-full h-48 rounded-lg mb-4 overflow-hidden relative"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
-                />
+                >
+                  <ImageWithLoader
+                    src={project.image}
+                    alt={project.name}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
 
                 {/* Project Header */}
                 <div className="flex items-center justify-between mb-3">
