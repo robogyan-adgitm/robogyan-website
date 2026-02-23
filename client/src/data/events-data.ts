@@ -32,11 +32,22 @@ export const upcomingEvents: Event[] = [
 export const pastEvents: Event[] = [
   {
     id: "1",
+    name: "Utkarsh 2026: Subway Surfers",
+    type: "Event",
+    status: "Ended",
+    description: "A game where you are the controller! Just your reflexes and the camera tracking your every move, developed by Robogyan.",
+    date: "19-02-2026",
+    time: "12 Noon - 3:00 PM",
+    venue: "Canteen Area",
+    image: "/images/events/subwayUtkarsh26.jpg",
+  },
+  {
+    id: "2",
     name: "SIH Internal Hackathon 2025",
     type: "Hackathon",
     status: "Ended",
     description: "The internal round of SIH 2025, conducted in ADGIPS with 1200+ participants!",
-    date: "12-09-2024",
+    date: "12-09-2025",
     endDate: "2024-09-13",
     time: "2 Days Event",
     venue: "Auditorium and IT Labs",
@@ -44,7 +55,7 @@ export const pastEvents: Event[] = [
     prizePool: "",
   },
   {
-    id: "2",
+    id: "3",
     name: "Utkarsh 2025: Subway Surfers",
     type: "Event",
     status: "Ended",
@@ -55,7 +66,7 @@ export const pastEvents: Event[] = [
     image: "/images/events/subwayutkarsh25.jpeg",
   },
   {
-    id: "3",
+    id: "4",
     name: "Drone Workshop",
     type: "Workshop",
     status: "Ended",
@@ -67,7 +78,7 @@ export const pastEvents: Event[] = [
     prizePool: "",
   },
   {
-    id: "4",
+    id: "5",
     name: "SIH Internal Hackathon 2024",
     type: "Hackathon",
     status: "Ended",

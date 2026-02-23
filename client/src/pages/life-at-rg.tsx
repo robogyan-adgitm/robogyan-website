@@ -382,9 +382,16 @@ export default function LifeAtRG() {
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1,
+                      transition: { duration: 0.3, delay: index * 0.05 }
+                    }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      y: -5,
+                      transition: { duration: 0.2, delay: 0 }
+                    }}
                     className="card-hover cursor-pointer relative w-full h-48 bg-gray-800/50 rounded-xl overflow-hidden"
                   >
                     <ImageWithLoader
