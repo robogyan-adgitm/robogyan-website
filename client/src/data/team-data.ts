@@ -101,7 +101,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "7",
-    name: "Aditya Aggarwal",
+    name: "Aditya Agarwal",
     position: "3D Design Lead",
     period: "2025-2026",
     description: "Designing high-precision 3D models through creative engineering, advanced CAD workflows, and production-ready mechanical detailing.",
@@ -112,5 +112,18 @@ export const teamMembers: TeamMember[] = [
       github: "https://github.com/CyberPolymath",
     },
     image: "/images/coreTeam/aditya.jpg",
+  },
+  {
+    id: "8",
+    name: "Sneha Mukherjee",
+    position: "Control System and Automation Lead",
+    period: "2025-2026",
+    description: "Control systems expert crafting intelligent automation solutions with STM32 microcontrollers, PID tuning, and autonomous robotics implementations like LFR bots.",
+    techStack: ["STM32", "Control Systems", "PID"],
+    email: "adityaagarwal1807@gmail.com",
+    social: {
+      linkedin: "https://www.linkedin.com/in/sneha-mukherjee-6540383a1/",
+    },
+    image: "/images/coreTeam/sneha.jpeg",
   },
 ];

@@ -98,6 +98,15 @@ const coreTeam = [
 
 const latestAchievements = [
   {
+    icon: Crown,
+    title: "Techkriti IIT Kanpur",
+    subtitle: "Tech Innovation Winner",
+    description: "Won the Tech Innovation Challenge by showcasing a fully integrated device with flawless execution and innovative engineering excellence.",
+    date: "Mar 2026",
+    image: "/images/events/Techkriti26.jpg",
+    gradient: "from-green-400 to-emerald-500",
+  },
+  {
     icon: Award,
     title: "RoboCraze 2026",
     subtitle: "7th Position",
@@ -114,15 +123,6 @@ const latestAchievements = [
     date: "Dec 2025",
     image: "/images/events/sihWin.JPG",
     gradient: "from-blue-400 to-cyan-500",
-  },
-  {
-    icon: Crown,
-    title: "Techkriti IIT Kanpur",
-    subtitle: "1st Position",
-    description: "Dominated the embedded arena with innovative design and flawless execution in multiple competition rounds.",
-    date: "Mar 2025",
-    image: "/images/events/Techkriti.jpg",
-    gradient: "from-green-400 to-emerald-500",
   }
   // {
   //   icon: Zap,

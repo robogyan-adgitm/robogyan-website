@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ImageWithLoader from "@/components/ui/image-with-loader";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+} from "@/components/ui/dialog";
 import { 
   Heart, 
   Zap, 
@@ -17,7 +23,9 @@ import {
   ChevronRight,
   Award,
   Target,
-  Lightbulb
+  Lightbulb,
+  X,
+  ZoomIn
 } from "lucide-react";
 
 const heroVideo = "/images/heroVideo.mp4";
@@ -119,15 +127,22 @@ const activitiesData = [
 ];
 
 const galleryImages = [
+  { src: "/images/lifeatrg/18.jpg" },
+  { src: "/images/lifeatrg/19.webp" },
+  { src: "/images/lifeatrg/5.webp" },
   { src: "/images/lifeatrg/13.webp" },
   { src: "/images/lifeatrg/14.webp" },
+  { src: "/images/lifeatrg/22.webp" },
   { src: "/images/lifeatrg/15.webp" },
   { src: "/images/lifeatrg/16.webp" },
+  { src: "/images/lifeatrg/17.webp" },
   { src: "/images/lifeatrg/9.webp" },
   { src: "/images/lifeatrg/10.webp" },
+  { src: "/images/lifeatrg/23.jpg" },
+  { src: "/images/lifeatrg/21.webp" },
+  { src: "/images/lifeatrg/20.webp" },
   { src: "/images/lifeatrg/11.webp" },
   { src: "/images/lifeatrg/12.webp" },
-  { src: "/images/lifeatrg/5.webp" },
   { src: "/images/lifeatrg/6.webp" },
   { src: "/images/lifeatrg/7.webp" },
   { src: "/images/lifeatrg/8.webp" },
@@ -138,14 +153,30 @@ const galleryImages = [
 ];
 
 const categories = [
+  { id: "gallery", label: "Gallery", icon: Images, color: "text-[hsl(150,70%,55%)]" },
   { id: "moments", label: "Moments", icon: Heart, color: "text-[hsl(235,85%,65%)]" },
-  { id: "activities", label: "Activities", icon: Zap, color: "text-[hsl(275,85%,70%)]" },
-  { id: "gallery", label: "Gallery", icon: Images, color: "text-[hsl(150,70%,55%)]" }
+  { id: "activities", label: "Activities", icon: Zap, color: "text-[hsl(275,85%,70%)]" }
 ];
 
 export default function LifeAtRG() {
-  const [activeCategory, setActiveCategory] = useState("moments");
+  const [activeCategory, setActiveCategory] = useState("gallery");
   const [currentMoment, setCurrentMoment] = useState(0);
+  const [galleryModalOpen, setGalleryModalOpen] = useState(false);
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
+
+  // Only preload adjacent images for modal navigation
+  useEffect(() => {
+    if (galleryModalOpen) {
+      const next = (selectedGalleryIndex + 1) % galleryImages.length;
+      const prev = (selectedGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+      
+      const img1 = new Image();
+      img1.src = galleryImages[next].src;
+      
+      const img2 = new Image();
+      img2.src = galleryImages[prev].src;
+    }
+  }, [galleryModalOpen, selectedGalleryIndex]);
 
   const nextMoment = () => {
     setCurrentMoment((prev) => (prev + 1) % moments.length);
@@ -153,6 +184,19 @@ export default function LifeAtRG() {
 
   const prevMoment = () => {
     setCurrentMoment((prev) => (prev - 1 + moments.length) % moments.length);
+  };
+
+  const nextGalleryImage = () => {
+    setSelectedGalleryIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const prevGalleryImage = () => {
+    setSelectedGalleryIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  const openGalleryModal = (index: number) => {
+    setSelectedGalleryIndex(index);
+    setGalleryModalOpen(true);
   };
 
   return (
@@ -367,42 +411,29 @@ export default function LifeAtRG() {
           )}
 
           {activeCategory === "gallery" && (
-            <motion.div
+            <div
               key="gallery"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]"
             >
-              <h2 className="font-russo text-3xl text-center mb-12 gradient-text">
-                Gallery
-              </h2>
-              <div className="grid md:grid-cols-4 gap-4">
-                {galleryImages.map((image, index) => (
-                  <motion.div
+              {galleryImages.map((image, index) => {
+                const spans = index % 7 === 0 ? "sm:col-span-2 sm:row-span-2" : index % 5 === 2 ? "row-span-2" : "";
+                
+                return (
+                  <div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ 
-                      opacity: 1, 
-                      scale: 1,
-                      transition: { duration: 0.3, delay: index * 0.05 }
-                    }}
-                    whileHover={{ 
-                      scale: 1.05, 
-                      y: -5,
-                      transition: { duration: 0.2, delay: 0 }
-                    }}
-                    className="card-hover cursor-pointer relative w-full h-48 bg-gray-800/50 rounded-xl overflow-hidden"
+                    className={`cursor-pointer relative w-full h-full rounded-xl overflow-hidden bg-gray-700 ${spans}`}
+                    onClick={() => openGalleryModal(index)}
                   >
-                    <ImageWithLoader
+                    <img
                       src={image.src}
-                      alt={`Gallery image ${index + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      alt={`Gallery ${index}`}
+                      decoding="async"
+                      className="w-full h-full object-cover"
                     />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </AnimatePresence>
 
@@ -493,6 +524,64 @@ export default function LifeAtRG() {
           </GlassmorphismCard>
         </motion.div>
       </div>
+
+      {/* Gallery Modal */}
+      <AnimatePresence>
+        {galleryModalOpen && (
+          <Dialog open={galleryModalOpen} onOpenChange={setGalleryModalOpen}>
+            <DialogContent className="max-w-6xl max-h-[90vh] bg-black/95 border border-white/10 p-0 overflow-hidden fixed">
+              <div className="relative w-full h-[80vh] flex items-center justify-center">
+                {/* Close Button */}
+                <button
+                  onClick={() => setGalleryModalOpen(false)}
+                  className="absolute top-4 right-4 z-50 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200 backdrop-blur-sm"
+                >
+                  <X size={24} className="text-white" />
+                </button>
+
+                {/* Main Image */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative w-full h-full flex items-center justify-center p-8"
+                >
+                  <img
+                    src={galleryImages[selectedGalleryIndex].src}
+                    alt={`Gallery image ${selectedGalleryIndex + 1}`}
+                    className="max-w-full max-h-full object-contain rounded-xl"
+                  />
+                </motion.div>
+
+                {/* Navigation Buttons */}
+                <motion.button
+                  onClick={prevGalleryImage}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="absolute left-4 p-3 bg-white/10 hover:bg-[hsl(235,85%,65%)]/50 rounded-full transition-all duration-200 backdrop-blur-sm z-40"
+                >
+                  <ChevronLeft size={24} className="text-white" />
+                </motion.button>
+
+                <motion.button
+                  onClick={nextGalleryImage}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="absolute right-4 p-3 bg-white/10 hover:bg-[hsl(235,85%,65%)]/50 rounded-full transition-all duration-200 backdrop-blur-sm z-40"
+                >
+                  <ChevronRight size={24} className="text-white" />
+                </motion.button>
+
+                {/* Image Counter */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full text-white font-semibold text-sm">
+                  {selectedGalleryIndex + 1} / {galleryImages.length}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
