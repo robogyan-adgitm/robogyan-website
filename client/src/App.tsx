@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,16 +12,22 @@ import Team from "@/pages/team";
 import Projects from "@/pages/projects";
 import Events from "@/pages/events";
 import Alumni from "@/pages/alumni";
+import AlumniBatch from "@/pages/alumni-batch";
 import LifeAtRG from "@/pages/life-at-rg";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  const [location] = useLocation();
+  
+  // Hide navbar on alumni batch pages (e.g., /alumni/2024-25)
+  const isAlumniBatchPage = /^\/alumni\/[^/]+$/.test(location);
+
   return (
     <div className="min-h-screen relative">
       <ScrollToTop />
       <ParticleBackground />
-      <Navbar />
+      {!isAlumniBatchPage && <Navbar />}
       <main className="relative z-10">
         <Switch>
           <Route path="/" component={Home} />
@@ -29,6 +35,7 @@ function Router() {
           <Route path="/projects" component={Projects} />
           <Route path="/events" component={Events} />
           <Route path="/alumni" component={Alumni} />
+          <Route path="/alumni/:year" component={AlumniBatch} />
           <Route path="/life-at-rg" component={LifeAtRG} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
