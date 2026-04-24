@@ -20,6 +20,10 @@ const getLegacyMessage = (year: string) => {
 export default function AlumniBatch() {
   const { year } = useParams<{ year: string }>();
 
+  // Debug logging
+  console.log("URL year parameter:", year);
+  console.log("Available batches:", alumniBatches.map(b => b.year));
+
   // Find the batch data
   const batch = alumniBatches.find((b) => b.year === year);
 
