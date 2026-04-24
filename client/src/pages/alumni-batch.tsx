@@ -20,10 +20,6 @@ const getLegacyMessage = (year: string) => {
 export default function AlumniBatch() {
   const { year } = useParams<{ year: string }>();
 
-  // Debug logging
-  console.log("URL year parameter:", year);
-  console.log("Available batches:", alumniBatches.map(b => b.year));
-
   // Find the batch data
   const batch = alumniBatches.find((b) => b.year === year);
 
@@ -98,7 +94,7 @@ export default function AlumniBatch() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="w-full h-80 rounded-lg overflow-hidden mb-12 shadow-2xl shadow-[hsl(235,85%,65%,0.3)]"
+              className="w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden mb-8 sm:mb-12 shadow-2xl shadow-[hsl(235,85%,65%,0.3)]"
             >
               <ImageWithLoader
                 src={batch.image}
@@ -126,7 +122,7 @@ export default function AlumniBatch() {
           </div>
 
           {/* Members Grid */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {batch.members.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -135,17 +131,17 @@ export default function AlumniBatch() {
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 className="group"
               >
-                <GlassmorphismCard className="p-6 h-full hover:shadow-lg hover:shadow-[hsl(235,85%,65%,0.4)] transition-all duration-300 relative overflow-hidden">
+                <GlassmorphismCard className="p-4 sm:p-6 h-full hover:shadow-lg hover:shadow-[hsl(235,85%,65%,0.4)] transition-all duration-300 relative overflow-hidden">
                   {/* Gradient background on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[hsl(235,85%,65%,0.05)] to-[hsl(275,85%,70%,0.05)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                   <div className="relative z-10">
                     {/* Member Header with Image */}
-                    <div className="flex gap-4 mb-6">
+                    <div className="flex gap-3 sm:gap-4 mb-4 sm:mb-6">
                       <motion.div
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.3 }}
-                        className="w-24 h-24 rounded-full border-2 border-[hsl(235,85%,65%)] overflow-hidden flex-shrink-0 shadow-lg shadow-[hsl(235,85%,65%,0.3)]"
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[hsl(235,85%,65%)] overflow-hidden flex-shrink-0 shadow-lg shadow-[hsl(235,85%,65%,0.3)]"
                       >
                         <ImageWithLoader
                           src={member.image}
@@ -155,14 +151,14 @@ export default function AlumniBatch() {
                       </motion.div>
 
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-russo text-lg font-bold text-white mb-1 truncate">
+                        <h3 className="font-russo text-base sm:text-lg font-bold text-white mb-1 truncate">
                           {member.name}
                         </h3>
-                        <p className="text-[hsl(235,85%,65%)] font-orbitron text-sm font-bold mb-2 truncate">
+                        <p className="text-[hsl(235,85%,65%)] font-orbitron text-xs sm:text-sm font-bold mb-1 sm:mb-2 truncate">
                           {member.position}
                         </p>
-                        <div className="space-y-1">
-                          <p className="text-gray-300 text-sm truncate">
+                        <div className="space-y-0.5 sm:space-y-1">
+                          <p className="text-gray-300 text-xs sm:text-sm truncate">
                             {member.currentRole}
                           </p>
                           <p className="text-gray-400 text-xs truncate">
@@ -202,15 +198,15 @@ export default function AlumniBatch() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <GlassmorphismCard className="p-8 sm:p-12 relative overflow-hidden">
+          <GlassmorphismCard className="p-6 sm:p-8 md:p-12 relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-[hsl(235,85%,65%,0.1)] rounded-full blur-xl"></div>
             <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-[hsl(275,85%,70%,0.1)] rounded-full blur-xl"></div>
 
             <div className="relative z-10">
-              <p className="text-gray-300 text-lg sm:text-xl leading-relaxed mb-4">
+              <p className="text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed mb-4">
                 {getLegacyMessage(batch.year)}
               </p>
-              <p className="text-[hsl(235,85%,65%)] font-orbitron font-semibold italic">
+              <p className="text-[hsl(235,85%,65%)] font-orbitron font-semibold italic text-sm sm:text-base">
                 Their legacy continues through every project, every achievement, and every member who follows.
               </p>
             </div>

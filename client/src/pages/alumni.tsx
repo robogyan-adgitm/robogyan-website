@@ -64,7 +64,7 @@ export default function Alumni() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="relative mb-20"
+              className="relative mb-12 sm:mb-16 lg:mb-20"
             >
               {/* Year Badge */}
               <div className="flex justify-center mb-8 lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-4 lg:z-10">
@@ -74,12 +74,12 @@ export default function Alumni() {
               </div>
 
               {/* Content */}
-              <div className={`flex flex-col lg:flex-row items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 mt-8`}>
+              <div className={`flex flex-col lg:flex-row items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-4 sm:gap-6 lg:gap-8 mt-4 sm:mt-6 lg:mt-8`}>
                 <div className="w-full lg:w-1/2">
                   <GlassmorphismCard className="p-4 sm:p-6 md:p-8">
                     {batch.image ? (
                       <motion.div
-                        className="w-full h-64 rounded-lg mb-6 overflow-hidden relative"
+                        className="w-full h-48 sm:h-56 md:h-64 rounded-lg mb-4 sm:mb-6 overflow-hidden relative"
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
                       >
@@ -92,7 +92,7 @@ export default function Alumni() {
                     ) : (
                       // Placeholder for missing images
                       <motion.div
-                        className="w-full h-64 bg-gradient-to-br from-[hsl(235,85%,65%,0.1)] to-[hsl(275,85%,70%,0.1)] rounded-lg mb-6 flex flex-col items-center justify-center border-2 border-dashed border-[hsl(235,85%,65%,0.3)]"
+                        className="w-full h-48 sm:h-56 md:h-64 bg-gradient-to-br from-[hsl(235,85%,65%,0.1)] to-[hsl(275,85%,70%,0.1)] rounded-lg mb-4 sm:mb-6 flex flex-col items-center justify-center border-2 border-dashed border-[hsl(235,85%,65%,0.3)]"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.3 }}
                       >
@@ -123,14 +123,14 @@ export default function Alumni() {
                         </div>
                       </motion.div>
                     )}
-                    <h3 className="font-orbitron text-xl sm:text-2xl font-bold mb-4 gradient-text">
+                    <h3 className="font-orbitron text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 gradient-text">
                       {batch.subtitle}
                     </h3>
-                    <p className="text-gray-300 mb-6">{batch.description}</p>
+                    <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">{batch.description}</p>
                     
                     {/* Achievements */}
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-3">Key Achievements</h4>
+                    <div className="mb-4 sm:mb-6">
+                      <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Key Achievements</h4>
                       <div className="space-y-2">
                         {batch.achievements.map((achievement, idx) => (
                           <div key={idx} className="flex items-center space-x-2">

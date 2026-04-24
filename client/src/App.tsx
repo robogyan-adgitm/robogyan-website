@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
@@ -18,7 +18,7 @@ import LifeAtRG from "@/pages/life-at-rg";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
-function Router() {
+function RouterContent() {
   const [location] = useHashLocation();
   
   // Hide navbar on alumni batch pages (e.g., /#/alumni/2024-25)
@@ -52,7 +52,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <Router base="">
+          <RouterContent />
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
