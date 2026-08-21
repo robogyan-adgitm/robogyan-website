@@ -118,30 +118,12 @@ const latestAchievements = [
   {
     icon: Trophy,
     title: "Smart India Hackathon",
-    subtitle: "National Winner",
-    description: "Developed an AI-powered IoT solution for smart irrigation and aggriculture, impressing judges with a cost effective real-world implementation.",
+    subtitle: "2× National Winners & 4× Finalists",
+    description: "Robogyan has a legacy of winning the SIH Grand Finale twice and qualifying as national finalists 4 times, developing pathbreaking AI and IoT innovations.",
     date: "Dec 2025",
     image: "/images/events/sihWin.JPG",
     gradient: "from-blue-400 to-cyan-500",
   }
-  // {
-  //   icon: Zap,
-  //   title: "Innovation Challenge",
-  //   subtitle: "Best Project Award",
-  //   description: "Recognized for groundbreaking work in assistive robotics, creating solutions for differently-abled individuals.",
-  //   date: "Jan 2024",
-  //   image: "/images/events/innovation.jpg",
-  //   gradient: "from-red-400 to-rose-500",
-  // },
-  // {
-  //   icon: Star,
-  //   title: "National Robotics Fest",
-  //   subtitle: "Championship",
-  //   description: "Emerged victorious among 100+ teams with our advanced line-following and obstacle-avoidance robot.",
-  //   date: "Nov 2023",
-  //   image: "/images/events/robotfest.jpg",
-  //   gradient: "from-indigo-400 to-violet-500",
-  // },
 ];
 
 export default function Home() {
@@ -206,6 +188,59 @@ export default function Home() {
                 Join Now
               </Button>
             </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SIH Spotlight Banner */}
+      <section className="py-10 px-6">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <GlassmorphismCard className="p-8 md:p-10 border border-[hsl(235,85%,65%,0.5)] bg-gradient-to-r from-[hsl(235,85%,65%,0.15)] via-black/80 to-[hsl(275,85%,70%,0.15)] relative overflow-hidden shadow-2xl shadow-[hsl(235,85%,65%,0.15)]">
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8 space-y-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge className="bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)]">
+                      Internal Hackathon Live
+                    </Badge>
+                    <Badge className="bg-yellow-500/20 text-yellow-300 border border-yellow-400/30">
+                      Top 45 + 5 Teams Nomination
+                    </Badge>
+                  </div>
+                  <h3 className="font-russo text-2xl sm:text-4xl font-bold">
+                    Smart India Hackathon 2026 - <span className="gradient-text">Internal Round</span>
+                  </h3>
+                  <p className="text-gray-300 font-inter text-base max-w-2xl leading-relaxed">
+                    Robogyan is organizing the official Internal Hackathon. Explore problem statements, test team eligibility, download the official 6-slide PPT template, and get nominated for the national stage!
+                  </p>
+                </div>
+                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+                  <Link href="/sih">
+                    <Button
+                      size="lg"
+                      className="w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    >
+                      Explore SIH 2026 Portal
+                    </Button>
+                  </Link>
+                  <a href="https://forms.gle/dPrERb8Ju79s5pg6A">
+                    <Button
+                      variant="outline"
+                      className="w-full glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white py-6 rounded-xl flex items-center justify-center gap-2"
+                    >
+                      <Zap size={20} className="text-yellow-300" />
+                      Register Now
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </GlassmorphismCard>
           </motion.div>
         </div>
       </section>
@@ -336,10 +371,10 @@ export default function Home() {
             className="text-center mb-12"
           >
             <motion.div
-              animate={{ 
+              animate={{
                 rotate: [0, 10, -10, 10, 0],
               }}
-              transition={{ 
+              transition={{
                 duration: 2,
                 repeat: Infinity,
                 repeatDelay: 3
@@ -365,7 +400,7 @@ export default function Home() {
             <GlassmorphismCard className="p-6 md:p-8">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 {/* Image Section */}
-                <motion.div 
+                <motion.div
                   key={`image-${currentAchievement}`}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -377,10 +412,10 @@ export default function Home() {
                     alt={latestAchievements[currentAchievement].title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  
+
                   {/* Floating Icon */}
                   <motion.div
-                    animate={{ 
+                    animate={{
                       y: [0, -10, 0],
                       rotate: [0, 5, -5, 0]
                     }}
@@ -401,7 +436,7 @@ export default function Home() {
                     })()}
                   </motion.div>
                 </motion.div>
-                
+
                 {/* Content Section */}
                 <motion.div
                   key={`content-${currentAchievement}`}
@@ -414,33 +449,33 @@ export default function Home() {
                       {latestAchievements[currentAchievement].date}
                     </Badge>
                     <motion.div
-                      animate={{ 
+                      animate={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 180, 360]
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 2,
-                        repeat: Infinity 
+                        repeat: Infinity
                       }}
                     >
                       <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
                     </motion.div>
                   </div>
-                  
+
                   <h4 className="font-orbitron text-2xl md:text-3xl font-bold mb-3 text-white">
                     {latestAchievements[currentAchievement].title}
                   </h4>
-                  
+
                   <p className={`text-lg md:text-xl font-semibold mb-4 bg-gradient-to-r ${latestAchievements[currentAchievement].gradient} bg-clip-text text-transparent`}>
                     🏆 {latestAchievements[currentAchievement].subtitle}
                   </p>
-                  
+
                   <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
                     {latestAchievements[currentAchievement].description}
                   </p>
                 </motion.div>
               </div>
-              
+
               {/* Navigation Controls */}
               <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-700">
                 <Button
@@ -452,23 +487,22 @@ export default function Home() {
                   <ChevronLeft size={24} className="mr-1" />
                   Previous
                 </Button>
-                
+
                 {/* Dot Indicators */}
                 <div className="flex space-x-2">
                   {latestAchievements.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentAchievement(index)}
-                      className={`transition-all rounded-full ${
-                        index === currentAchievement
-                          ? "w-8 h-3 bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)]"
-                          : "w-3 h-3 bg-gray-500 hover:bg-gray-400"
-                      }`}
+                      className={`transition-all rounded-full ${index === currentAchievement
+                        ? "w-8 h-3 bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)]"
+                        : "w-3 h-3 bg-gray-500 hover:bg-gray-400"
+                        }`}
                       aria-label={`Go to achievement ${index + 1}`}
                     />
                   ))}
                 </div>
-                
+
                 <Button
                   onClick={nextAchievement}
                   variant="ghost"
@@ -521,7 +555,7 @@ export default function Home() {
                       {project.category}
                     </Badge>
                     <Link href="/projects">
-                      <Button 
+                      <Button
                         variant="ghost"
                         size="sm"
                         className="text-[hsl(220,70%,55%)] hover:text-white p-0"
@@ -576,8 +610,8 @@ export default function Home() {
                   </GlassmorphismCard>
                 </motion.div>
               ))}
-              
-              
+
+
             </div>
           </div>
           <div className="text-center">

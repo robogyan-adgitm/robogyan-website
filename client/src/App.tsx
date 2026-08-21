@@ -15,6 +15,7 @@ import Events from "@/pages/events";
 import Alumni from "@/pages/alumni";
 import AlumniBatch from "@/pages/alumni-batch";
 import LifeAtRG from "@/pages/life-at-rg";
+import SIH from "@/pages/sih";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
@@ -32,6 +33,7 @@ function RouterContent() {
       <main className="relative z-10">
         <Switch>
           <Route path="/" component={Home} />
+          <Route path="/sih" component={SIH} />
           <Route path="/team" component={Team} />
           <Route path="/projects" component={Projects} />
           <Route path="/events" component={Events} />

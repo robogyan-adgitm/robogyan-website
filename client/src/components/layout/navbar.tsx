@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "SIH 2026", href: "/sih", badge: "Live" },
   { label: "Team", href: "/team" },
   { label: "Projects", href: "/projects" },
   { label: "Events", href: "/events" },
@@ -44,11 +45,10 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "glassmorphism" 
-          : "bg-black/30 backdrop-blur-sm border-b border-white/10"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "glassmorphism"
+        : "bg-black/30 backdrop-blur-sm border-b border-white/10"
+        }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
@@ -63,19 +63,23 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex space-x-8">
+        <div className="hidden lg:flex items-center space-x-7">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 onClick={() => handleNavClick(item.href)}
-                className={`nav-item cursor-pointer transition-colors ${
-                  location === item.href
-                    ? "text-[hsl(235,85%,65%)] active"
-                    : "text-white hover:text-[hsl(235,85%,65%)]"
-                }`}
+                className={`nav-item flex items-center gap-1.5 cursor-pointer transition-colors ${location === item.href
+                  ? "text-[hsl(235,85%,65%)] active"
+                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                  }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {item.badge && (
+                  <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-full bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)] animate-pulse">
+                    {item.badge}
+                  </span>
+                )}
               </motion.div>
             </Link>
           ))}
@@ -107,13 +111,17 @@ export default function Navbar() {
                   setIsOpen(false);
                   handleNavClick(item.href);
                 }}
-                className={`block py-2 cursor-pointer transition-colors ${
-                  location === item.href
-                    ? "text-[hsl(235,85%,65%)]"
-                    : "text-white hover:text-[hsl(235,85%,65%)]"
-                }`}
+                className={`flex items-center justify-between py-2 cursor-pointer transition-colors ${location === item.href
+                  ? "text-[hsl(235,85%,65%)]"
+                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                  }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {item.badge && (
+                  <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)]">
+                    {item.badge}
+                  </span>
+                )}
               </motion.div>
             </Link>
           ))}
