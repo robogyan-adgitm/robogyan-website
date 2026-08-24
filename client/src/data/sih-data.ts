@@ -48,10 +48,10 @@ export const sihOverview = {
   college: "Dr. Akhilesh Das Gupta Institute of Professional Studies (ADGIPS)",
   organizer: "ROBOGYAN - The Official Robotics & Technical Society",
   registrationStatus: "Registrations Open",
-  registrationUrl: "", // or college form
+  registrationUrl: "https://forms.gle/kEmSCYoau2PUdWf18", // or college form
   officialPortalUrl: "https://www.sih.gov.in",
-  officialPSUrl: "https://www.sih.gov.in/sih2025PS",
-  pptTemplateUrl: "https://www.sih.gov.in/letters/SIH2025-IDEA-Presentation-Format.pptx",
+  officialPSUrl: "https://www.sih.gov.in/sih2026PS",
+  pptTemplateUrl: "https://www.sih.gov.in/letters/SIH2026-IDEA-Presentation-Format.pptx",
   nominationQuota: "45 Selected Teams + 5 Waitlisted Teams",
   nationalPrize: "₹1,00,000 – ₹1,50,000 per Problem Statement",
   legacy: {
@@ -61,25 +61,84 @@ export const sihOverview = {
   },
 };
 
+export interface SIHWinnerStory {
+  id: string;
+  teamName: string;
+  edition: string;
+  standing: string;
+  badge: string;
+  badgeColor: string;
+  title: string;
+  description: string;
+  award: string;
+  image: string;
+  gradient: string;
+  highlights: string[];
+}
+
+export const sihWinnerStories: SIHWinnerStory[] = [
+  {
+    id: "thinktronics-2025",
+    teamName: "The Thinktronics",
+    edition: "SIH 2025",
+    standing: "National Grand Finale Winners",
+    badge: "1st Prize National Champion",
+    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-400/40",
+    title: "Smart India Hackathon 2025 Champions",
+    description: "Robogyan's team took 1st place at the National Grand Finale, engineering a smart AI & IoT-based solution for official government problem statements and winning top honors from the jury.",
+    award: "National Grand Finale Winners",
+    image: "/images/sih/sihWinnersRG25.JPG",
+    gradient: "from-emerald-400 to-cyan-500",
+    highlights: ["1st Prize Winner", "AI & IoT Smart System", "Ministry Accolades"],
+  },
+  {
+    id: "skylink-2025",
+    teamName: "Team Skylink",
+    edition: "SIH 2025",
+    standing: "National Grand Finale Winners",
+    badge: "1st Prize National Champion",
+    badgeColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/40",
+    title: "Smart India Hackathon 2025 Champions",
+    description: "Demonstrated exceptional technical mastery and system integration, overcoming fierce pan-India competition at the national nodal center to claim the prestigious national championship.",
+    award: "National Grand Finale Winners",
+    image: "/images/sih/sihWinner25.jpeg",
+    gradient: "from-yellow-400 to-amber-500",
+    highlights: ["1st Prize Winner", "Advanced Tech Integration", "National Trophy"],
+  },
+  {
+    id: "robogyan-2024-finalists",
+    teamName: "Robogyan Finalists",
+    edition: "SIH 2024",
+    standing: "National Grand Finale Finalists",
+    badge: "National Finalist Team",
+    badgeColor: "bg-purple-500/20 text-purple-300 border-purple-400/40",
+    title: "Smart India Hackathon 2024 Finalists",
+    description: "Represented ADGIPS on the national platform, persevering through rounds and showcasing working hardware-software prototypes before jury panels.",
+    award: "National Grand Finalist",
+    image: "/images/sih/sih2024Finalists.JPG",
+    gradient: "from-purple-400 to-indigo-500",
+    highlights: ["National Finalists", "Hardware-Software Prototypes", "National Recognition"],
+  },
+];
+
 export const sihTimeline: TimelinePhase[] = [
   {
     phase: "Phase 1",
-    title: "Team Formation & Problem Statement Release",
-    date: "August - September 2026",
-    status: "Live",
-    description: "Explore official SIH themes and problem statements to be released on the national portal. Form a compliant 6-member team.",
+    title: "Event Announcement & Problem Statement Release",
+    date: "August 2026",
+    status: "Completed",
+    description: "SIH Internal Hackathon announced in college! Explore official SIH themes and problem statements to be released on the national portal.",
     details: [
-      "Browse official Problem Statements",
-      "Form a team of exactly 6 students (all from ADGIPS).",
-      "Ensure at least 1 female member is in the team (mandatory rule).",
+      "Official announcement from college.",
+      "Browse official Problem Statements from SIH Website.",
       "Choose between Software or Hardware track.",
     ],
   },
   {
     phase: "Phase 2",
     title: "Internal Registration & Idea PPT Submission",
-    date: "September 2026",
-    status: "Upcoming",
+    date: "August - September 2026",
+    status: "Live",
     description: "Submit your team registration form and upload your idea presentation using the official SIH PPT template.",
     details: [
       "Download the official SIH Idea Presentation format.",
@@ -90,7 +149,7 @@ export const sihTimeline: TimelinePhase[] = [
   {
     phase: "Phase 3",
     title: "ADGIPS Internal Hackathon",
-    date: "Mid September 2026",
+    date: "11th & 12th September 2026",
     status: "Upcoming",
     description: "Live pitch and demonstration before an expert jury of industry professionals and experts.",
     details: [

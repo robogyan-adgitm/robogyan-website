@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -38,12 +38,16 @@ import {
   MessageSquare,
   Flame as FireIcon,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Star,
   Layers,
   Presentation,
   Compass,
   Zap,
   Target,
   FileSpreadsheet,
+  CalendarDays,
 } from "lucide-react";
 import {
   sihOverview,
@@ -52,6 +56,7 @@ import {
   sampleProblemStatements,
   pptSlideGuides,
   sihFAQs,
+  sihWinnerStories,
   ProblemStatement,
 } from "@/data/sih-data";
 
@@ -119,6 +124,42 @@ export default function SIHPage() {
     return sihFAQs.filter((faq) => faq.category === faqCategory);
   }, [faqCategory]);
 
+  // State for SIH Track Record Winner Stories Carousel
+  const [currentWinnerStory, setCurrentWinnerStory] = useState(0);
+
+  // Auto-advance winner story every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentWinnerStory((prev) => (prev + 1) % sihWinnerStories.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextWinnerStory = () => {
+    setCurrentWinnerStory((prev) => (prev + 1) % sihWinnerStories.length);
+  };
+
+  const prevWinnerStory = () => {
+    setCurrentWinnerStory((prev) => (prev - 1 + sihWinnerStories.length) % sihWinnerStories.length);
+  };
+
+  // Smooth scroll handler with header offset
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const navOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      window.history.pushState(null, "", `#${id}`);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-24 px-4 sm:px-6 lg:px-8 text-white relative">
       <div className="container mx-auto max-w-7xl">
@@ -159,6 +200,84 @@ export default function SIHPage() {
             Your official gateway to the world's biggest innovation movement. Compete in the ADGIPS Internal Hackathon organized by <strong className="text-white font-semibold">ROBOGYAN</strong> to get nominated for the national stage!
           </motion.p>
 
+          {/* Internal Hackathon Dates Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="my-10 sm:my-12 max-w-5xl mx-auto px-2 sm:px-4"
+          >
+            <div className="relative group p-[1px] rounded-3xl bg-gradient-to-r from-[hsl(235,85%,65%,0.6)] via-[hsl(275,85%,70%,0.6)] to-[hsl(150,100%,50%,0.6)] shadow-2xl shadow-[hsl(235,85%,65%,0.2)]">
+              {/* Ambient Neon Glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(235,85%,65%,0.3)] via-[hsl(275,85%,70%,0.3)] to-[hsl(150,100%,50%,0.3)] rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+
+              <div className="relative rounded-3xl bg-black/90 backdrop-blur-xl border border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
+                {/* Subtle Background Lighting */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[hsl(275,85%,70%,0.1)] rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[hsl(235,85%,65%,0.1)] rounded-full blur-3xl pointer-events-none" />
+
+                {/* Header Sub-bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded-xl bg-[hsl(235,85%,65%,0.2)] text-cyan-400 border border-cyan-400/20 shadow-inner">
+                      <CalendarDays size={20} />
+                    </div>
+                    <div>
+                      <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-gray-200 font-orbitron block">
+                        Internal Hackathon Dates Announced
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dates Dual Highlight */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 items-stretch gap-4 sm:gap-6 my-4">
+                  {/* Day 1: 11 September */}
+                  <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(235,85%,65%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
+                    <span className="text-xs sm:text-sm font-mono font-semibold text-cyan-400 tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
+                      Friday • Day 01
+                    </span>
+                    <div className="text-5xl sm:text-6xl md:text-7xl font-black font-orbitron tracking-tight bg-gradient-to-b from-white via-cyan-200 to-[hsl(235,85%,65%)] bg-clip-text text-transparent my-1">
+                      11
+                    </div>
+                    <span className="text-sm sm:text-base font-bold font-inter tracking-widest text-gray-200 uppercase">
+                      September
+                    </span>
+                  </div>
+
+                  {/* Day 2: 12 September */}
+                  <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(275,85%,70%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
+                    <span className="text-xs sm:text-sm font-mono font-semibold text-[hsl(275,85%,70%)] tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-[hsl(275,85%,70%,0.1)] border border-[hsl(275,85%,70%,0.2)]">
+                      Saturday • Day 02
+                    </span>
+                    <div className="text-5xl sm:text-6xl md:text-7xl font-black font-orbitron tracking-tight bg-gradient-to-b from-white via-purple-200 to-[hsl(275,85%,70%)] bg-clip-text text-transparent my-1">
+                      12
+                    </div>
+                    <span className="text-sm sm:text-base font-bold font-inter tracking-widest text-gray-200 uppercase">
+                      September
+                    </span>
+                  </div>
+                </div>
+
+                {/* Subtext Highlights */}
+                <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-gray-400 font-medium">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[hsl(150,100%,50%)] animate-pulse" />
+                    Offline Presentation &amp; Pitching
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                    Live Jury Evaluation
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
+                    Nomination for SIH 2026 Portal
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Key Quick CTAs */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -176,7 +295,7 @@ export default function SIHPage() {
               </Button>
             </a>
 
-            <a href="#ppt-guide">
+            <a href="#ppt-guide" onClick={(e) => scrollToSection(e, "ppt-guide")}>
               <Button
                 size="lg"
                 variant="outline"
@@ -246,109 +365,167 @@ export default function SIHPage() {
 
         {/* ================= ROBOGYAN LEGACY & WINNING TRACK RECORD ================= */}
         <section className="mb-24">
-          <GlassmorphismCard className="p-8 md:p-12 relative overflow-hidden border border-white/15 bg-gradient-to-br from-black/80 via-[hsl(240,10%,6%)] to-[hsl(235,50%,10%)]">
-            <div className="absolute -right-16 -bottom-16 w-80 h-80 bg-[hsl(235,85%,65%,0.1)] rounded-full blur-2xl pointer-events-none" />
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 mb-3 px-3 py-1 text-xs font-semibold">
+              <Trophy size={14} className="mr-1.5 text-yellow-400 inline" />
+              Proven Track Record of Excellence
+            </Badge>
+            <h2 className="font-russo text-3xl sm:text-5xl font-bold mb-4">
+              SIH Hall of Fame &amp; <span className="gradient-text">National Champions</span>
+            </h2>
+            <p className="text-gray-300 max-w-3xl mx-auto font-inter text-base sm:text-lg leading-relaxed">
+              At ADGIPS, Robogyan isn't just organizing the internal hackathon — our members have consistently conquered the national stage as <strong className="text-white font-semibold">2× SIH National Grand Finale Winners</strong> and <strong className="text-white font-semibold">4× Grand Finalists</strong>.
+            </p>
+          </div>
 
-            <div className="grid lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-6 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm font-semibold">
-                  <Trophy size={16} />
-                  <span>Proven Track Record of Excellence</span>
+          {/* Auto-Scrolling Achievement Showcase Card */}
+          <GlassmorphismCard className="p-6 sm:p-10 md:p-12 relative overflow-hidden border border-white/15 bg-gradient-to-br from-black/90 via-[hsl(240,10%,6%)] to-[hsl(235,50%,10%)] shadow-2xl">
+            <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-[hsl(235,85%,65%,0.15)] rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -top-20 w-96 h-96 bg-[hsl(275,85%,70%,0.12)] rounded-full blur-3xl pointer-events-none" />
+
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+              {/* Left Column: Story Details */}
+              <motion.div
+                key={`story-info-${currentWinnerStory}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="lg:col-span-6 space-y-5"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  <Badge className={`bg-gradient-to-r ${sihWinnerStories[currentWinnerStory].gradient} text-black font-bold font-mono px-3 py-1 text-xs shadow-md`}>
+                    {sihWinnerStories[currentWinnerStory].edition}
+                  </Badge>
+                  <Badge className={`${sihWinnerStories[currentWinnerStory].badgeColor} border text-xs font-semibold px-3 py-1 flex items-center gap-1.5`}>
+                    <Trophy size={13} className="shrink-0" />
+                    <span>{sihWinnerStories[currentWinnerStory].badge}</span>
+                  </Badge>
                 </div>
 
-                <h2 className="font-russo text-3xl md:text-4xl font-bold leading-tight">
-                  Learn & Compete with <span className="gradient-text">2× SIH National Champions</span>
-                </h2>
+                <div>
+                  <span className="text-xs uppercase tracking-widest text-gray-400 font-mono block mb-1">
+                    {sihWinnerStories[currentWinnerStory].standing}
+                  </span>
+                  <h3 className="font-russo text-3xl sm:text-4xl text-white font-bold tracking-tight">
+                    {sihWinnerStories[currentWinnerStory].teamName}
+                  </h3>
+                  <p className={`text-base sm:text-lg font-semibold mt-1 bg-gradient-to-r ${sihWinnerStories[currentWinnerStory].gradient} bg-clip-text text-transparent`}>
+                    {sihWinnerStories[currentWinnerStory].title}
+                  </p>
+                </div>
 
-                <p className="text-gray-300 font-inter leading-relaxed text-base md:text-lg">
-                  At ADGIPS, Robogyan isn't just organizing the internal hackathon - our members have represented the college on the national stage, emerging as <strong className="text-white">SIH Grand Finale National Winners twice</strong> and reaching the Grand Finale as <strong className="text-white">National Finalists 4 times</strong>.
+                <p className="text-gray-300 font-inter leading-relaxed text-sm sm:text-base">
+                  {sihWinnerStories[currentWinnerStory].description}
                 </p>
 
-                <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
-                    <Award className="text-[hsl(150,100%,50%)] shrink-0 mt-1" size={22} />
-                    <div>
-                      <div className="font-bold font-orbitron text-white text-base">2 National Victories</div>
-                      <div className="text-xs text-gray-400">Winning cash prizes & nationwide government recognition</div>
+                {/* Prize / Award Callout */}
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-yellow-500/20 text-yellow-300 shrink-0">
+                    <Award size={22} />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-400 uppercase tracking-wider font-mono">Recognition &amp; Prize</div>
+                    <div className="text-sm sm:text-base font-bold text-white font-orbitron">
+                      {sihWinnerStories[currentWinnerStory].award}
                     </div>
                   </div>
+                </div>
 
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
-                    <Compass className="text-[hsl(275,85%,70%)] shrink-0 mt-1" size={22} />
-                    <div>
-                      <div className="font-bold font-orbitron text-white text-base">Direct Mentorship</div>
-                      <div className="text-xs text-gray-400">Architecture reviews & pitch prep from past finalists</div>
-                    </div>
-                  </div>
+                {/* Highlight Pills */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {sihWinnerStories[currentWinnerStory].highlights.map((highlight, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-gray-300 flex items-center gap-1.5"
+                    >
+                      <CheckCircle2 size={13} className="text-[hsl(150,100%,50%)]" />
+                      {highlight}
+                    </span>
+                  ))}
                 </div>
 
                 <div className="pt-2">
-                  <a href="#eligibility-checker">
-                    <Button className="bg-[hsl(235,85%,65%)] hover:bg-[hsl(235,85%,55%)] text-white font-semibold rounded-lg flex items-center gap-2">
-                      Check Your Team Eligibility
+                  <a href="#eligibility-checker" onClick={(e) => scrollToSection(e, "eligibility-checker")}>
+                    <Button className="bg-[hsl(235,85%,65%)] hover:bg-[hsl(235,85%,55%)] text-white font-semibold rounded-xl flex items-center gap-2 px-6 py-5">
+                      <span>Check Your Team Eligibility</span>
                       <ArrowRight size={16} />
                     </Button>
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Photos Showcase */}
-              <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="col-span-2 h-56 md:h-64 rounded-xl overflow-hidden relative card-hover border border-white/15 shadow-2xl"
-                >
+              {/* Right Column: Photo Showcase */}
+              <motion.div
+                key={`story-photo-${currentWinnerStory}`}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="lg:col-span-6"
+              >
+                <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/40 group aspect-[4/3] sm:aspect-[16/10] w-full">
                   <ImageWithLoader
-                    src="/images/events/sihWin.JPG"
-                    alt="Robogyan SIH Grand Finale Winners"
-                    className="w-full h-full object-cover"
+                    src={sihWinnerStories[currentWinnerStory].image}
+                    alt={sihWinnerStories[currentWinnerStory].teamName}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
-                    <div>
-                      <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 mb-1">
-                        National Grand Finale Victory
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 text-xs font-semibold">
+                        {sihWinnerStories[currentWinnerStory].edition}
                       </Badge>
-                      <div className="text-sm font-semibold text-white">
-                        AI-Powered IoT AgroSmart System
-                      </div>
+                      <span className="text-xs text-gray-300 font-mono">Official Victory Moment</span>
                     </div>
+                    <h4 className="text-lg sm:text-xl font-bold font-russo text-white">
+                      {sihWinnerStories[currentWinnerStory].teamName}
+                    </h4>
+                    <p className="text-xs text-gray-300 line-clamp-1">
+                      {sihWinnerStories[currentWinnerStory].award}
+                    </p>
                   </div>
-                </motion.div>
+                </div>
+              </motion.div>
+            </div>
 
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="h-40 rounded-xl overflow-hidden relative card-hover border border-white/10"
-                >
-                  <ImageWithLoader
-                    src="/images/events/sih25.jpg"
-                    alt="SIH Internal Hackathon 1200+ Participants"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                    <div className="text-xs font-semibold text-white">
-                      1200+ Internal Hackathon Turnout
-                    </div>
-                  </div>
-                </motion.div>
+            {/* Bottom Carousel Controls */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-white/10 relative z-10">
+              <Button
+                onClick={prevWinnerStory}
+                variant="ghost"
+                size="sm"
+                className="text-gray-300 hover:text-white hover:bg-white/10 flex items-center gap-1.5 font-medium"
+              >
+                <ChevronLeft size={18} />
+                <span>Previous</span>
+              </Button>
 
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="h-40 rounded-xl overflow-hidden relative card-hover border border-white/10"
-                >
-                  <ImageWithLoader
-                    src="/images/events/sih24.jpg"
-                    alt="SIH Previous Edition"
-                    className="w-full h-full object-cover"
+              {/* Indicator Pills */}
+              <div className="flex items-center space-x-2">
+                {sihWinnerStories.map((story, index) => (
+                  <button
+                    key={story.id}
+                    onClick={() => setCurrentWinnerStory(index)}
+                    className={`transition-all rounded-full ${index === currentWinnerStory
+                      ? "w-8 h-2.5 bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] shadow-md"
+                      : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
+                      }`}
+                    aria-label={`Go to winner story ${index + 1}`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                    <div className="text-xs font-semibold text-white">
-                      ADGIPS Internal Hackathon
-                    </div>
-                  </div>
-                </motion.div>
+                ))}
               </div>
+
+              <Button
+                onClick={nextWinnerStory}
+                variant="ghost"
+                size="sm"
+                className="text-gray-300 hover:text-white hover:bg-white/10 flex items-center gap-1.5 font-medium"
+              >
+                <span>Next</span>
+                <ChevronRight size={18} />
+              </Button>
             </div>
           </GlassmorphismCard>
+
         </section>
 
         {/* ================= TEAM ELIGIBILITY VALIDATOR ================= */}
@@ -502,7 +679,7 @@ export default function SIHPage() {
                         </Button>
                       </a>
                     ) : (
-                      <a href="#teammate-finder">
+                      <a href="#teammate-finder" onClick={(e) => scrollToSection(e, "teammate-finder")}>
                         <Button variant="outline" className="w-full border-amber-500/40 text-amber-300 hover:bg-amber-500/10 py-5 rounded-xl">
                           Need Help Finding Teammates?
                         </Button>
@@ -518,89 +695,154 @@ export default function SIHPage() {
         {/* ================= SOFTWARE VS HARDWARE TRACKS ================= */}
         <section className="mb-24">
           <div className="text-center mb-12">
+            <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 mb-3 px-3 py-1 text-xs font-semibold">
+              Official SIH Tracks
+            </Badge>
             <h2 className="font-russo text-3xl sm:text-4xl font-bold mb-4">
               Choose Your <span className="gradient-text">Competition Track</span>
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto font-inter">
-              The internal hackathon welcomes ideas across both digital software solutions and physical hardware prototypes.
+            <p className="text-gray-300 max-w-2xl mx-auto font-inter text-base">
+              Smart India Hackathon features 220+ problem statements from Central Ministries and State Departments categorized into two primary technical tracks.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Software Track Card */}
-            <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
-              <GlassmorphismCard className="p-8 h-full border border-[hsl(235,85%,65%,0.3)] bg-gradient-to-b from-[hsl(235,85%,65%,0.05)] to-transparent relative">
-                <div className="w-14 h-14 rounded-2xl bg-[hsl(235,85%,65%,0.2)] border border-[hsl(235,85%,65%,0.4)] flex items-center justify-center text-[hsl(235,85%,65%)] mb-6 shadow-lg shadow-[hsl(235,85%,65%,0.2)]">
-                  <Laptop size={30} />
+            <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="h-full">
+              <GlassmorphismCard className="p-8 h-full border border-[hsl(235,85%,65%,0.3)] bg-gradient-to-b from-[hsl(235,85%,65%,0.08)] to-transparent relative flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-[hsl(235,85%,65%,0.2)] border border-[hsl(235,85%,65%,0.4)] flex items-center justify-center text-cyan-400 shadow-lg shadow-[hsl(235,85%,65%,0.2)]">
+                      <Laptop size={28} />
+                    </div>
+                    <Badge className="bg-cyan-500/10 text-cyan-300 border-cyan-400/30 text-xs font-mono font-bold">
+                      170+ Software PS
+                    </Badge>
+                  </div>
+
+                  <Badge className="bg-[hsl(235,85%,65%,0.2)] text-[hsl(235,85%,65%)] border-[hsl(235,85%,65%,0.4)] mb-3">
+                    Software Innovation Track
+                  </Badge>
+
+                  <h3 className="font-russo text-2xl font-bold mb-3 text-white">
+                    AI, Cloud &amp; Digital Platforms
+                  </h3>
+
+                  <p className="text-gray-300 font-inter mb-6 text-sm leading-relaxed">
+                    Develop full-stack web/mobile platforms, predictive machine learning models, GIS geospatial systems, blockchain ledgers, and intelligent APIs solving challenges from Ministries like Indian Railways, AYUSH, Earth Sciences, and Coal India.
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    <div className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
+                      Key Domains &amp; Technologies:
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "AI / ML & NLP",
+                        "Full-Stack Web / Apps",
+                        "GIS & Geospatial Mapping",
+                        "Predictive Analytics",
+                        "Blockchain & Traceability",
+                        "Cloud & Microservices",
+                      ].map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 text-xs text-gray-300 border border-white/10 font-mono">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <Badge className="bg-[hsl(235,85%,65%,0.2)] text-[hsl(235,85%,65%)] border-[hsl(235,85%,65%,0.4)] mb-3">
-                  Software Track
-                </Badge>
-
-                <h3 className="font-russo text-2xl font-bold mb-3">
-                  Digital & Cloud Solutions
-                </h3>
-
-                <p className="text-gray-300 font-inter mb-6 text-sm leading-relaxed">
-                  Focus on designing impactful web applications, mobile apps, AI/ML models, cloud architecture, cybersecurity systems, and data pipelines.
-                </p>
-
-                <div className="space-y-2 mb-6">
-                  <div className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
-                    Key Domains & Technologies:
+                <div className="space-y-4 pt-4 border-t border-white/10">
+                  <div className="text-xs text-gray-400 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="font-medium text-gray-400">Internal Round Deliverable:</span>
+                    <span className="text-cyan-300 font-semibold">Working UI/Code Demo &amp; System Flow</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {["Full-Stack Web", "Mobile Apps (Flutter/RN)", "AI / Deep Learning", "Computer Vision", "Blockchain & Web3", "Cloud APIs"].map((tag) => (
-                      <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 text-xs text-gray-300 border border-white/10">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="pt-4 border-t border-white/10 text-xs text-gray-400 flex items-center justify-between">
-                  <span>Evaluation Focus:</span>
-                  <span className="text-white font-medium">Architecture, UI/UX & Code Mockups</span>
+                  <a
+                    href={sihOverview.officialPSUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full border-cyan-400/30 hover:border-cyan-400 text-cyan-300 hover:text-white hover:bg-cyan-500/10 text-xs font-semibold py-2 rounded-xl flex items-center justify-center gap-2 transition-all"
+                    >
+                      <span>Explore 170+ Software PS on Official Portal</span>
+                      <ExternalLink size={14} />
+                    </Button>
+                  </a>
                 </div>
               </GlassmorphismCard>
             </motion.div>
 
             {/* Hardware Track Card */}
-            <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
-              <GlassmorphismCard className="p-8 h-full border border-[hsl(275,85%,70%,0.3)] bg-gradient-to-b from-[hsl(275,85%,70%,0.05)] to-transparent relative">
-                <div className="w-14 h-14 rounded-2xl bg-[hsl(275,85%,70%,0.2)] border border-[hsl(275,85%,70%,0.4)] flex items-center justify-center text-[hsl(275,85%,70%)] mb-6 shadow-lg shadow-[hsl(275,85%,70%,0.2)]">
-                  <Cpu size={30} />
+            <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="h-full">
+              <GlassmorphismCard className="p-8 h-full border border-[hsl(275,85%,70%,0.3)] bg-gradient-to-b from-[hsl(275,85%,70%,0.08)] to-transparent relative flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-[hsl(275,85%,70%,0.2)] border border-[hsl(275,85%,70%,0.4)] flex items-center justify-center text-[hsl(275,85%,70%)] shadow-lg shadow-[hsl(275,85%,70%,0.2)]">
+                      <Cpu size={28} />
+                    </div>
+                    <Badge className="bg-purple-500/10 text-purple-300 border-purple-400/30 text-xs font-mono font-bold">
+                      50+ Hardware PS
+                    </Badge>
+                  </div>
+
+                  <Badge className="bg-[hsl(275,85%,70%,0.2)] text-[hsl(275,85%,70%)] border-[hsl(275,85%,70%,0.4)] mb-3">
+                    Hardware Innovation Track
+                  </Badge>
+
+                  <h3 className="font-russo text-2xl font-bold mb-3 text-white">
+                    IoT, Embedded &amp; Autonomous Robotics
+                  </h3>
+
+                  <p className="text-gray-300 font-inter mb-6 text-sm leading-relaxed">
+                    Engineer physical prototypes, embedded electronics, robotics &amp; UAV payloads, telemetry sensors, and harsh-environment devices solving mission-critical challenges from DRDO, Ministry of Defence, Indian Railways, and MSME.
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    <div className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
+                      Key Domains &amp; Technologies:
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Robotics & UAVs",
+                        "Microcontrollers (ESP32/STM32)",
+                        "Edge AI & Computer Vision",
+                        "IoT Sensors & Telemetry",
+                        "3D CAD & Mechanics",
+                        "Solar & Clean Tech Circuits",
+                      ].map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 text-xs text-gray-300 border border-white/10 font-mono">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <Badge className="bg-[hsl(275,85%,70%,0.2)] text-[hsl(275,85%,70%)] border-[hsl(275,85%,70%,0.4)] mb-3">
-                  Hardware Track
-                </Badge>
-
-                <h3 className="font-russo text-2xl font-bold mb-3">
-                  IoT, Embedded & Robotics
-                </h3>
-
-                <p className="text-gray-300 font-inter mb-6 text-sm leading-relaxed">
-                  Focus on building tangible physical prototypes, microcontroller circuits, robotic mechanisms, sensor telemetry, and electronic systems.
-                </p>
-
-                <div className="space-y-2 mb-6">
-                  <div className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">
-                    Key Domains & Technologies:
+                <div className="space-y-4 pt-4 border-t border-white/10">
+                  <div className="text-xs text-gray-400 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="font-medium text-gray-400">Internal Round Deliverable:</span>
+                    <span className="text-purple-300 font-semibold">Circuit Schematics, CAD &amp; Breadboard POC</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {["IoT & Sensors", "Microcontrollers (ESP32/STM32)", "Robotics & Drones", "3D CAD & Mechanics", "Edge AI Telemetry"].map((tag) => (
-                      <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 text-xs text-gray-300 border border-white/10">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="pt-4 border-t border-white/10 text-xs text-gray-400 flex items-center justify-between">
-                  <span>Evaluation Focus:</span>
-                  <span className="text-white font-medium">Circuits, Feasibility & Breadboard Demo</span>
+                  <a
+                    href={sihOverview.officialPSUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full border-purple-400/30 hover:border-purple-400 text-purple-300 hover:text-white hover:bg-purple-500/10 text-xs font-semibold py-2 rounded-xl flex items-center justify-center gap-2 transition-all"
+                    >
+                      <span>Explore 50+ Hardware PS on Official Portal</span>
+                      <ExternalLink size={14} />
+                    </Button>
+                  </a>
                 </div>
               </GlassmorphismCard>
             </motion.div>

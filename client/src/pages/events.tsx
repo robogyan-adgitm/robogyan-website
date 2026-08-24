@@ -47,7 +47,7 @@ export default function Events() {
           >
             Upcoming Events
           </motion.h3>
-          
+
           {upcomingEvents.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-8">
               {upcomingEvents.map((event, index) => (
@@ -114,11 +114,10 @@ export default function Events() {
                     </div>
 
                     <Button
-                      className={`w-full transition-transform font-semibold ${
-                        event.registrationUrl && event.registrationUrl !== "#"
+                      className={`w-full transition-transform font-semibold ${event.registrationUrl && event.registrationUrl !== "#"
                           ? "bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(220,100%,50%)] text-[hsl(0,0%,4%)] hover:scale-105 cursor-pointer"
                           : "bg-gray-600 text-gray-400 cursor-not-allowed"
-                      }`}
+                        }`}
                       disabled={!event.registrationUrl || event.registrationUrl === "#"}
                       onClick={() => {
                         if (event.registrationUrl && event.registrationUrl !== "#") {
@@ -145,7 +144,7 @@ export default function Events() {
                   No Upcoming Events Currently
                 </h4>
                 <p className="text-gray-400">
-                  Stay tuned! We're planning exciting new events and workshops. 
+                  Stay tuned! We're planning exciting new events and workshops.
                   Follow us on social media for the latest updates.
                 </p>
               </GlassmorphismCard>

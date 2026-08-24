@@ -14,19 +14,19 @@ export interface Event {
 }
 
 export const upcomingEvents: Event[] = [
-  //  {
-  //    id: "1",
-  //    name: "SIH Internal Hackathon",
-  //    type: "Hackathon",
-  //    status: "Live",
-  //    description: "ROBOGYAN is organizing the Internal Hackathon for the much-anticipated SMART INDIA HACKATHON 2025. This is your chance to participate in a premier PAN-INDIA hackathon, organized by the Government of India in collaboration with the Ministry of Education’s Innovation Cell and All India Council for Technical Education (AICTE).",
-  //    date: "12th September, 2025",
-  //    endDate: "13th September, 2025",
-  //    time: "10 am Onwards",
-  //    venue: "Auditorium, ADGIPS",
-  //    image: "/images/sih2025.png",
-  //    registrationUrl: "https://forms.gle/dPrERb8Ju79s5pg6A",
-  //  },
+  {
+    id: "1",
+    name: "SIH Internal Hackathon 2026",
+    type: "Hackathon",
+    status: "Live",
+    description: "ROBOGYAN is back with the Internal Hackathon for the much-anticipated SMART INDIA HACKATHON 2026. This is your chance to participate in a premier PAN-INDIA hackathon, organized by the Government of India in collaboration with the Ministry of Education’s Innovation Cell and All India Council for Technical Education (AICTE).",
+    date: "11th September, 2026",
+    endDate: "12th September, 2026",
+    time: "10 am Onwards",
+    venue: "Auditorium, ADGIPS",
+    image: "/images/sih2026.png",
+    registrationUrl: "/sih",
+  },
 ];
 
 export const pastEvents: Event[] = [
