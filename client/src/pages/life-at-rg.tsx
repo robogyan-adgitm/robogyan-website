@@ -10,16 +10,16 @@ import {
   DialogDescription,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { 
-  Heart, 
-  Zap, 
-  Images, 
-  Trophy, 
-  MapPin, 
-  Users, 
+import {
+  Heart,
+  Zap,
+  Images,
+  Trophy,
+  MapPin,
+  Users,
   Calendar,
   Star,
-  ChevronLeft, 
+  ChevronLeft,
   ChevronRight,
   Award,
   Target,
@@ -40,6 +40,16 @@ const achievements = [
 const moments = [
   {
     id: "1",
+    title: "Techkriti 2026 at IIT Kanpur",
+    year: "2026",
+    location: "IIT Kanpur",
+    category: "Competition",
+    description: " Robogyan dominated once more at Techkriti @IITKanpur, keeping the legacy alive and continuing its winning streak with 2nd position in TechInnovation!",
+    image: "/images/lifeatrg/18.jpg",
+    badges: ["Multiple Positions"]
+  },
+  {
+    id: "2",
     title: "Smart India Hackathon 2025",
     year: "2025",
     location: "Manipal University Jaipur",
@@ -50,7 +60,7 @@ const moments = [
     badges: []
   },
   {
-    id: "2",
+    id: "3",
     title: "Smart India Hackathon 2024",
     year: "2024",
     location: "ADGIPS",
@@ -61,7 +71,7 @@ const moments = [
     badges: []
   },
   {
-    id: "3",
+    id: "4",
     title: "HackBMU 6.0 Hackathon",
     year: "2024",
     location: "BML Munjal University, Haryana",
@@ -72,23 +82,23 @@ const moments = [
     badges: ["2nd Runner Up"]
   },
   {
-    id: "4",
+    id: "5",
     title: "RG Farewell 2025 Batch",
     year: "2025",
     location: "Robogyan Lab, Block 5",
     category: "Lab Event",
     description: "Robogyan conducted farewell for the 2025 Batch, in presence of some esteemed alumni.",
-    image: "/images/lifeatrg/Farewell2025.jpg" ,
+    image: "/images/lifeatrg/Farewell2025.jpg",
     badges: []
   },
   {
-    id: "5",
+    id: "6",
     title: "Techkriti 2025 at IIT Kanpur",
     year: "2025",
     location: "IIT Kanpur",
     category: "Competition",
     description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
-    image: "/images/lifeatrg/Techkriti.jpg" ,
+    image: "/images/lifeatrg/Techkriti.jpg",
     badges: ["Multiple Positions"]
   }
 ];
@@ -100,27 +110,27 @@ const activitiesData = [
     title: "Workshop Sessions"
   },
   {
-    src: "/images/lifeatrg/techtalks.jpg" ,
+    src: "/images/lifeatrg/techtalks.jpg",
     alt: "Tech talk presentation with industry expert",
     title: "Tech Talks"
   },
   {
-    src: "/images/lifeatrg/hackathons.jpg" ,
+    src: "/images/lifeatrg/hackathons.jpg",
     alt: "Hackathon in progress with teams working intensively",
     title: "Hackathons"
   },
   {
-    src: "/images/lifeatrg/competition.jpg" ,
+    src: "/images/lifeatrg/competition.jpg",
     alt: "Competition day with participants presenting projects",
     title: "Competitions"
   },
   {
-    src: "/images/lifeatrg/demos.jpg" ,
+    src: "/images/lifeatrg/demos.jpg",
     alt: "Project demonstration and showcase event",
     title: "Project Demos"
   },
   {
-    src: "/images/lifeatrg/teambuilding.jpg" ,
+    src: "/images/lifeatrg/teambuilding.jpg",
     alt: "Team building activity with collaborative challenges",
     title: "Team Building"
   }
@@ -169,10 +179,10 @@ export default function LifeAtRG() {
     if (galleryModalOpen) {
       const next = (selectedGalleryIndex + 1) % galleryImages.length;
       const prev = (selectedGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
-      
+
       const img1 = new Image();
       img1.src = galleryImages[next].src;
-      
+
       const img2 = new Image();
       img2.src = galleryImages[prev].src;
     }
@@ -249,11 +259,10 @@ export default function LifeAtRG() {
                   onClick={() => setActiveCategory(category.id)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all flex items-center justify-center space-x-2 text-sm sm:text-base ${
-                    activeCategory === category.id
-                      ? "bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white"
-                      : "text-gray-300 hover:bg-[hsl(0,0%,20%)]"
-                  }`}
+                  className={`px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all flex items-center justify-center space-x-2 text-sm sm:text-base ${activeCategory === category.id
+                    ? "bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white"
+                    : "text-gray-300 hover:bg-[hsl(0,0%,20%)]"
+                    }`}
                 >
                   <Icon size={18} className={activeCategory === category.id ? "" : category.color} />
                   <span>{category.label}</span>
@@ -276,7 +285,7 @@ export default function LifeAtRG() {
               <h2 className="font-russo text-3xl text-center mb-12 gradient-text">
                 Unforgettable Moments
               </h2>
-              
+
               {/* Moment Showcase */}
               <div className="relative mb-16">
                 <GlassmorphismCard className="p-8">
@@ -290,7 +299,7 @@ export default function LifeAtRG() {
                         scaleAnimation={true}
                       />
                     </div>
-                    
+
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <Badge className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white">
@@ -300,11 +309,11 @@ export default function LifeAtRG() {
                           {moments[currentMoment].category}
                         </Badge>
                       </div>
-                      
+
                       <h3 className="font-orbitron text-2xl font-bold mb-4 gradient-text">
                         {moments[currentMoment].title}
                       </h3>
-                      
+
                       <div className="flex items-center space-x-4 mb-4 text-sm text-gray-300">
                         <div className="flex items-center space-x-1">
                           <MapPin size={14} />
@@ -315,11 +324,11 @@ export default function LifeAtRG() {
                           <span>{moments[currentMoment].attendees}</span>
                         </div>
                       </div>
-                      
+
                       <p className="text-gray-300 mb-6">
                         {moments[currentMoment].description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2">
                         {moments[currentMoment].badges.map((badge, index) => (
                           <Badge key={index} variant="secondary" className="bg-[hsl(235,85%,65%,0.2)] text-[hsl(235,85%,65%)]">
@@ -329,7 +338,7 @@ export default function LifeAtRG() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Navigation */}
                   <div className="flex justify-between items-center mt-8">
                     <Button
@@ -341,21 +350,20 @@ export default function LifeAtRG() {
                       <ChevronLeft size={20} className="mr-1" />
                       Previous
                     </Button>
-                    
+
                     <div className="flex space-x-2">
                       {moments.map((_, index) => (
                         <button
                           key={index}
                           onClick={() => setCurrentMoment(index)}
-                          className={`w-3 h-3 rounded-full transition-all ${
-                            index === currentMoment
-                              ? "bg-[hsl(235,85%,65%)]"
-                              : "bg-gray-500 hover:bg-gray-400"
-                          }`}
+                          className={`w-3 h-3 rounded-full transition-all ${index === currentMoment
+                            ? "bg-[hsl(235,85%,65%)]"
+                            : "bg-gray-500 hover:bg-gray-400"
+                            }`}
                         />
                       ))}
                     </div>
-                    
+
                     <Button
                       onClick={nextMoment}
                       variant="ghost"
@@ -417,20 +425,27 @@ export default function LifeAtRG() {
             >
               {galleryImages.map((image, index) => {
                 const spans = index % 7 === 0 ? "sm:col-span-2 sm:row-span-2" : index % 5 === 2 ? "row-span-2" : "";
-                
+
                 return (
-                  <div
+                  <motion.div
                     key={index}
-                    className={`cursor-pointer relative w-full h-full rounded-xl overflow-hidden bg-gray-700 ${spans}`}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                    className={`cursor-pointer relative w-full h-full rounded-xl overflow-hidden bg-gray-900 border border-white/10 shadow-lg group ${spans}`}
                     onClick={() => openGalleryModal(index)}
                   >
-                    <img
+                    <ImageWithLoader
                       src={image.src}
-                      alt={`Gallery ${index}`}
-                      decoding="async"
-                      className="w-full h-full object-cover"
+                      alt={`Robogyan Gallery moment ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading={index < 8 ? "eager" : "lazy"}
                     />
-                  </div>
+                    <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <div className="p-2.5 rounded-full bg-black/60 text-white backdrop-blur-sm border border-white/20">
+                        <ZoomIn size={20} />
+                      </div>
+                    </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -476,7 +491,7 @@ export default function LifeAtRG() {
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
               Be part of our incredible journey. Create memories, build robots, and shape the future with us!
             </p>
-            
+
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <motion.div
                 whileHover={{ y: -5 }}
@@ -488,7 +503,7 @@ export default function LifeAtRG() {
                 </h4>
                 <p className="text-gray-400 text-sm">Develop cutting-edge technical skills with hands-on projects</p>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ y: -5 }}
                 className="bg-[hsl(0,0%,16%)] rounded-lg p-6"
@@ -499,7 +514,7 @@ export default function LifeAtRG() {
                 </h4>
                 <p className="text-gray-400 text-sm">Connect with industry professionals and like-minded peers</p>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ y: -5 }}
                 className="bg-[hsl(0,0%,16%)] rounded-lg p-6"
@@ -511,7 +526,7 @@ export default function LifeAtRG() {
                 <p className="text-gray-400 text-sm">Win competitions and build an impressive portfolio</p>
               </motion.div>
             </div>
-            
+
             <Button
               size="lg"
               className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"

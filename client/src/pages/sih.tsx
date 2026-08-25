@@ -131,7 +131,7 @@ export default function SIHPage() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentWinnerStory((prev) => (prev + 1) % sihWinnerStories.length);
-    }, 5000);
+    }, 15000);
     return () => clearInterval(timer);
   }, []);
 
@@ -375,7 +375,7 @@ export default function SIHPage() {
               SIH Hall of Fame &amp; <span className="gradient-text">National Champions</span>
             </h2>
             <p className="text-gray-300 max-w-3xl mx-auto font-inter text-base sm:text-lg leading-relaxed">
-              At ADGIPS, Robogyan isn't just organizing the internal hackathon — our members have consistently conquered the national stage as <strong className="text-white font-semibold">2× SIH National Grand Finale Winners</strong> and <strong className="text-white font-semibold">4× Grand Finalists</strong>.
+              Since its inception in 2017, <strong className="text-white font-semibold">Robogyan</strong> has built an illustrious legacy at the Smart India Hackathon - securing its <strong className="text-white font-semibold">first National Championship in 2019</strong> (the 3rd SIH edition), continuing the momentum with Grand Finale appearances in <strong className="text-white font-semibold">2023 and 2024</strong>, and triumphing once again as <strong className="text-white font-semibold">National Champions in 2025</strong>.
             </p>
           </div>
 
@@ -463,13 +463,21 @@ export default function SIHPage() {
                 transition={{ duration: 0.5 }}
                 className="lg:col-span-6"
               >
-                <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/40 group aspect-[4/3] sm:aspect-[16/10] w-full">
+                <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/40 group aspect-[4/3] sm:aspect-[16/10] w-full flex items-center justify-center">
+                  {/* Main Image */}
                   <ImageWithLoader
                     src={sihWinnerStories[currentWinnerStory].image}
                     alt={sihWinnerStories[currentWinnerStory].teamName}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={`w-full h-full ${
+                      sihWinnerStories[currentWinnerStory].imageFit === "contain"
+                        ? "object-contain"
+                        : "object-cover"
+                    } ${
+                      sihWinnerStories[currentWinnerStory].imagePosition || "object-center"
+                    } transition-transform duration-700 group-hover:scale-105`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6">
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 pointer-events-none">
                     <div className="flex items-center gap-2 mb-1.5">
                       <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 text-xs font-semibold">
                         {sihWinnerStories[currentWinnerStory].edition}

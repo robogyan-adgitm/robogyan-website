@@ -74,6 +74,8 @@ export interface SIHWinnerStory {
   image: string;
   gradient: string;
   highlights: string[];
+  imageFit?: "cover" | "contain";
+  imagePosition?: string;
 }
 
 export const sihWinnerStories: SIHWinnerStory[] = [
@@ -85,11 +87,12 @@ export const sihWinnerStories: SIHWinnerStory[] = [
     badge: "1st Prize National Champion",
     badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-400/40",
     title: "Smart India Hackathon 2025 Champions",
-    description: "Robogyan's team took 1st place at the National Grand Finale, engineering a smart AI & IoT-based solution for official government problem statements and winning top honors from the jury.",
+    description: "Robogyan's team took 1st place at the National Grand Finale, engineering a smart AI & IoT-based solution for smart irrigation & farming, and winning top honors from the jury.",
     award: "National Grand Finale Winners",
     image: "/images/sih/sihWinnersRG25.JPG",
     gradient: "from-emerald-400 to-cyan-500",
     highlights: ["1st Prize Winner", "AI & IoT Smart System", "Ministry Accolades"],
+    imageFit: "cover",
   },
   {
     id: "skylink-2025",
@@ -104,6 +107,8 @@ export const sihWinnerStories: SIHWinnerStory[] = [
     image: "/images/sih/sihWinner25.jpeg",
     gradient: "from-yellow-400 to-amber-500",
     highlights: ["1st Prize Winner", "Advanced Tech Integration", "National Trophy"],
+    imageFit: "cover",
+    imagePosition: "object-top",
   },
   {
     id: "robogyan-2024-finalists",
@@ -118,6 +123,38 @@ export const sihWinnerStories: SIHWinnerStory[] = [
     image: "/images/sih/sih2024Finalists.JPG",
     gradient: "from-purple-400 to-indigo-500",
     highlights: ["National Finalists", "Hardware-Software Prototypes", "National Recognition"],
+    imageFit: "cover",
+    imagePosition: "object-top",
+  },
+  {
+    id: "robogyan-2023-finalists",
+    teamName: "Robogyan Finalists",
+    edition: "SIH 2023",
+    standing: "National Grand Finale Finalists",
+    badge: "National Finalist Team",
+    badgeColor: "bg-rose-500/20 text-rose-300 border-rose-400/40",
+    title: "Smart India Hackathon 2023 Finalists",
+    description: "Demonstrated remarkable technical ingenuity at the Grand Finale nodal center, building an end-to-end working prototype during an intense hackathon and earning high praise from national evaluators.",
+    award: "National Grand Finalist",
+    image: "/images/sih/sih2023Finalists.jpeg",
+    gradient: "from-rose-400 to-amber-500",
+    highlights: ["Grand Finale Finalist", "Rapid Prototyping", "Jury Commendation"],
+    imageFit: "contain",
+  },
+  {
+    id: "robogyan-2019-winners",
+    teamName: "Robogyan",
+    edition: "SIH 2019",
+    standing: "National Grand Finale Winners",
+    badge: "1st Prize National Champion",
+    badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-400/40",
+    title: "Smart India Hackathon 2019 Champions",
+    description: "Clinched 1st place at the National Grand Finale of SIH 2019, designing an impactful hardware solution and establishing Robogyan's legacy of excellence on the national stage.",
+    award: "National Grand Finale Winners",
+    image: "/images/sih/sihWinnersRg19.jpeg",
+    gradient: "from-cyan-400 to-blue-500",
+    highlights: ["1st Prize Winner", "Hardware Innovation", "National Recognition"],
+    imageFit: "cover",
   },
 ];
 
