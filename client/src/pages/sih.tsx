@@ -468,13 +468,11 @@ export default function SIHPage() {
                   <ImageWithLoader
                     src={sihWinnerStories[currentWinnerStory].image}
                     alt={sihWinnerStories[currentWinnerStory].teamName}
-                    className={`w-full h-full ${
-                      sihWinnerStories[currentWinnerStory].imageFit === "contain"
+                    className={`w-full h-full ${sihWinnerStories[currentWinnerStory].imageFit === "contain"
                         ? "object-contain"
                         : "object-cover"
-                    } ${
-                      sihWinnerStories[currentWinnerStory].imagePosition || "object-center"
-                    } transition-transform duration-700 group-hover:scale-105`}
+                      } ${sihWinnerStories[currentWinnerStory].imagePosition || "object-center"
+                      } transition-transform duration-700 group-hover:scale-105`}
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 pointer-events-none">
@@ -1252,13 +1250,13 @@ export default function SIHPage() {
                 </p>
                 <div className="flex flex-wrap gap-4 pt-2">
                   <a
-                    href="https://www.instagram.com/robogyan"
+                    href="https://chat.whatsapp.com/Cvly36rbNvM1ZgtCgRBp2R"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Button className="bg-[hsl(275,85%,70%)] hover:bg-[hsl(275,85%,60%)] text-white font-semibold rounded-xl flex items-center gap-2">
                       <MessageSquare size={18} />
-                      DM Robogyan on Instagram
+                      Join the Whatsapp Group
                     </Button>
                   </a>
 

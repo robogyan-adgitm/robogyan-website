@@ -48,7 +48,7 @@ export const sihOverview = {
   college: "Dr. Akhilesh Das Gupta Institute of Professional Studies (ADGIPS)",
   organizer: "ROBOGYAN - The Official Robotics & Technical Society",
   registrationStatus: "Registrations Open",
-  registrationUrl: "https://forms.gle/kEmSCYoau2PUdWf18", // or college form
+  registrationUrl: "https://forms.gle/kEmSCYoau2PUdWf18",
   officialPortalUrl: "https://www.sih.gov.in",
   officialPSUrl: "https://www.sih.gov.in/sih2026PS",
   pptTemplateUrl: "https://www.sih.gov.in/letters/SIH2026-IDEA-Presentation-Format.pptx",

@@ -229,7 +229,7 @@ export default function Home() {
                       Explore SIH 2026 Portal
                     </Button>
                   </Link>
-                  <a href="https://forms.gle/dPrERb8Ju79s5pg6A">
+                  <a href="https://forms.gle/kEmSCYoau2PUdWf18">
                     <Button
                       variant="outline"
                       className="w-full glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white py-6 rounded-xl flex items-center justify-center gap-2"

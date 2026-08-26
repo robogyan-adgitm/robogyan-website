@@ -46,7 +46,7 @@ const moments = [
     category: "Competition",
     description: " Robogyan dominated once more at Techkriti @IITKanpur, keeping the legacy alive and continuing its winning streak with 2nd position in TechInnovation!",
     image: "/images/lifeatrg/18.jpg",
-    badges: ["Multiple Positions"]
+    badges: ["2nd Position"]
   },
   {
     id: "2",
