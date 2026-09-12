@@ -224,7 +224,7 @@ export default function SIHPage() {
                     </div>
                     <div>
                       <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-gray-200 font-orbitron block">
-                        Internal Hackathon Dates Announced
+                        Internal Hackathon Revised Dates
                       </span>
                     </div>
                   </div>
@@ -235,10 +235,10 @@ export default function SIHPage() {
                   {/* Day 1: 11 September */}
                   <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(235,85%,65%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
                     <span className="text-xs sm:text-sm font-mono font-semibold text-cyan-400 tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
-                      Friday • Day 01
+                      Thursday • Day 01
                     </span>
                     <div className="text-5xl sm:text-6xl md:text-7xl font-black font-orbitron tracking-tight bg-gradient-to-b from-white via-cyan-200 to-[hsl(235,85%,65%)] bg-clip-text text-transparent my-1">
-                      11
+                      10
                     </div>
                     <span className="text-sm sm:text-base font-bold font-inter tracking-widest text-gray-200 uppercase">
                       September
@@ -248,10 +248,10 @@ export default function SIHPage() {
                   {/* Day 2: 12 September */}
                   <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(275,85%,70%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
                     <span className="text-xs sm:text-sm font-mono font-semibold text-[hsl(275,85%,70%)] tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-[hsl(275,85%,70%,0.1)] border border-[hsl(275,85%,70%,0.2)]">
-                      Saturday • Day 02
+                      Monday • Day 02
                     </span>
                     <div className="text-5xl sm:text-6xl md:text-7xl font-black font-orbitron tracking-tight bg-gradient-to-b from-white via-purple-200 to-[hsl(275,85%,70%)] bg-clip-text text-transparent my-1">
-                      12
+                      14
                     </div>
                     <span className="text-sm sm:text-base font-bold font-inter tracking-widest text-gray-200 uppercase">
                       September
@@ -469,8 +469,8 @@ export default function SIHPage() {
                     src={sihWinnerStories[currentWinnerStory].image}
                     alt={sihWinnerStories[currentWinnerStory].teamName}
                     className={`w-full h-full ${sihWinnerStories[currentWinnerStory].imageFit === "contain"
-                        ? "object-contain"
-                        : "object-cover"
+                      ? "object-contain"
+                      : "object-cover"
                       } ${sihWinnerStories[currentWinnerStory].imagePosition || "object-center"
                       } transition-transform duration-700 group-hover:scale-105`}
                   />

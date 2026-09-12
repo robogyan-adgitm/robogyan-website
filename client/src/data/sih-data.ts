@@ -175,7 +175,7 @@ export const sihTimeline: TimelinePhase[] = [
     phase: "Phase 2",
     title: "Internal Registration & Idea PPT Submission",
     date: "August - September 2026",
-    status: "Live",
+    status: "Completed",
     description: "Submit your team registration form and upload your idea presentation using the official SIH PPT template.",
     details: [
       "Download the official SIH Idea Presentation format.",
@@ -186,8 +186,8 @@ export const sihTimeline: TimelinePhase[] = [
   {
     phase: "Phase 3",
     title: "ADGIPS Internal Hackathon",
-    date: "11th & 12th September 2026",
-    status: "Upcoming",
+    date: "10th & 14th September 2026",
+    status: "Live",
     description: "Live pitch and demonstration before an expert jury of industry professionals and experts.",
     details: [
       "Pitch presentation before domain expert jury panels.",
