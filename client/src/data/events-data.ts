@@ -14,24 +14,37 @@ export interface Event {
 }
 
 export const upcomingEvents: Event[] = [
-  {
-    id: "1",
-    name: "SIH Internal Hackathon 2026",
-    type: "Hackathon",
-    status: "Live",
-    description: "ROBOGYAN is back with the Internal Hackathon for the much-anticipated SMART INDIA HACKATHON 2026. This is your chance to participate in a premier PAN-INDIA hackathon, organized by the Government of India in collaboration with the Ministry of Education’s Innovation Cell and All India Council for Technical Education (AICTE).",
-    date: "10th September, 2026",
-    endDate: "14th September, 2026",
-    time: "10 am Onwards",
-    venue: "Auditorium, ADGIPS",
-    image: "/images/sih2026.png",
-    registrationUrl: "/sih",
-  },
+  // {
+  //   id: "1",
+  //   name: "SIH Internal Hackathon 2026",
+  //   type: "Hackathon",
+  //   status: "Ended",
+  //   description: "ROBOGYAN successfully concluded the Internal Hackathon for SMART INDIA HACKATHON 2026. Top 45 selected teams and 5 waitlisted teams have been announced to represent ADGIPS on the national stage!",
+  //   date: "10th September, 2026",
+  //   endDate: "14th September, 2026",
+  //   time: "10 am Onwards",
+  //   venue: "Auditorium, ADGIPS",
+  //   image: "/images/sih2026.png",
+  //   registrationUrl: "/sih",
+  // },
 ];
 
 export const pastEvents: Event[] = [
   {
     id: "1",
+    name: "SIH Internal Hackathon 2026",
+    type: "Hackathon",
+    status: "Ended",
+    description: "An all-time record-shattering internal round of SIH 2026 conducted at ADGIPS, featuring 240+ competing teams and nearly 1,500 participants!",
+    date: "10-09-2026",
+    endDate: "14-09-2026",
+    time: "2 Days Event",
+    venue: "Auditorium and IT Labs",
+    image: "/images/events/sih2026internal.jpg",
+    prizePool: "",
+  },
+  {
+    id: "2",
     name: "Utkarsh 2026: Subway Surfers",
     type: "Event",
     status: "Ended",
@@ -42,7 +55,7 @@ export const pastEvents: Event[] = [
     image: "/images/events/subwayUtkarsh26.jpg",
   },
   {
-    id: "2",
+    id: "3",
     name: "SIH Internal Hackathon 2025",
     type: "Hackathon",
     status: "Ended",
@@ -55,7 +68,7 @@ export const pastEvents: Event[] = [
     prizePool: "",
   },
   {
-    id: "3",
+    id: "4",
     name: "Utkarsh 2025: Subway Surfers",
     type: "Event",
     status: "Ended",
@@ -66,7 +79,7 @@ export const pastEvents: Event[] = [
     image: "/images/events/subwayutkarsh25.jpeg",
   },
   {
-    id: "4",
+    id: "5",
     name: "Drone Workshop",
     type: "Workshop",
     status: "Ended",
@@ -78,7 +91,7 @@ export const pastEvents: Event[] = [
     prizePool: "",
   },
   {
-    id: "5",
+    id: "6",
     name: "SIH Internal Hackathon 2024",
     type: "Hackathon",
     status: "Ended",

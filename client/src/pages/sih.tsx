@@ -48,6 +48,11 @@ import {
   Target,
   FileSpreadsheet,
   CalendarDays,
+  UserCheck,
+  HeartHandshake,
+  Play,
+  Pause,
+  Quote,
 } from "lucide-react";
 import {
   sihOverview,
@@ -59,6 +64,12 @@ import {
   sihWinnerStories,
   ProblemStatement,
 } from "@/data/sih-data";
+import {
+  sihSelectedTeams,
+  sihWaitlistedTeams,
+  sihJudgesData,
+  sihJudgeImages,
+} from "@/data/sih-results-data";
 
 // Map theme icon string to Lucide component
 const themeIconMap: Record<string, React.ElementType> = {
@@ -77,6 +88,59 @@ const themeIconMap: Record<string, React.ElementType> = {
 };
 
 export default function SIHPage() {
+  // State for Results Search & Tabs
+  const [resultsSearch, setResultsSearch] = useState("");
+  const [resultsTab, setResultsTab] = useState<"selected" | "waitlisted" | "all">("selected");
+
+  // State for Judges Carousel (1 at a time, auto-scrolls every 3 seconds in a loop)
+  const [currentJudge, setCurrentJudge] = useState(0);
+  const [isJudgePaused, setIsJudgePaused] = useState(false);
+
+  useEffect(() => {
+    if (isJudgePaused) return;
+    const timer = setInterval(() => {
+      setCurrentJudge((prev) => (prev + 1) % sihJudgesData.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isJudgePaused]);
+
+  const nextJudge = () => {
+    setCurrentJudge((prev) => (prev + 1) % sihJudgesData.length);
+  };
+
+  const prevJudge = () => {
+    setCurrentJudge((prev) => (prev - 1 + sihJudgesData.length) % sihJudgesData.length);
+  };
+
+  // Preload all 12 judge images so transitions are instant and never flicker
+  useEffect(() => {
+    sihJudgeImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  // Filtered Results List
+  const filteredResults = useMemo(() => {
+    let list: typeof sihSelectedTeams = [];
+    if (resultsTab === "selected") {
+      list = sihSelectedTeams;
+    } else if (resultsTab === "waitlisted") {
+      list = sihWaitlistedTeams;
+    } else {
+      list = [...sihSelectedTeams, ...sihWaitlistedTeams];
+    }
+
+    if (!resultsSearch.trim()) return list;
+
+    const query = resultsSearch.toLowerCase();
+    return list.filter(
+      (t) =>
+        t.teamName.toLowerCase().includes(query) ||
+        t.leaderName.toLowerCase().includes(query)
+    );
+  }, [resultsTab, resultsSearch]);
+
   // State for Problem Statements Search & Filtering
   const [psSearch, setPsSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<"All" | "Software" | "Hardware">("All");
@@ -172,13 +236,13 @@ export default function SIHPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glassmorphism border border-[hsl(235,85%,65%,0.5)] mb-6 shadow-lg shadow-[hsl(235,85%,65%,0.15)]"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glassmorphism border border-[hsl(150,100%,50%,0.5)] mb-6 shadow-lg shadow-[hsl(150,100%,50%,0.15)] bg-[hsl(150,100%,50%,0.08)]"
           >
-            <span className="w-2 h-2 rounded-full bg-[hsl(150,100%,50%)] animate-ping" />
-            <span className="text-sm font-semibold tracking-wide text-gray-200">
-              Official College Internal Round
+            <Sparkles size={16} className="text-[hsl(150,100%,50%)]" />
+            <span className="text-sm font-semibold tracking-wide text-gray-200 font-inter">
+              Internal Round Concluded • Results Announced 🎉
             </span>
-            <span className="w-2 h-2 rounded-full bg-[hsl(150,100%,50%)] animate-ping" />
+            <Sparkles size={16} className="text-[hsl(150,100%,50%)]" />
           </motion.div>
 
           <motion.h1
@@ -197,10 +261,14 @@ export default function SIHPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 font-inter leading-relaxed"
           >
-            Your official gateway to the world's biggest innovation movement. Compete in the ADGIPS Internal Hackathon organized by <strong className="text-white font-semibold">ROBOGYAN</strong> to get nominated for the national stage!
+            The internal round for SIH 2026 at ADGIPS, organized by <strong className="text-white font-semibold">ROBOGYAN</strong>, has officially concluded! Hearty congratulations to the 45 nominated teams and 5 waitlisted teams.
           </motion.p>
 
-          {/* Internal Hackathon Dates Showcase */}
+          {/* =========================================================================
+              NEXT YEAR REUSE: Internal Hackathon Revised Dates Showcase
+              (Preserved for reuse next year - DO NOT DELETE)
+              ========================================================================= */}
+          {/*
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -208,15 +276,12 @@ export default function SIHPage() {
             className="my-10 sm:my-12 max-w-5xl mx-auto px-2 sm:px-4"
           >
             <div className="relative group p-[1px] rounded-3xl bg-gradient-to-r from-[hsl(235,85%,65%,0.6)] via-[hsl(275,85%,70%,0.6)] to-[hsl(150,100%,50%,0.6)] shadow-2xl shadow-[hsl(235,85%,65%,0.2)]">
-              {/* Ambient Neon Glow */}
               <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(235,85%,65%,0.3)] via-[hsl(275,85%,70%,0.3)] to-[hsl(150,100%,50%,0.3)] rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
 
               <div className="relative rounded-3xl bg-black/90 backdrop-blur-xl border border-white/10 p-6 sm:p-8 md:p-10 overflow-hidden">
-                {/* Subtle Background Lighting */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[hsl(275,85%,70%,0.1)] rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[hsl(235,85%,65%,0.1)] rounded-full blur-3xl pointer-events-none" />
 
-                {/* Header Sub-bar */}
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-white/10">
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-xl bg-[hsl(235,85%,65%,0.2)] text-cyan-400 border border-cyan-400/20 shadow-inner">
@@ -230,9 +295,7 @@ export default function SIHPage() {
                   </div>
                 </div>
 
-                {/* Dates Dual Highlight */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 items-stretch gap-4 sm:gap-6 my-4">
-                  {/* Day 1: 11 September */}
                   <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(235,85%,65%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
                     <span className="text-xs sm:text-sm font-mono font-semibold text-cyan-400 tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
                       Thursday • Day 01
@@ -245,7 +308,6 @@ export default function SIHPage() {
                     </span>
                   </div>
 
-                  {/* Day 2: 12 September */}
                   <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[hsl(275,85%,70%,0.5)] transition-all flex flex-col items-center justify-center text-center shadow-lg group/card hover:bg-white/[0.06]">
                     <span className="text-xs sm:text-sm font-mono font-semibold text-[hsl(275,85%,70%)] tracking-wider uppercase mb-1.5 px-3 py-0.5 rounded-full bg-[hsl(275,85%,70%,0.1)] border border-[hsl(275,85%,70%,0.2)]">
                       Monday • Day 02
@@ -259,7 +321,6 @@ export default function SIHPage() {
                   </div>
                 </div>
 
-                {/* Subtext Highlights */}
                 <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-gray-400 font-medium">
                   <span className="inline-flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[hsl(150,100%,50%)] animate-pulse" />
@@ -277,8 +338,213 @@ export default function SIHPage() {
               </div>
             </div>
           </motion.div>
+          */}
 
-          {/* Key Quick CTAs */}
+          {/* ================= RESULTS OUT SHOWCASE ================= */}
+          <motion.div
+            id="results-section"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="my-10 sm:my-14 max-w-5xl mx-auto px-2 sm:px-4 scroll-mt-24"
+          >
+            <div className="relative group p-[1px] rounded-3xl bg-gradient-to-r from-[hsl(150,100%,50%,0.6)] via-[hsl(235,85%,65%,0.6)] to-[hsl(275,85%,70%,0.6)] shadow-2xl shadow-[hsl(150,100%,50%,0.15)]">
+              {/* Ambient Glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(150,100%,50%,0.25)] via-[hsl(235,85%,65%,0.2)] to-[hsl(275,85%,70%,0.25)] rounded-3xl blur-2xl opacity-80 pointer-events-none" />
+
+              <div className="relative rounded-3xl bg-black/90 backdrop-blur-xl border border-white/10 p-5 sm:p-8 md:p-10 overflow-hidden text-left">
+                {/* Header Summary */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(150,100%,50%,0.15)] border border-[hsl(150,100%,50%,0.3)] text-[hsl(150,100%,50%)] text-xs font-mono font-bold mb-2">
+                      <Trophy size={14} />
+                      OFFICIAL ANNOUNCEMENT
+                    </div>
+                    <h2 className="font-russo text-2xl sm:text-3xl text-white font-bold tracking-tight">
+                      Internal Round Shortlisted Teams
+                    </h2>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-1 font-inter">
+                      Official nominations for the Smart India Hackathon 2026 Central Portal.
+                    </p>
+                  </div>
+
+                  {/* Summary Stats Chips */}
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-xs text-gray-400 block font-mono">Nominated</span>
+                      <span className="text-base sm:text-lg font-bold font-orbitron text-[hsl(150,100%,50%)]">
+                        45 Teams
+                      </span>
+                    </div>
+                    <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-xs text-gray-400 block font-mono">Waitlist</span>
+                      <span className="text-base sm:text-lg font-bold font-orbitron text-amber-400">
+                        05 Teams
+                      </span>
+                    </div>
+                    <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-xs text-gray-400 block font-mono">Evaluators</span>
+                      <span className="text-base sm:text-lg font-bold font-orbitron text-[hsl(275,85%,70%)]">
+                        12 Judges
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Filter Tabs & Search Bar */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 my-6">
+                  {/* Tabs */}
+                  <div className="flex items-center gap-2 p-1 rounded-xl bg-white/5 border border-white/10 self-start sm:self-auto overflow-x-auto max-w-full">
+                    <button
+                      onClick={() => setResultsTab("selected")}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-orbitron transition-all whitespace-nowrap ${
+                        resultsTab === "selected"
+                          ? "bg-[hsl(150,100%,50%)] text-black font-bold shadow-md"
+                          : "text-gray-300 hover:text-white"
+                      }`}
+                    >
+                      Selected Teams (45)
+                    </button>
+                    <button
+                      onClick={() => setResultsTab("waitlisted")}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-orbitron transition-all whitespace-nowrap ${
+                        resultsTab === "waitlisted"
+                          ? "bg-amber-400 text-black font-bold shadow-md"
+                          : "text-gray-300 hover:text-white"
+                      }`}
+                    >
+                      Waitlisted (5)
+                    </button>
+                    <button
+                      onClick={() => setResultsTab("all")}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-orbitron transition-all whitespace-nowrap ${
+                        resultsTab === "all"
+                          ? "bg-white text-black font-bold shadow-md"
+                          : "text-gray-300 hover:text-white"
+                      }`}
+                    >
+                      All (50)
+                    </button>
+                  </div>
+
+                  {/* Search Input */}
+                  <div className="relative w-full sm:w-72">
+                    <Search
+                      size={16}
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Search team or leader..."
+                      value={resultsSearch}
+                      onChange={(e) => setResultsSearch(e.target.value)}
+                      className="pl-9 pr-8 bg-white/[0.04] border-white/15 text-white placeholder:text-gray-500 text-xs sm:text-sm rounded-xl focus:border-[hsl(150,100%,50%)] h-10"
+                    />
+                    {resultsSearch && (
+                      <button
+                        onClick={() => setResultsSearch("")}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-white"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Results Table */}
+                <div className="rounded-2xl border border-white/10 overflow-hidden bg-black/40">
+                  <div className="max-h-[500px] overflow-y-auto divide-y divide-white/5">
+                    <table className="w-full text-left border-collapse">
+                      <thead className="sticky top-0 bg-[hsl(240,10%,10%)] border-b border-white/10 z-10">
+                        <tr className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-gray-400">
+                          <th className="py-3 px-4 sm:px-6 w-20 text-center">S.No.</th>
+                          <th className="py-3 px-4 sm:px-6">Team Name</th>
+                          <th className="py-3 px-4 sm:px-6">Team Leader</th>
+                          <th className="py-3 px-4 sm:px-6 text-right">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-white/5 font-inter text-xs sm:text-sm">
+                        {filteredResults.length > 0 ? (
+                          filteredResults.map((team, idx) => (
+                            <tr
+                              key={`${team.status}-${team.sNo}-${idx}`}
+                              className="hover:bg-white/[0.04] transition-colors group"
+                            >
+                              {/* Serial No (NO RANK) */}
+                              <td className="py-3.5 px-4 sm:px-6 text-center font-mono text-gray-400 font-medium">
+                                <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white/[0.05] border border-white/10 text-xs">
+                                  {team.sNo}
+                                </span>
+                              </td>
+
+                              {/* Team Name */}
+                              <td className="py-3.5 px-4 sm:px-6 font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                                {team.teamName}
+                              </td>
+
+                              {/* Team Leader */}
+                              <td className="py-3.5 px-4 sm:px-6 text-gray-300">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-gray-300 font-mono">
+                                    {team.leaderName.charAt(0)}
+                                  </div>
+                                  <span>{team.leaderName}</span>
+                                </div>
+                              </td>
+
+                              {/* Status Badge */}
+                              <td className="py-3.5 px-4 sm:px-6 text-right">
+                                {team.status === "Selected" ? (
+                                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[hsl(150,100%,50%,0.15)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.3)]">
+                                    <CheckCircle2 size={12} />
+                                    <span>Selected</span>
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                                    <Clock size={12} />
+                                    <span>Waitlisted</span>
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={4} className="py-12 text-center text-gray-400">
+                              <p className="font-semibold text-white mb-1">No teams found</p>
+                              <p className="text-xs">
+                                No teams match your search "{resultsSearch}". Try clearing the search query.
+                              </p>
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Table Footer Callout */}
+                <div className="mt-5 p-4 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-gray-300">
+                  <div className="flex items-center gap-2">
+                    <Sparkles size={16} className="text-yellow-400 shrink-0" />
+                    <span>
+                      <strong className="text-white">Note for Selected Teams:</strong> The official College SPOC is processing team nominations on the national portal.
+                    </span>
+                  </div>
+                  <span className="font-mono text-[11px] text-gray-400 shrink-0">
+                    Showing {filteredResults.length} of{" "}
+                    {resultsTab === "selected" ? 45 : resultsTab === "waitlisted" ? 5 : 50} teams
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* =========================================================================
+              NEXT YEAR REUSE: Key Quick CTAs (Register, PPT, PS Buttons)
+              (Preserved for reuse next year - DO NOT DELETE)
+              ========================================================================= */}
+          {/*
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -317,8 +583,53 @@ export default function SIHPage() {
               </Button>
             </a>
           </motion.div>
+          */}
 
-          {/* Quick Stats Grid */}
+          {/* Active Navigation CTAs for Results Phase */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-4 mb-16"
+          >
+            <a href="#results-section" onClick={(e) => scrollToSection(e, "results-section")}>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-base sm:text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.25)] hover:scale-105 transition-all flex items-center gap-2.5"
+              >
+                <Trophy size={20} className="text-black" />
+                <span>View Results &amp; Teams</span>
+              </Button>
+            </a>
+
+            <a href="#judges-section" onClick={(e) => scrollToSection(e, "judges-section")}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="glassmorphism border-white/20 hover:border-[hsl(275,85%,70%)] text-white hover:text-white px-7 py-6 text-base sm:text-lg rounded-xl hover:scale-105 transition-all flex items-center gap-2"
+              >
+                <Users size={20} className="text-[hsl(275,85%,70%)]" />
+                <span>Know Your 12 Judges</span>
+              </Button>
+            </a>
+
+            <a href="#ppt-guide" onClick={(e) => scrollToSection(e, "ppt-guide")}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white px-7 py-6 text-base sm:text-lg rounded-xl hover:scale-105 transition-all flex items-center gap-2"
+              >
+                <Presentation size={20} className="text-[hsl(235,85%,65%)]" />
+                <span>PPT Guide for Finalists</span>
+              </Button>
+            </a>
+          </motion.div>
+
+          {/* =========================================================================
+              NEXT YEAR REUSE: Quick Stats Grid (4 Boxes of Info)
+              (Preserved for reuse next year - DO NOT DELETE)
+              ========================================================================= */}
+          {/*
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -361,6 +672,96 @@ export default function SIHPage() {
               </div>
             </GlassmorphismCard>
           </motion.div>
+          */}
+
+          {/* ================= THANK YOU JUDGES SECTION================= */}
+          <section id="judges-section" className="scroll-mt-24 text-left">
+            <div className="p-6 sm:p-10 rounded-3xl glassmorphism border border-white/15 bg-gradient-to-b from-white/[0.03] to-transparent relative overflow-hidden">
+              {/* Ambient Glows */}
+              <div className="absolute -top-24 -right-24 w-80 h-80 bg-[hsl(275,85%,70%,0.12)] rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[hsl(235,85%,65%,0.12)] rounded-full blur-3xl pointer-events-none" />
+
+              {/* Header */}
+              <div className="text-center max-w-3xl mx-auto mb-10">
+                <Badge className="bg-[hsl(275,85%,70%,0.2)] text-[hsl(275,85%,70%)] border border-[hsl(275,85%,70%,0.4)] mb-3 px-3 py-1 text-xs font-semibold">
+                  <HeartHandshake size={14} className="mr-1.5 inline text-[hsl(275,85%,70%)]" />
+                  Gratitude &amp; Jury Recognition
+                </Badge>
+                <h2 className="font-russo text-3xl sm:text-5xl font-bold mb-4">
+                  Thank You<span className="gradient-text"> Judges</span>
+                </h2>
+                <p className="text-gray-300 font-inter text-sm sm:text-base leading-relaxed">
+                  Robogyan and ADGIPS extend our heartfelt appreciation to our <strong className="text-white">panel of 12 distinguished judges</strong>. Thank you for your tireless dedication, technical scrutiny, and invaluable feedback across the 2-day internal hackathon presentations.
+                </p>
+              </div>
+
+              {/* Single Judge Instagram Post Carousel (3-second auto-loop) */}
+              <div
+                className="max-w-xl mx-auto relative"
+                onMouseEnter={() => setIsJudgePaused(true)}
+                onMouseLeave={() => setIsJudgePaused(false)}
+              >
+                {/* Main Instagram Post Card Frame (Fixed 4:5 Aspect Ratio matching 1080x1350 with smooth cross-fade) */}
+                <div className="relative group/poster p-[1px] rounded-3xl bg-gradient-to-br from-white/20 via-[hsl(235,85%,65%,0.4)] to-[hsl(275,85%,70%,0.4)] shadow-2xl overflow-hidden w-full max-w-[440px] sm:max-w-[480px] aspect-[4/5] mx-auto">
+                  <div className="relative w-full h-full rounded-3xl overflow-hidden bg-black">
+                    <AnimatePresence initial={false}>
+                      <motion.div
+                        key={currentJudge}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full flex items-center justify-center"
+                      >
+                        <img
+                          src={sihJudgeImages[currentJudge]}
+                          alt={`SIH 2026 Judge ${currentJudge + 1}`}
+                          className="w-full h-full object-cover rounded-3xl select-none pointer-events-none"
+                          loading="eager"
+                          decoding="async"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Left Floating Arrow Button */}
+                  <button
+                    onClick={prevJudge}
+                    className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-black/70 hover:bg-black text-white border border-white/20 backdrop-blur-md shadow-xl transition-transform hover:scale-110 active:scale-95"
+                    aria-label="Previous Judge"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {/* Right Floating Arrow Button */}
+                  <button
+                    onClick={nextJudge}
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-black/70 hover:bg-black text-white border border-white/20 backdrop-blur-md shadow-xl transition-transform hover:scale-110 active:scale-95"
+                    aria-label="Next Judge"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+
+                {/* 12 Interactive Judge Dots */}
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-6">
+                  {sihJudgesData.map((judge, idx) => (
+                    <button
+                      key={judge.id}
+                      onClick={() => setCurrentJudge(idx)}
+                      className={`transition-all rounded-full ${
+                        idx === currentJudge
+                          ? "w-8 h-2.5 bg-gradient-to-r from-cyan-400 via-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] shadow-lg shadow-cyan-400/20"
+                          : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
+                      }`}
+                      title={`Judge ${idx + 1}: ${judge.name}`}
+                      aria-label={`Switch to Judge ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
 
         {/* ================= ROBOGYAN LEGACY & WINNING TRACK RECORD ================= */}
@@ -535,7 +936,7 @@ export default function SIHPage() {
         </section>
 
         {/* ================= TEAM ELIGIBILITY VALIDATOR ================= */}
-        <section id="eligibility-checker" className="mb-24 scroll-mt-24">
+        {/* <section id="eligibility-checker" className="mb-24 scroll-mt-24">
           <div className="text-center mb-12">
             <Badge className="bg-[hsl(235,85%,65%,0.2)] text-[hsl(235,85%,65%)] border-[hsl(235,85%,65%,0.4)] mb-3">
               Mandatory SIH Criteria
@@ -551,7 +952,7 @@ export default function SIHPage() {
           <div className="max-w-4xl mx-auto">
             <GlassmorphismCard className="p-6 sm:p-10 border border-white/15">
               <div className="grid md:grid-cols-2 gap-8">
-                {/* Left: Input Controls */}
+                
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between items-center mb-2">
@@ -624,7 +1025,6 @@ export default function SIHPage() {
                   </div>
                 </div>
 
-                {/* Right: Validation Feedback Card */}
                 <div className="flex flex-col justify-between p-6 rounded-2xl bg-black/40 border border-white/10">
                   <div>
                     <div className="flex items-center gap-2 mb-4">
@@ -696,10 +1096,10 @@ export default function SIHPage() {
               </div>
             </GlassmorphismCard>
           </div>
-        </section>
+        </section> */}
 
         {/* ================= SOFTWARE VS HARDWARE TRACKS ================= */}
-        <section className="mb-24">
+        {/* <section className="mb-24">
           <div className="text-center mb-12">
             <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/40 mb-3 px-3 py-1 text-xs font-semibold">
               Official SIH Tracks
@@ -713,7 +1113,7 @@ export default function SIHPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Software Track Card */}
+            
             <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="h-full">
               <GlassmorphismCard className="p-8 h-full border border-[hsl(235,85%,65%,0.3)] bg-gradient-to-b from-[hsl(235,85%,65%,0.08)] to-transparent relative flex flex-col justify-between">
                 <div>
@@ -783,7 +1183,6 @@ export default function SIHPage() {
               </GlassmorphismCard>
             </motion.div>
 
-            {/* Hardware Track Card */}
             <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="h-full">
               <GlassmorphismCard className="p-8 h-full border border-[hsl(275,85%,70%,0.3)] bg-gradient-to-b from-[hsl(275,85%,70%,0.08)] to-transparent relative flex flex-col justify-between">
                 <div>
@@ -853,10 +1252,10 @@ export default function SIHPage() {
               </GlassmorphismCard>
             </motion.div>
           </div>
-        </section>
+        </section> */}
 
         {/* ================= INTERNAL HACKATHON ROADMAP ================= */}
-        <section className="mb-24">
+        {/* <section className="mb-24">
           <div className="text-center mb-16">
             <Badge className="bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border-[hsl(150,100%,50%,0.4)] mb-3">
               Step-by-Step Flow
@@ -870,7 +1269,7 @@ export default function SIHPage() {
           </div>
 
           <div className="relative max-w-4xl mx-auto">
-            {/* Center connecting line for desktop */}
+            
             <div className="hidden md:block absolute left-1/2 top-8 bottom-8 -translate-x-1/2 w-0.5 bg-gradient-to-b from-[hsl(235,85%,65%)] via-[hsl(275,85%,70%)] to-[hsl(150,100%,50%)] opacity-30" />
 
             <div className="space-y-8">
@@ -886,7 +1285,7 @@ export default function SIHPage() {
                     className={`relative flex flex-col md:flex-row items-center gap-6 ${isEven ? "md:flex-row" : "md:flex-row-reverse"
                       }`}
                   >
-                    {/* Content Box */}
+                    
                     <div className="w-full md:w-[calc(50%-2rem)]">
                       <GlassmorphismCard className="p-6 border border-white/10 hover:border-white/20 transition-all">
                         <div className="flex items-center justify-between mb-3">
@@ -927,19 +1326,17 @@ export default function SIHPage() {
                       </GlassmorphismCard>
                     </div>
 
-                    {/* Timeline Node Icon */}
                     <div className="relative z-10 w-12 h-12 rounded-full glassmorphism border-2 border-[hsl(235,85%,65%)] flex items-center justify-center font-orbitron font-bold text-sm text-white shrink-0 shadow-lg shadow-[hsl(235,85%,65%,0.3)] bg-black">
                       {index + 1}
                     </div>
 
-                    {/* Empty spacer for grid alignment */}
                     <div className="hidden md:block w-[calc(50%-2rem)]" />
                   </motion.div>
                 );
               })}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ================= PROBLEM STATEMENTS & THEMES EXPLORER ================= */}
         {/* <section id="problem-statements" className="mb-24 scroll-mt-24">
@@ -1364,7 +1761,11 @@ export default function SIHPage() {
           </div>
         </section>
 
-        {/* ================= FINAL REGISTRATION CALL TO ACTION ================= */}
+        {/* =========================================================================
+            NEXT YEAR REUSE: Final Registration Call to Action
+            (Preserved for reuse next year - DO NOT DELETE)
+            ========================================================================= */}
+        {/*
         <section className="text-center py-12">
           <GlassmorphismCard className="p-8 sm:p-12 max-w-4xl mx-auto border border-[hsl(235,85%,65%,0.5)] bg-gradient-to-tr from-[hsl(235,85%,65%,0.1)] via-black/80 to-[hsl(275,85%,70%,0.1)]">
             <h3 className="font-russo text-3xl sm:text-4xl font-black mb-4">
@@ -1389,6 +1790,43 @@ export default function SIHPage() {
                   className="glassmorphism border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
                 >
                   Download PPT Template
+                </Button>
+              </a>
+            </div>
+          </GlassmorphismCard>
+        </section>
+        */}
+
+        {/* ================= POST-RESULTS ROADMAP BANNER ================= */}
+        <section className="text-center py-12">
+          <GlassmorphismCard className="p-8 sm:p-12 max-w-4xl mx-auto border border-[hsl(150,100%,50%,0.4)] bg-gradient-to-tr from-[hsl(150,100%,50%,0.08)] via-black/80 to-[hsl(235,85%,65%,0.1)]">
+            <Badge className="bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)] mb-3">
+              Next Stage: SIH 2026 National Portal
+            </Badge>
+            <h3 className="font-russo text-3xl sm:text-4xl font-black mb-4">
+              Congratulations to All 45 Nominated Teams!
+            </h3>
+            <p className="text-gray-300 font-inter text-base max-w-xl mx-auto mb-8">
+              The internal round evaluation is officially complete. Nominated teams should refine their pitch decks and stay connected on the Robogyan community for official SPOC submission updates.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a href="#results-section" onClick={(e) => scrollToSection(e, "results-section")}>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.3)] hover:scale-105 transition-transform"
+                >
+                  <Trophy size={18} className="mr-2 text-black" />
+                  View Selected Teams
+                </Button>
+              </a>
+              <a href="https://chat.whatsapp.com/Cvly36rbNvM1ZgtCgRBp2R" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="glassmorphism border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
+                >
+                  <MessageSquare size={18} className="mr-2 text-[hsl(275,85%,70%)]" />
+                  Join WhatsApp Community
                 </Button>
               </a>
             </div>

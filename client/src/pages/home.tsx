@@ -206,38 +206,37 @@ export default function Home() {
                 <div className="lg:col-span-8 space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge className="bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)]">
-                      Internal Hackathon Live
+                      Internal Round Results Out
                     </Badge>
                     <Badge className="bg-yellow-500/20 text-yellow-300 border border-yellow-400/30">
-                      Top 45 + 5 Teams Nomination
+                      Top 45 + 5 Teams Announced
                     </Badge>
                   </div>
                   <h3 className="font-russo text-2xl sm:text-4xl font-bold">
                     Smart India Hackathon 2026 - <span className="gradient-text">Internal Round</span>
                   </h3>
                   <p className="text-gray-300 font-inter text-base max-w-2xl leading-relaxed">
-                    Robogyan is organizing the official Internal Hackathon. Explore problem statements, test team eligibility, download the official 6-slide PPT template, and get nominated for the national stage!
+                    Robogyan has officially wrapped up the Internal Hackathon. Explore the 45 nominated teams, 5 waitlisted teams, and meet our distinguished panel of 12 judges!
                   </p>
                 </div>
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
-                  <Link href="/sih">
+                  <Link href="/sih#results">
                     <Button
                       size="lg"
                       className="w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
-                      Explore SIH 2026 Portal
+                      View Shortlisted Teams
                     </Button>
                   </Link>
-                  <a href="https://forms.gle/kEmSCYoau2PUdWf18">
+                  <Link href="/sih#judges">
                     <Button
                       variant="outline"
                       className="w-full glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white py-6 rounded-xl flex items-center justify-center gap-2"
                     >
-                      <Zap size={20} className="text-yellow-300" />
-                      Register Now
+                      Meet the 12 Judges
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </GlassmorphismCard>
