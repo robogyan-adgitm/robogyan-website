@@ -1,0 +1,66 @@
+import type { Project } from "./schemas";
+
+/** Five lab projects. `featured` ones appear on the home page. */
+export const projects: Project[] = [
+  {
+    id: "agrosmart",
+    name: "AgroSmart",
+    summary: "An IoT device for smart irrigation, paired with easy-to-use software.",
+    status: "Completed",
+    start: "2025-09",
+    end: "2025-12",
+    techStack: ["ESP32", "Soil moisture", "Soil temperature", "Solar panel"],
+    category: "IoT",
+    image: "/images/projects/agrosmart.png",
+    featured: true,
+  },
+  {
+    id: "rc-plane",
+    name: "RC Plane",
+    summary: "A custom-built RC plane, made with a range of electronic components and tools.",
+    status: "Active",
+    start: "2025-03",
+    techStack: ["Embedded", "Aerodynamics", "C++", "Servo motors"],
+    category: "Robotics",
+    image: "/images/projects/rcplane.jpg",
+    featured: true,
+  },
+  {
+    id: "manoeuvre-bot",
+    name: "Manoeuvre Bot",
+    summary: "A powerful bot with special clamps to hold objects and manoeuvre through obstacles.",
+    status: "Completed",
+    start: "2025-02",
+    end: "2025-03",
+    techStack: ["12V motors", "Motor driver", "Arduino Nano"],
+    category: "Robotics",
+    image: "/images/projects/maneuvre.jpg",
+    featured: true,
+  },
+  {
+    id: "deafiator",
+    name: "Deafiator",
+    summary: "A device for simple communication.",
+    status: "Completed",
+    start: "2024-08",
+    end: "2024-09",
+    techStack: ["ESP32", "Vibration motor", "Buzzer", "Battery"],
+    category: "IoT",
+    image: "/images/projects/deafiator.jpg",
+    featured: false,
+  },
+  {
+    id: "hovercrafts",
+    name: "Hovercrafts",
+    summary: "Hovercrafts driven by high-kV brushless motors on LiPo power.",
+    status: "Completed",
+    start: "2024-10",
+    end: "2024-11",
+    techStack: ["LiPo batteries", "2200kV motors", "ESCs"],
+    category: "Robotics",
+    image: "/images/projects/hovercraft.jpg",
+    featured: false,
+  },
+];
+
+export const featuredProjects = projects.filter((p) => p.featured);

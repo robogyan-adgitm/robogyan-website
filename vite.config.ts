@@ -1,22 +1,31 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest/config" />
+import { fileURLToPath, URL } from "node:url";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import { defineConfig } from "vite";
 
+// Vite root is the repo root: index.html and public/ live here.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
-      "@shared": path.resolve(__dirname, "shared"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: "dist",
     emptyOutDir: true,
+    target: "es2022",
   },
   server: {
     port: 5173,
     host: true,
+  },
+  preview: {
+    port: 4173,
+  },
+  test: {
+    include: ["tests/**/*.test.{ts,tsx}"],
+    environment: "node",
   },
 });

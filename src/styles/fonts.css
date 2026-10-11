@@ -1,0 +1,5 @@
+/*
+ * Bricolage Grotesque, self-hosted. The "standard" build carries all three axes:
+ * wght 200–800, wdth 75–100, opsz 12–96. font-display: swap is set by fontsource.
+ */
+@import "@fontsource-variable/bricolage-grotesque/standard.css";

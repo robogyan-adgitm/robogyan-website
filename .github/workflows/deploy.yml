@@ -1,11 +1,9 @@
-# Workflow for building and deploying a static site to GitHub Pages
+# Build the static site and deploy it to GitHub Pages
 name: Deploy to GitHub Pages
 
 on:
-  # Run on pushes to the 'main' branch
   push:
     branches: ["main"]
-  # Allow running this workflow manually from the Actions tab
   workflow_dispatch:
 
 # Grant GITHUB_TOKEN permissions to deploy
@@ -13,6 +11,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -23,18 +25,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Or your project's Node version
-          cache: 'npm'
+          node-version-file: .nvmrc
+          cache: npm
       - name: Install dependencies
-        run: npm install
-      - name: Build project
-        run: npm run build # This runs the script from your package.json
+        run: npm ci
+      - name: Lint, typecheck and test
+        run: npm run check
+      - name: Build
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # This is the folder that gets deployed.
-          # IMPORTANT: Change './dist' if your build folder is named 'build' or something else!
-          path: './dist'
+          path: ./dist
 
   deploy:
     needs: build
