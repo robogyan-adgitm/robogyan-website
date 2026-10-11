@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -89,6 +90,7 @@ const socialLinks = [
 
 
 export default function Contact() {
+  const directionsMagnet = useMagnetic<HTMLButtonElement>();
 
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">
@@ -224,6 +226,7 @@ export default function Contact() {
               {/* Direction button overlay */}
               <div className="absolute bottom-4 right-4">
                 <Button
+                  ref={directionsMagnet}
                   variant="outline"
                   size="sm"
                   className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all text-xs bg-black/90 backdrop-blur-sm"

@@ -6,6 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
 import ImageWithLoader from "@/components/ui/image-with-loader";
+import HeroWordmark from "@/features/hero/HeroWordmark";
+import { useLogoEggTrigger } from "@/features/eggs/LogoEgg";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy, Award, Medal, Star, Zap, Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const achievements = [
@@ -128,6 +131,10 @@ const latestAchievements = [
 
 export default function Home() {
   const [currentAchievement, setCurrentAchievement] = useState(0);
+  const joinMagnet = useMagnetic<HTMLButtonElement>();
+  const teamsMagnet = useMagnetic<HTMLButtonElement>();
+  const judgesMagnet = useMagnetic<HTMLButtonElement>();
+  const logoEgg = useLogoEggTrigger();
 
   // Auto-advance achievement every 5 seconds
   useEffect(() => {
@@ -158,14 +165,11 @@ export default function Home() {
           >
             WELCOME TO
           </motion.h1>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
-          >
-            ROBOGYAN
-          </motion.h2>
+          <HeroWordmark
+            text="ROBOGYAN"
+            onClick={logoEgg}
+            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 leading-tight"
+          />
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -181,8 +185,10 @@ export default function Home() {
           >
             <Link href="/contact">
               <Button
+                ref={joinMagnet}
                 size="lg"
-                className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
+                data-testid="hero-join"
+                className="rg-sheen bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 Join Now
@@ -222,8 +228,9 @@ export default function Home() {
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
                   <Link href="/sih#results">
                     <Button
+                      ref={teamsMagnet}
                       size="lg"
-                      className="w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                      className="rg-sheen w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
                       View Shortlisted Teams
@@ -231,6 +238,7 @@ export default function Home() {
                   </Link>
                   <Link href="/sih#judges">
                     <Button
+                      ref={judgesMagnet}
                       variant="outline"
                       className="w-full glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white py-6 rounded-xl flex items-center justify-center gap-2"
                     >

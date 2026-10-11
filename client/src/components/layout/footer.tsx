@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Instagram, Linkedin, Github, Twitter, Youtube } from "lucide-react";
+import { FooterYearEgg } from "@/features/eggs/FooterYearEgg";
 
 export default function Footer() {
   const quickLinks = [
@@ -123,7 +124,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400">
-            © 2026 Robogyan. All rights reserved. | Built with ❤️ by the Robogyan Team
+            © <FooterYearEgg year={2026} /> Robogyan. All rights reserved. | Built with ❤️ by the Robogyan Team
           </p>
         </div>
       </div>

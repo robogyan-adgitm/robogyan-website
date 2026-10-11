@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import ImageWithLoader from "@/components/ui/image-with-loader";
+import { useSihConfetti } from "@/features/eggs/useSihConfetti";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import {
   Trophy,
   Users,
@@ -88,6 +90,11 @@ const themeIconMap: Record<string, React.ElementType> = {
 };
 
 export default function SIHPage() {
+  // Easter egg: type "sih" (or click the announcement chip) for confetti on the results.
+  const { fire: celebrateResults } = useSihConfetti();
+  const resultsMagnet = useMagnetic<HTMLButtonElement>();
+  const judgesMagnet = useMagnetic<HTMLButtonElement>();
+
   // State for Results Search & Tabs
   const [resultsSearch, setResultsSearch] = useState("");
   const [resultsTab, setResultsTab] = useState<"selected" | "waitlisted" | "all">("selected");
@@ -354,9 +361,21 @@ export default function SIHPage() {
 
               <div className="relative rounded-3xl bg-black/90 backdrop-blur-xl border border-white/10 p-5 sm:p-8 md:p-10 overflow-hidden text-left">
                 {/* Header Summary */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                <div data-sih-winner className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(150,100%,50%,0.15)] border border-[hsl(150,100%,50%,0.3)] text-[hsl(150,100%,50%)] text-xs font-mono font-bold mb-2">
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Official announcement. Celebrate the results"
+                      data-testid="sih-confetti-chip"
+                      onClick={celebrateResults}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          celebrateResults();
+                        }
+                      }}
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(150,100%,50%,0.15)] border border-[hsl(150,100%,50%,0.3)] text-[hsl(150,100%,50%)] text-xs font-mono font-bold mb-2">
                       <Trophy size={14} />
                       OFFICIAL ANNOUNCEMENT
                     </div>
@@ -594,8 +613,9 @@ export default function SIHPage() {
           >
             <a href="#results-section" onClick={(e) => scrollToSection(e, "results-section")}>
               <Button
+                ref={resultsMagnet}
                 size="lg"
-                className="bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-base sm:text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.25)] hover:scale-105 transition-all flex items-center gap-2.5"
+                className="rg-sheen bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-base sm:text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.25)] hover:scale-105 transition-all flex items-center gap-2.5"
               >
                 <Trophy size={20} className="text-black" />
                 <span>View Results &amp; Teams</span>
@@ -604,6 +624,7 @@ export default function SIHPage() {
 
             <a href="#judges-section" onClick={(e) => scrollToSection(e, "judges-section")}>
               <Button
+                ref={judgesMagnet}
                 size="lg"
                 variant="outline"
                 className="glassmorphism border-white/20 hover:border-[hsl(275,85%,70%)] text-white hover:text-white px-7 py-6 text-base sm:text-lg rounded-xl hover:scale-105 transition-all flex items-center gap-2"

@@ -8,6 +8,10 @@ import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import ScrollToTop from "@/components/layout/scroll-to-top";
 import ParticleBackground from "@/components/animations/particle-background";
+import CursorCompanion from "@/features/cursor/CursorCompanion";
+import CardSpotlight from "@/features/spotlight/CardSpotlight";
+import RoboBuddy from "@/features/robot/RoboBuddy";
+import { Eggs } from "@/features/eggs";
 import Home from "@/pages/home";
 import Team from "@/pages/team";
 import Projects from "@/pages/projects";
@@ -45,6 +49,10 @@ function RouterContent() {
         </Switch>
       </main>
       <Footer />
+      <RoboBuddy />
+      <CardSpotlight />
+      <CursorCompanion />
+      <Eggs />
     </div>
   );
 }
