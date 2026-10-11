@@ -3,14 +3,19 @@ import { useLocation } from "wouter";
 
 const MAX_WAIT_MS = 4000;
 
-/** Scroll to `#id` once the element exists (lazy pages mount a little later). */
-export function scrollToHash(hash: string, behavior: ScrollBehavior = "auto"): () => void {
+/**
+ * Scroll to `#id` once the element exists (lazy pages mount a little later). The 2025
+ * portal used `#results-section` / `#judges-section`; those links still land on
+ * `#results` / `#judges`.
+ */
+export function scrollToHash(hash: string, behavior: ScrollBehavior = "instant"): () => void {
   const id = decodeURIComponent(hash.replace(/^#/, ""));
   if (!id) return () => {};
+  const legacy = id.replace(/-section$/, "");
   const start = performance.now();
   let frame = 0;
   const tick = () => {
-    const el = document.getElementById(id);
+    const el = document.getElementById(id) ?? document.getElementById(legacy);
     if (el) {
       el.scrollIntoView({ behavior, block: "start" });
       return;
@@ -22,8 +27,8 @@ export function scrollToHash(hash: string, behavior: ScrollBehavior = "auto"): (
 }
 
 /**
- * Route scroll behaviour: on a new path scroll to the top instantly, then to the hash
- * target if the URL has one. Same-path hash links ("/sih#judges" while on /sih) scroll
+ * Route scroll behaviour: on a new path scroll to the top instantly, then (instantly)
+ * to the hash target if the URL has one. Same-path hash links ("/sih#judges" while on /sih) scroll
  * smoothly. Back/forward keeps the browser's own restoration.
  */
 export function ScrollManager() {

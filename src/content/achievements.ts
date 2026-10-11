@@ -38,29 +38,40 @@ export const latestWins: Win[] = [
     image: "/images/events/robocraze26.jpeg",
   },
   {
-    id: "sih-legacy",
-    title: "Smart India Hackathon",
-    result: "2× national winners, 4× finalists",
+    id: "sih-2025",
+    title: "Smart India Hackathon 2025",
+    result: "National winners, two teams",
     description:
-      "Robogyan teams have won the SIH Grand Finale twice and reached the national finals four times, with AI and IoT builds.",
+      "Two Robogyan teams won the SIH 2025 Grand Finale. The society has won SIH twice (2019, 2025) and reached the national finals four times, with AI and IoT builds.",
     date: "2025-12",
-    image: "/images/events/sihWin.JPG",
+    image: "/images/sih/sihWinnersRG25.JPG",
   },
 ];
 
 /**
- * Competition record collected from the brief and alumni batches, for a longer wins rail.
- * Years are the batch year where the old data gives no exact date.
+ * Competition record collected from the brief and alumni batches, for a longer wins rail
+ * (SIH 2025 is in `latestWins`). Years are the batch year where the old data gives no
+ * exact date; `image` where a photo of that win exists.
  */
-export const trackRecord: { id: string; year: number; title: string }[] = [
-  { id: "sih-2025", year: 2025, title: "Smart India Hackathon 2025: national winners" },
-  { id: "sih-2019", year: 2019, title: "Smart India Hackathon 2019: national winners" },
+export const trackRecord: { id: string; year: number; title: string; image?: string }[] = [
+  {
+    id: "sih-2019",
+    year: 2019,
+    title: "Smart India Hackathon 2019: national winners",
+    image: "/images/sih/sihWinnersRg19.jpeg",
+  },
   {
     id: "techkriti-2025",
     year: 2025,
     title: "Techkriti, IIT Kanpur: Galactic Dodger 1st & 2nd, Capture the Flag 2nd",
+    image: "/images/lifeatrg/Techkriti.jpg",
   },
-  { id: "hackbmu-2024", year: 2024, title: "HackBMU 6.0: 2nd position" },
+  {
+    id: "hackbmu-2024",
+    year: 2024,
+    title: "HackBMU 6.0: 2nd position",
+    image: "/images/lifeatrg/HackBMU.png",
+  },
   { id: "xylem-2024", year: 2024, title: "Xylem: global winners" },
   { id: "eyantra-2022", year: 2022, title: "e-Yantra, IIT Bombay: winners" },
   { id: "tata-crucible-2021", year: 2021, title: "Tata Crucible: winners" },

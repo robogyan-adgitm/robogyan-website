@@ -15,6 +15,7 @@ import { Hero } from "./home/Hero";
 import { Panel } from "./home/Panel";
 import { StickerFrame } from "./home/StickerFrame";
 import { WinsRail } from "./home/WinsRail";
+import { PortraitTag } from "./people/shared";
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -168,7 +169,7 @@ export default function HomePage() {
         </div>
         <ul className="mt-10 grid gap-6 md:grid-cols-3">
           {featuredProjects.map((p) => (
-            <li key={p.id}>
+            <li key={p.id} className="hover-card">
               <Panel hover className="h-full" innerClassName="flex flex-col">
                 <Frame
                   src={p.image}
@@ -178,7 +179,9 @@ export default function HomePage() {
                   sizes="(min-width: 768px) 400px, 100vw"
                 />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <h3 className="text-xl font-display">{p.name}</h3>
+                  <h3 data-card-title className="text-xl font-display">
+                    {p.name}
+                  </h3>
                   <p className="mt-2 text-text-muted">{p.summary}</p>
                   <dl className="mt-6 border-t border-line text-sm">
                     <div className="grid grid-cols-[5rem_1fr] gap-3 border-b border-line py-2.5">
@@ -220,15 +223,20 @@ export default function HomePage() {
         </div>
         <ul className="mt-10 grid grid-cols-2 gap-6 md:gap-8 lg:grid-cols-4">
           {featuredTeam.map((m) => (
-            <li key={m.id}>
+            <li key={m.id} className="hover-portrait">
               <StickerFrame
                 src={m.image}
                 alt={m.name}
                 ratio={1}
                 position="top"
                 sizes="(min-width: 1024px) 290px, 45vw"
-              />
-              <h3 className="mt-4 font-semibold">{m.name}</h3>
+                imgClassName="portrait-img"
+              >
+                <PortraitTag>{m.role}</PortraitTag>
+              </StickerFrame>
+              <h3 data-name className="mt-4 font-semibold">
+                {m.name}
+              </h3>
               <p className="text-sm font-condensed text-muted-on-paper">{m.role}</p>
             </li>
           ))}

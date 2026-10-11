@@ -15,8 +15,15 @@ export function useDialog(open: boolean, onClose: () => void) {
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
+    if (open && !dialog.open) {
+      dialog.showModal();
+      // Lets the custom cursor hand back to the native one at once (see features/cursor).
+      document.dispatchEvent(new CustomEvent("rg:dialog", { detail: true }));
+    }
+    if (!open && dialog.open) {
+      dialog.close();
+      document.dispatchEvent(new CustomEvent("rg:dialog", { detail: false }));
+    }
   }, [open]);
 
   useEffect(() => {

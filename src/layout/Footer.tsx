@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { FooterMark } from "./FooterMark";
 import { SocialIcon } from "@/components/SocialIcon";
 import { exploreLinks, lab, site, socials } from "@/content/site";
 import { FooterYearEgg } from "@/features/eggs/FooterYearEgg";
@@ -17,12 +18,7 @@ export function Footer() {
     <footer className="relative overflow-hidden border-t border-line bg-ink">
       <div className="mx-auto grid w-full max-w-site gap-12 px-4 pt-16 pb-10 md:grid-cols-12 md:px-6 md:pt-24">
         <div className="md:col-span-4">
-          <span
-            aria-hidden="true"
-            className="block h-[0.82em] overflow-hidden text-[160px] leading-[0.82] font-display text-text select-none"
-          >
-            R
-          </span>
+          <FooterMark />
           <p className="mt-6 max-w-xs text-text-muted">
             {site.name}. {site.tagline}, since {site.foundedYear}.
           </p>
@@ -33,7 +29,10 @@ export function Footer() {
           <ul className="flex flex-col gap-2">
             {exploreLinks.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="text-text-muted transition-colors hover:text-text">
+                <Link
+                  href={l.href}
+                  className="text-text-muted transition-colors duration-150 hover:text-text active:text-text"
+                >
                   {l.label}
                 </Link>
               </li>
@@ -82,8 +81,8 @@ export function Footer() {
 
       <div className="border-t border-line">
         <p className="mx-auto w-full max-w-site px-4 py-6 text-sm font-condensed text-text-muted md:px-6">
-          © <FooterYearEgg year={year} /> {site.name} · Experience engineering since{" "}
-          {site.foundedYear}
+          © <FooterYearEgg year={year} /> {site.name}. Experience engineering since{" "}
+          {site.foundedYear}.
         </p>
       </div>
     </footer>

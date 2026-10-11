@@ -16,7 +16,7 @@ export function JudgesGrid() {
               type="button"
               onClick={() => setIndex(i)}
               aria-label={`Open ${judge.alt}`}
-              className="relative block w-full cursor-pointer chamfer chamfer-hover"
+              className="chamfer-hover relative block w-full cursor-pointer chamfer"
             >
               <Frame
                 src={judge.src}

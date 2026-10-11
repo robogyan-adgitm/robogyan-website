@@ -653,7 +653,8 @@ export const sihCopy = {
     intro:
       "Six illustrative challenges in the shape of official problem statements. The complete live list released by ministries and PSUs is on the national portal.",
     portalPrompt: "Looking for all official problem statements?",
-    portalNote: "Explore the complete live database released by ministries and PSUs on the national portal.",
+    portalNote:
+      "Explore the complete live database released by ministries and PSUs on the national portal.",
   },
   ppt: {
     title: "Idea PPT structure and pitch kit",

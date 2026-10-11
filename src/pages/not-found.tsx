@@ -17,10 +17,9 @@ export default function NotFoundPage() {
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
           <div className="order-2 md:order-1 md:col-span-7">
-            <p className="text-sm font-condensed text-text-muted tabular">Error 404</p>
-            <h1 className="mt-3 text-4xl font-display">Page not found</h1>
+            <h1 className="text-4xl font-display">Page not found</h1>
             <p className="mt-4 max-w-prose text-lg text-text-muted">
-              Line lost. Sensor array reads 0000.
+              Error 404. Line lost. Sensor array reads 0000.
             </p>
             <Button href="/" size="lg" className="mt-8">
               Back to the line

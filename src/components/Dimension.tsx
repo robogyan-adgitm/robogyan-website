@@ -1,5 +1,6 @@
 import { animate, motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useMedia } from "@/hooks/useMedia";
 import { useInView } from "@/hooks/useInView";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
@@ -26,6 +27,7 @@ function formatValue(v: number | string): string {
 /**
  * CAD-style dimension callout: `|—— 1,500 participants ——|`. On first view the rule
  * draws out from the centre and the number counts up (static with reduced motion).
+ * Hovering replays both.
  */
 export function Dimension({
   value,
@@ -39,25 +41,43 @@ export function Dimension({
   const numRef = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref);
   const reduced = useReducedMotion();
+  const fine = useMedia("(hover: hover) and (pointer: fine)");
   const animated = !reduced && typeof value === "number";
   const finalText = `${prefix}${formatValue(value)}${suffix}`;
+  // Hover replays the draw + count (desktop pointers, motion allowed). Each replay
+  // remounts the rules so their entrance runs again.
+  const [replay, setReplay] = useState(0);
+  const replayable = animated && fine;
+  const busy = useRef(false);
 
   useEffect(() => {
     const node = numRef.current;
     if (!node || !animated || !inView || typeof value !== "number") return;
+    busy.current = true;
     const controls = animate(0, value, {
-      duration: 1.1,
+      duration: replay ? 0.9 : 1.1,
       ease: [0.25, 1, 0.5, 1],
       onUpdate: (v) => {
         node.textContent = `${prefix}${formatValue(v)}${suffix}`;
       },
+      onComplete: () => {
+        busy.current = false;
+      },
     });
-    return () => controls.stop();
-  }, [animated, inView, value, prefix, suffix]);
+    return () => {
+      controls.stop();
+      busy.current = false;
+    };
+  }, [animated, inView, value, prefix, suffix, replay]);
+
+  const onEnter = () => {
+    if (replayable && inView && !busy.current) setReplay((n) => n + 1);
+  };
 
   const shown = !animated || inView;
   const rule = (origin: "left" | "right") => (
     <motion.span
+      key={`${origin}-${replay}`}
       aria-hidden="true"
       className="h-px min-w-4 flex-1 bg-current"
       style={{ originX: origin === "left" ? 0 : 1 }}
@@ -71,6 +91,7 @@ export function Dimension({
   return (
     <div
       ref={ref}
+      onPointerEnter={replayable ? onEnter : undefined}
       className={cn(
         "flex w-full items-center",
         onPaper ? "text-muted-on-paper" : "text-text-muted",

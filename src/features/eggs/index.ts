@@ -6,7 +6,7 @@ export { GyaanEgg, GYAAN_MESSAGE } from "./GyaanEgg";
 export { KonamiBot, useKonami, honk, KONAMI } from "./KonamiBot";
 export { EndOfLineEgg, END_OF_LINE_MESSAGE } from "./EndOfLineEgg";
 export { LogoEgg, useLogoEggTrigger } from "./LogoEgg";
-export { FooterYearEgg, footerStats } from "./FooterYearEgg";
+export { FooterYearEgg } from "./FooterYearEgg";
 export { LineFollower, type LineFollowerProps } from "./LineFollower";
 export { LostBot, type LostBotProps } from "./LostBot";
 export { useSihConfetti, burstSquares, type SihConfettiOptions } from "./useSihConfetti";

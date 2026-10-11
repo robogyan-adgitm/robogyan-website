@@ -8,13 +8,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["scripts/**", 
-      "dist",
-      "node_modules",
-      "playwright-report",
-      "test-results",
-      "public",
-    ],
+    ignores: ["scripts/**", "dist", "node_modules", "playwright-report", "test-results", "public"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

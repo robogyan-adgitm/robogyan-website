@@ -20,7 +20,10 @@ function Spec({ label, children }: { label: string; children: ReactNode }) {
 export function ProjectRow({ project }: { project: Project }) {
   const active = project.status === "Active";
   return (
-    <li className="grid gap-6 border-t border-line py-10 md:grid-cols-12 md:gap-8 md:py-14">
+    <li
+      data-rule
+      className="hover-card grid gap-6 border-t border-line py-10 md:grid-cols-12 md:gap-8 md:py-14"
+    >
       <div className="md:col-span-5">
         <Frame
           src={project.image}
@@ -30,7 +33,9 @@ export function ProjectRow({ project }: { project: Project }) {
         />
       </div>
       <div className="md:col-span-7 md:pt-1">
-        <h2 className="text-2xl font-display">{project.name}</h2>
+        <h2 data-card-title className="text-2xl font-display">
+          {project.name}
+        </h2>
         <p className="mt-3 max-w-prose text-text-muted">{project.summary}</p>
         <dl className="mt-6 grid border-b border-line sm:grid-cols-2 sm:gap-x-8">
           <Spec label="Status">
@@ -41,7 +46,11 @@ export function ProjectRow({ project }: { project: Project }) {
           <Spec label="Category">{project.category}</Spec>
           <Spec label="Started">{formatDate(project.start)}</Spec>
           <Spec label="Finished">
-            {project.end ? formatDate(project.end) : <span className="text-text-muted">Ongoing</span>}
+            {project.end ? (
+              formatDate(project.end)
+            ) : (
+              <span className="text-text-muted">Ongoing</span>
+            )}
           </Spec>
         </dl>
         <TechTagList items={project.techStack} className="mt-5" />

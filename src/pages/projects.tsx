@@ -45,7 +45,7 @@ export default function ProjectsPage() {
                   className={cn(
                     "h-9 cursor-pointer px-3 text-sm font-semibold transition-colors duration-150",
                     pressed
-                      ? "chamfer bg-kapton text-kapton-ink"
+                      ? "bg-kapton text-kapton-ink chamfer"
                       : "rounded-sm border border-line text-text-muted hover:border-text hover:text-text",
                   )}
                 >
@@ -73,8 +73,8 @@ export default function ProjectsPage() {
           <div className="md:col-span-8">
             <h2 className="text-3xl font-display">Have an idea? The lab is open.</h2>
             <p className="mt-4 max-w-prose text-lg text-muted-on-paper">
-              Most of these started as a sketch and a parts list. Bring yours to Block 5 and
-              build it with people who have done this before.
+              Most of these started as a sketch and a parts list. Bring yours to Block 5 and build
+              it with people who have done this before.
             </p>
           </div>
           <div className="md:col-span-4 md:justify-self-end">

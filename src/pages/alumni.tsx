@@ -9,26 +9,18 @@ import { links, site } from "@/content/site";
 import { batchYear, personSocials } from "./people/helpers";
 import { MemberGrid, PersonLinks, Portrait, RuledList } from "./people/shared";
 
-/** Flat stand-in for a batch without a photo yet: the year on a panel. */
-function YearPanel({ year }: { year: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className="flex aspect-video items-end bg-panel p-6 chamfer-lg select-none"
-    >
-      <span className="text-5xl font-display text-line">{year}</span>
-    </div>
-  );
-}
-
 function BatchRow({ batch }: { batch: AlumniBatch }) {
   const year = batchYear(batch.id);
   const headingId = `batch-${batch.id}`;
   return (
-    <li className="border-t border-line py-12 md:py-16" aria-labelledby={headingId}>
+    <li
+      data-rule
+      className="hover-card border-t border-line py-12 md:py-16"
+      aria-labelledby={headingId}
+    >
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-x-10">
-        <div className="lg:col-span-5">
-          <h3 id={headingId} className="text-3xl font-display tabular">
+        <div className={batch.image ? "lg:col-span-5" : "lg:col-span-8"}>
+          <h3 id={headingId} data-card-title className="text-3xl font-display tabular">
             {year}
           </h3>
           <p className="mt-2 text-xl">{batch.title}</p>
@@ -42,18 +34,16 @@ function BatchRow({ batch }: { batch: AlumniBatch }) {
             Open batch page
           </Button>
         </div>
-        <div className="order-first lg:order-none lg:col-span-7">
-          {batch.image ? (
+        {batch.image && (
+          <div className="order-first lg:order-none lg:col-span-7">
             <Frame
               src={batch.image}
               alt={`The Robogyan core team of ${year}`}
               ratio="16 / 9"
               chamfer="lg"
             />
-          ) : (
-            <YearPanel year={year} />
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <MemberGrid members={batch.members} className="mt-10 md:mt-12" />
     </li>
@@ -95,14 +85,17 @@ export default function AlumniPage() {
           </div>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:col-span-7">
             {founders.map((f, i) => (
-              <li key={f.id} className="min-w-0">
+              <li key={f.id} className="hover-portrait min-w-0">
                 <Portrait
                   src={f.image}
                   alt={`Portrait of ${f.name}`}
                   chamfer="lg"
                   priority={i === 0}
+                  tag={f.position}
                 />
-                <h3 className="mt-4 text-xl font-display md:text-2xl">{f.name}</h3>
+                <h3 data-name className="mt-4 text-xl font-display md:text-2xl">
+                  {f.name}
+                </h3>
                 <p className="mt-1 font-condensed text-text-muted">{f.position}</p>
                 <p className="mt-2 text-text-muted">
                   {f.currentRole}, {f.company}
@@ -115,7 +108,7 @@ export default function AlumniPage() {
       </Section>
 
       <Section compact aria-labelledby="batches" className="pt-0 md:pt-0">
-        <h2 id="batches" className="mb-8 text-sm font-condensed text-text-muted">
+        <h2 id="batches" className="mb-8 text-2xl font-display md:text-3xl">
           Core teams, newest first
         </h2>
         <ol className="border-b border-line">
@@ -132,9 +125,9 @@ export default function AlumniPage() {
               Were you in Robogyan?
             </h2>
             <p className="mt-4 max-w-prose text-lg text-muted-on-paper">
-              We are still filling in the batches before 2019. If you were part of the society,
-              tell us who you are and what you did here, so future members know who is behind the
-              RG legacy.
+              We are still filling in the batches before 2019. If you were part of the society, tell
+              us who you are and what you did here, so future members know who is behind the RG
+              legacy.
             </p>
             <Button href={links.alumniFormUrl} className="mt-8">
               Share your details

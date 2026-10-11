@@ -87,3 +87,68 @@ test("gyaan easter egg shows a toast", async ({ page }) => {
   await page.keyboard.type("gyaan");
   await expect(page.getByText(/knowledge of robots/)).toBeVisible();
 });
+
+test.describe("alive layer", () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+
+  test("DotField canvas is present and fills the viewport", async ({ page }) => {
+    await page.goto("/");
+    const canvas = page.locator("canvas#dot-field");
+    await expect(canvas).toHaveCount(1);
+    const size = await canvas.evaluate((c: HTMLCanvasElement) => ({
+      w: c.clientWidth,
+      h: c.clientHeight,
+      bw: c.width,
+      position: getComputedStyle(c).position,
+      events: getComputedStyle(c).pointerEvents,
+    }));
+    expect(size.position).toBe("fixed");
+    expect(size.events).toBe("none");
+    expect(size.w).toBeGreaterThan(1000);
+    expect(size.h).toBeGreaterThan(800);
+    expect(size.bw).toBeGreaterThanOrEqual(size.w);
+  });
+
+  test("hero letters respond to hover individually", async ({ page }) => {
+    await page.goto("/");
+    const letter = page.locator("[data-letter='3']");
+    await expect(letter).toBeVisible();
+    await page.waitForTimeout(1000); // load-in rise
+    await letter.hover();
+    const glyph = letter.locator("[data-hovered]");
+    await expect(glyph).toHaveCount(1);
+    await expect(glyph).toHaveCSS("color", "rgb(255, 176, 0)");
+    // Only the hovered letter turns kapton.
+    await expect(page.locator("#hero-title [data-hovered]")).toHaveCount(1);
+    await page.locator("[data-letter='6']").hover();
+    await expect(page.locator("[data-letter='6'] [data-hovered]")).toHaveCount(1);
+    await expect(page.locator("[data-letter='3'] [data-hovered]")).toHaveCount(0);
+  });
+
+  test("custom cursor appears on pointer move", async ({ page }) => {
+    await page.goto("/");
+    await page.mouse.move(400, 500);
+    await page.mouse.move(420, 520);
+    const cursor = page.locator("#rg-cursor");
+    await expect(cursor).toHaveAttribute("data-visible", "true");
+    await expect(page.locator("body")).toHaveClass(/has-custom-cursor/);
+  });
+
+  test("reduced motion: no custom cursor, static hero letters", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await page.mouse.move(400, 500);
+    await page.mouse.move(420, 520);
+    await expect(page.locator("#rg-cursor")).toHaveCount(0);
+    await expect(page.locator("canvas#dot-field")).toHaveCount(1);
+    const letter = page.locator("[data-letter='3']");
+    await letter.hover();
+    const glyph = letter.locator("[data-hovered]");
+    await expect(glyph).toHaveCSS("color", "rgb(255, 176, 0)");
+    // Colour only: no lift.
+    expect(await glyph.evaluate((g) => g.getBoundingClientRect().top)).toBeCloseTo(
+      await letter.evaluate((l) => l.getBoundingClientRect().top),
+      0,
+    );
+  });
+});

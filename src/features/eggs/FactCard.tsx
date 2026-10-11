@@ -30,9 +30,9 @@ export function FactCard({ fact, onClose }: FactCardProps) {
         <div className="p-6">
           <div className="flex items-start justify-between gap-4">
             <p className="text-sm font-condensed">
-              {fact.year ? `${fact.year} · ` : ""}
-              {factSourceLabel(fact.source)}
-              {!fact.verified && " · unverified"}
+              {[factSourceLabel(fact.source), fact.year, !fact.verified && "unverified"]
+                .filter(Boolean)
+                .join(", ")}
             </p>
             <button
               type="button"

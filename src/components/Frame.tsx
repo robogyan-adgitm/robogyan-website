@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useCallback, useState, type CSSProperties } from "react";
+import { useCallback, useState, type CSSProperties, type ReactNode } from "react";
 import { imageSize } from "@/content/imageMeta";
 import { cn } from "@/lib/cn";
 
@@ -25,12 +25,15 @@ export interface FrameProps {
   layoutId?: string;
   className?: string;
   imgClassName?: string;
+  /** Overlay inside the frame (e.g. a caption bar or a role sticker). */
+  children?: ReactNode;
 }
 
 const chamfers = { sm: "chamfer", lg: "chamfer-lg", none: "" } as const;
 
 /**
- * Chamfered image frame. Shows a flat `panel` block until the image has loaded (no
+ * Chamfered image frame. A kapton corner (`frame-corner`) and a 1.03 image scale appear
+ * when an ancestor `hover-card` is hovered or focused. Shows a flat `panel` block until the image has loaded (no
  * spinner), lazy-loads unless `priority`, and always sets width/height to avoid layout shift.
  */
 export function Frame({
@@ -47,6 +50,7 @@ export function Frame({
   layoutId,
   className,
   imgClassName,
+  children,
 }: FrameProps) {
   const [loaded, setLoaded] = useState(false);
   const meta = imageSize(src);
@@ -65,7 +69,12 @@ export function Frame({
 
   return (
     <div
-      className={cn("relative overflow-hidden bg-panel", chamfers[chamfer], className)}
+      className={cn(
+        "relative overflow-hidden bg-panel",
+        chamfers[chamfer],
+        chamfer !== "none" && "frame-corner",
+        className,
+      )}
       style={wrapperStyle}
     >
       <motion.img
@@ -82,12 +91,13 @@ export function Frame({
         onLoad={() => setLoaded(true)}
         style={imgStyle}
         className={cn(
-          "block transition-opacity duration-200",
+          "frame-img block",
           ratio ? "absolute inset-0 size-full" : "h-auto w-full",
           loaded ? "opacity-100" : "opacity-0",
           imgClassName,
         )}
       />
+      {children}
     </div>
   );
 }

@@ -115,7 +115,10 @@ export default function SihPage() {
             <div className="grid grid-cols-[7rem_1fr] gap-4 border-b border-line py-3">
               <dt className="text-text-muted">Email</dt>
               <dd>
-                <AppLink href={`mailto:${emails.contact}`} className="underline-offset-4 hover:underline">
+                <AppLink
+                  href={`mailto:${emails.contact}`}
+                  className="underline-offset-4 hover:underline"
+                >
                   {emails.contact}
                 </AppLink>
               </dd>

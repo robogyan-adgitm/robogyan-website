@@ -1,25 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
-import { alumniBatches, founders, presidentsOnRecord } from "@/content/alumni";
-import { projects } from "@/content/projects";
-import { site } from "@/content/site";
-import { teamMembers } from "@/content/team";
-import { yearsSince } from "@/lib/dates";
 
 const LONG_PRESS_MS = 800;
-
-/** Numbers computed from content, e.g. "17 years · 6 presidents on record · 2 founders". */
-export function footerStats(now: Date = new Date()): string[] {
-  const alumni = new Set(alumniBatches.flatMap((b) => b.members.map((m) => m.id)));
-  return [
-    `${yearsSince(site.foundedYear, now)} years`,
-    `${presidentsOnRecord().length} presidents on record`,
-    `${founders.length} founders`,
-    `${alumniBatches.length} alumni batches`,
-    `${alumni.size} alumni`,
-    `${teamMembers.length} on the current core`,
-    `${projects.length} projects on this site`,
-  ];
-}
 
 /**
  * Egg 8: wraps the footer year. Long-press (800 ms) or Shift+click reveals the
@@ -27,12 +8,16 @@ export function footerStats(now: Date = new Date()): string[] {
  */
 export function FooterYearEgg({ year }: { year: number }) {
   const [open, setOpen] = useState(false);
+  const [lines, setLines] = useState<string[]>([]);
   const timer = useRef<number | null>(null);
   const fired = useRef(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!open) return;
+    // Content modules load only when the egg fires (see footerStats.ts).
+    let live = true;
+    void import("./footerStats").then((m) => live && setLines(m.footerStats()));
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     const onDown = (e: globalThis.PointerEvent) => {
       if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
@@ -41,6 +26,7 @@ export function FooterYearEgg({ year }: { year: number }) {
     window.addEventListener("keydown", onKey);
     window.addEventListener("pointerdown", onDown);
     return () => {
+      live = false;
       window.clearTimeout(t);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("pointerdown", onDown);
@@ -72,19 +58,20 @@ export function FooterYearEgg({ year }: { year: number }) {
         onPointerDown={onPointerDown}
         onPointerUp={clear}
         onPointerLeave={clear}
-        onContextMenu={(e) => fired.current && e.preventDefault()}
+        // Touch long-press would otherwise open the context menu before 800 ms.
+        onContextMenu={(e) => e.preventDefault()}
         onClick={(e) => {
           if (e.shiftKey) setOpen((o) => !o);
         }}
       >
         {year}
       </button>
-      {open && (
+      {open && lines.length > 0 && (
         <span
           role="status"
           className="absolute bottom-full left-0 z-20 mb-3 block w-64 bg-kapton p-4 text-sm font-condensed text-kapton-ink chamfer"
         >
-          {footerStats().map((line) => (
+          {lines.map((line) => (
             <span key={line} className="block">
               {line}
             </span>

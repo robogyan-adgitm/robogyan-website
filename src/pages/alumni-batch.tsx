@@ -83,7 +83,7 @@ function ShareBlock({ batch }: { batch: AlumniBatch }) {
               readOnly
               value={url}
               onFocus={(e) => e.currentTarget.select()}
-              className="h-11 min-w-0 flex-1 rounded-sm border border-paper-line bg-paper px-3 text-text-on-paper font-condensed"
+              className="h-11 min-w-0 flex-1 rounded-sm border border-paper-line bg-paper px-3 font-condensed text-text-on-paper"
             />
             <Button type="submit">Copy link</Button>
           </form>
@@ -123,7 +123,8 @@ export default function AlumniBatchPage() {
       <TopBar year={year} />
 
       <Container className="pt-6 md:pt-8">
-        {batch.image ? (
+        {/* No stand-in block for a batch without a photo: the page simply opens on the year. */}
+        {batch.image && (
           <Frame
             src={batch.image}
             alt={`The Robogyan core team of ${year}`}
@@ -131,13 +132,6 @@ export default function AlumniBatchPage() {
             chamfer="lg"
             priority
           />
-        ) : (
-          <div
-            aria-hidden="true"
-            className="flex aspect-[2/1] items-end bg-panel p-6 chamfer-lg select-none md:aspect-[4/1]"
-          >
-            <span className="text-5xl font-display text-line">{year}</span>
-          </div>
         )}
 
         <div className="grid gap-8 py-12 md:py-16 lg:grid-cols-12 lg:gap-x-10">

@@ -101,9 +101,11 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* Transparent so the fixed DotField canvas (z-index -10) shows through; the ink
+     comes from <html>. */
   body {
     min-height: 100dvh;
-    background: var(--color-ink);
+    background: transparent;
     color: var(--color-text);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -230,9 +232,9 @@
 
 /* ---------- Surfaces ---------- */
 
-/** Ink surface: true black, light text. */
+/** Ink surface: light text over the page ink and its DotField grid, which shows through. */
 @utility surface-ink {
-  background-color: var(--color-ink);
+  background-color: transparent;
   color: var(--color-text);
 }
 
@@ -273,4 +275,352 @@
 
 @utility tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+ * The "alive" layer (REVISION_1 §3). Flat colours and transforms only.
+ * Pointer hover lives behind `(hover: hover)`, transforms behind
+ * `prefers-reduced-motion: no-preference`; focus-visible mirrors hover, and touch
+ * gets `:active` colour changes. Unlayered on purpose: these state rules must win
+ * over the utilities a component already carries (e.g. `bg-kapton`, `text-text`).
+ * ========================================================================== */
+
+/* ---------- Custom cursor (features/cursor) ---------- */
+body.has-custom-cursor {
+  cursor: none;
+}
+/* Modal dialogs render above the custom cursor: keep the native one there. Text fields
+   keep the native I-beam (the crosshair hides over them, see features/cursor). */
+dialog {
+  cursor: auto;
+}
+body.has-custom-cursor :is(input, textarea, [contenteditable="true"]) {
+  cursor: text;
+}
+
+.rg-cursor {
+  --cursor-color: var(--color-text);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms linear;
+  will-change: transform;
+}
+.rg-cursor[data-visible="true"] {
+  opacity: 1;
+}
+.rg-cursor[data-mode="primary"] {
+  --cursor-color: var(--color-kapton);
+}
+.rg-cursor[data-mode="text"] {
+  opacity: 0;
+}
+.rg-cursor > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--cursor-color);
+  transition:
+    opacity 150ms linear,
+    scale 180ms var(--ease-out-quart),
+    background-color 150ms linear,
+    border-color 150ms linear;
+}
+.rg-cursor-h {
+  width: 14px;
+  height: 1px;
+  translate: -7px -0.5px;
+}
+.rg-cursor-v {
+  width: 1px;
+  height: 14px;
+  translate: -0.5px -7px;
+}
+.rg-cursor-dot {
+  width: 2px;
+  height: 2px;
+  translate: -1px -1px;
+}
+.rg-cursor .rg-cursor-ring {
+  width: 32px;
+  height: 32px;
+  translate: -16px -16px;
+  background: transparent;
+  border: 1px solid var(--cursor-color);
+  /* Square, not a circle: the site has no radius above 4px. */
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  scale: 0.4;
+}
+.rg-cursor:is([data-mode="ring"], [data-mode="primary"]) :is(.rg-cursor-h, .rg-cursor-v) {
+  opacity: 0;
+  scale: 0.4;
+}
+.rg-cursor:is([data-mode="ring"], [data-mode="primary"]) .rg-cursor-ring {
+  opacity: 1;
+  scale: 1;
+}
+.rg-cursor[data-pressed="true"] .rg-cursor-ring {
+  scale: 0.8;
+}
+
+/* ---------- Width squeeze (nav links): a hidden wdth-100 ghost keeps the box steady ---------- */
+.squeeze {
+  display: inline-grid;
+  justify-items: center;
+}
+.squeeze > *,
+.squeeze::after {
+  grid-area: 1 / 1;
+}
+.squeeze::after {
+  content: attr(data-text);
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+.squeeze > * {
+  font-variation-settings: "wdth" 100;
+  transition: font-variation-settings 180ms var(--ease-out-quart);
+}
+@media (hover: hover) {
+  :hover > .squeeze > * {
+    font-variation-settings: "wdth" 90;
+  }
+}
+:focus-visible > .squeeze > * {
+  font-variation-settings: "wdth" 90;
+}
+
+/* ---------- Primary button: the notch grows, the label nudges, a flat ink edge ---------- */
+.btn-primary {
+  --notch: 12px;
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
+  transition:
+    clip-path 180ms var(--ease-out-quart),
+    box-shadow 150ms linear,
+    background-color 150ms linear;
+}
+.btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+  transition: translate 180ms var(--ease-out-quart);
+}
+@media (hover: hover) {
+  .btn-primary:hover {
+    --notch: 20px;
+    box-shadow: inset 0 -2px 0 0 var(--color-kapton-ink);
+  }
+  .btn-primary:hover .btn-label {
+    translate: 2px 0;
+  }
+}
+.btn-primary:focus-visible {
+  --notch: 20px;
+  /* The chamfer clips outlines, so the focus ring is drawn inside. */
+  box-shadow: inset 0 0 0 2px var(--color-kapton-ink);
+}
+.btn-primary:focus-visible .btn-label {
+  translate: 2px 0;
+}
+.btn-primary:active {
+  background-color: var(--color-text);
+}
+
+/* ---------- Frames: a hidden kapton corner, revealed by a hovered card ---------- */
+.frame-corner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--color-kapton);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  opacity: 0;
+  transition: opacity 120ms linear;
+  pointer-events: none;
+  z-index: 1;
+}
+.frame-img {
+  transition:
+    opacity 200ms linear,
+    scale 180ms ease-out,
+    translate 180ms ease-out;
+}
+
+/*
+ * Cards and rows (projects, events, wins, moments, alumni batches). Portraits nested
+ * in a row (alumni batches) keep their own hover and are excluded.
+ * `hover-card` on the item, `data-card-title` on its heading, `data-rule` when the
+ * row's bottom rule should light up.
+ */
+.hover-card {
+  position: relative;
+}
+.hover-card [data-card-title] {
+  transition: color 180ms ease-out;
+}
+/* The 1px rule under the row, drawn over the next row's top border. */
+.hover-card[data-rule]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: transparent;
+  transition: background-color 180ms ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (hover: hover) {
+  .hover-card:hover .frame-corner:not(.hover-portrait *)::after {
+    opacity: 1;
+  }
+  .hover-card:hover [data-card-title] {
+    color: var(--color-kapton);
+  }
+  .hover-card[data-rule]:hover::before {
+    background: var(--color-text);
+  }
+}
+.hover-card:focus-within .frame-corner:not(.hover-portrait *)::after {
+  opacity: 1;
+}
+.hover-card:focus-within [data-card-title] {
+  color: var(--color-kapton);
+}
+.hover-card[data-rule]:focus-within::before {
+  background: var(--color-text);
+}
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) {
+    .hover-card:hover .frame-img:not(.portrait-img),
+    .hover-tile:hover .frame-img {
+      scale: 1.03;
+    }
+  }
+  .hover-card:focus-within .frame-img:not(.portrait-img),
+  .hover-tile:focus-visible .frame-img {
+    scale: 1.03;
+  }
+}
+
+/*
+ * Portraits (team, alumni): the photo rises 4px inside its frame, an amber role
+ * sticker slides in bottom-left and the name underlines. `hover-portrait` on the
+ * item, `data-name` on the name.
+ */
+.portrait-img {
+  height: calc(100% + 4px) !important;
+}
+.portrait-tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  max-width: calc(100% - 1rem);
+  padding: 0.125rem 0.5rem;
+  background: var(--color-kapton);
+  color: var(--color-kapton-ink);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  font-stretch: 75%;
+  font-variation-settings: "wdth" 75;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  translate: -101% 0;
+  transition: translate 200ms var(--ease-out-quart);
+  pointer-events: none;
+}
+.hover-portrait [data-name] {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 160ms linear;
+}
+.sticker-frame::before {
+  transition: translate 180ms var(--ease-out-quart);
+}
+@media (hover: hover) {
+  .hover-portrait:hover [data-name] {
+    text-decoration-color: currentColor;
+  }
+  .hover-portrait:hover .portrait-tag {
+    translate: 0 0;
+  }
+  .hover-portrait:hover .sticker-frame::before {
+    translate: 4px 4px;
+  }
+}
+.hover-portrait:focus-within [data-name] {
+  text-decoration-color: currentColor;
+}
+.hover-portrait:focus-within .portrait-tag {
+  translate: 0 0;
+}
+.hover-portrait:focus-within .sticker-frame::before {
+  translate: 4px 4px;
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .hover-portrait:hover .portrait-img {
+    translate: 0 -4px;
+  }
+}
+
+/* ---------- Gallery tiles: a flat ink caption bar ---------- */
+.tile-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  text-align: left;
+  translate: 0 100%;
+  transition: translate 180ms var(--ease-out-quart);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .hover-tile:hover .tile-caption {
+    translate: 0 0;
+  }
+}
+.hover-tile:focus-visible .tile-caption {
+  translate: 0 0;
+}
+
+/* ---------- Links in running text ---------- */
+a.underline {
+  text-decoration-thickness: 1px;
+  transition:
+    color 150ms linear,
+    text-decoration-thickness 150ms linear;
+}
+@media (hover: hover) {
+  a.underline:hover {
+    text-decoration-thickness: 2px;
+    color: var(--color-kapton);
+  }
+}
+a.underline:focus-visible {
+  text-decoration-thickness: 2px;
+  color: var(--color-kapton);
+}
+/* Amber text fails contrast on paper and on kapton: thickness only there. */
+.surface-paper a.underline:is(:hover, :focus-visible),
+.bg-kapton a.underline:is(:hover, :focus-visible) {
+  color: inherit;
 }

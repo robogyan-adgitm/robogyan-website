@@ -8,7 +8,8 @@ export function batchYear(id: string): string {
 /** Labelled links for a person. Empty email is omitted: never show a guessed address. */
 export function personSocials(p: { email?: string; linkedin?: string; github?: string }): Social[] {
   const out: Social[] = [];
-  if (p.email) out.push({ id: "email", label: "Email", handle: p.email, href: `mailto:${p.email}` });
+  if (p.email)
+    out.push({ id: "email", label: "Email", handle: p.email, href: `mailto:${p.email}` });
   if (p.linkedin)
     out.push({ id: "linkedin", label: "LinkedIn", handle: "LinkedIn", href: p.linkedin });
   if (p.github) out.push({ id: "github", label: "GitHub", handle: "GitHub", href: p.github });

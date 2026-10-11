@@ -1,4 +1,11 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode, Ref } from "react";
+import {
+  useCallback,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+  type Ref,
+} from "react";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { cn } from "@/lib/cn";
 import { AppLink } from "./AppLink";
 
@@ -12,6 +19,8 @@ interface BaseProps {
   size?: ButtonSize;
   /** Use paper-surface colours for secondary/ghost. */
   onPaper?: boolean;
+  /** Pull up to 4px toward the pointer while hovered (desktop only). Default: true for primary. */
+  magnetic?: boolean;
   className?: string;
   children: ReactNode;
 }
@@ -40,15 +49,16 @@ const sizes: Record<ButtonSize, string> = {
 function variantClass(variant: ButtonVariant, onPaper: boolean): string {
   switch (variant) {
     case "primary":
-      return "chamfer bg-kapton text-kapton-ink hover:bg-text active:translate-y-px";
+      // Notch 12 → 20px, label nudge and the flat ink edge live in globals.css (.btn-primary).
+      return "btn-primary bg-kapton text-kapton-ink active:translate-y-px";
     case "secondary":
       return onPaper
-        ? "rounded-sm border border-text-on-paper text-text-on-paper hover:bg-text-on-paper hover:text-paper"
-        : "rounded-sm border border-line text-text hover:border-text";
+        ? "rounded-sm border border-text-on-paper text-text-on-paper hover:bg-text-on-paper hover:text-paper focus-visible:bg-text-on-paper focus-visible:text-paper active:bg-text-on-paper active:text-paper"
+        : "rounded-sm border border-line text-text hover:border-text hover:bg-panel focus-visible:border-text focus-visible:bg-panel active:bg-panel";
     case "ghost":
       return onPaper
-        ? "rounded-sm text-text-on-paper underline-offset-4 hover:underline"
-        : "rounded-sm text-text underline-offset-4 hover:underline";
+        ? "rounded-sm text-text-on-paper underline-offset-4 hover:underline focus-visible:underline"
+        : "rounded-sm text-text underline-offset-4 hover:underline focus-visible:underline";
   }
 }
 
@@ -58,7 +68,7 @@ export function buttonClass(
 ): string {
   const { variant = "primary", size = "md", onPaper = false } = opts;
   return cn(
-    "inline-flex shrink-0 cursor-pointer items-center justify-center font-semibold whitespace-nowrap transition-colors duration-150 select-none disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex shrink-0 cursor-pointer items-center justify-center font-semibold whitespace-nowrap transition-[color,background-color,border-color,box-shadow,clip-path] duration-150 select-none disabled:pointer-events-none disabled:opacity-50",
     sizes[size],
     variantClass(variant, onPaper),
   );
@@ -70,38 +80,62 @@ export function buttonClass(
  * `<Button variant="secondary" href="https://forms.gle/…">Register</Button>`.
  */
 export function Button(props: ButtonProps) {
-  const { variant = "primary", size = "md", onPaper = false, className, children } = props;
-  const classes = cn(buttonClass({ variant, size, onPaper }), className);
+  return props.href !== undefined ? <LinkButton {...props} /> : <ActionButton {...props} />;
+}
 
-  if (props.href !== undefined) {
-    const {
-      variant: _v,
-      size: _s,
-      onPaper: _p,
-      className: _c,
-      children: _ch,
-      href,
-      ...rest
-    } = props;
-    return (
-      <AppLink href={href} className={classes} {...rest}>
-        {children}
-      </AppLink>
-    );
-  }
-  const {
-    variant: _v,
-    size: _s,
-    onPaper: _p,
-    className: _c,
-    children: _ch,
-    href: _h,
-    type = "button",
-    ...rest
-  } = props;
+/** Classes, the nudging label and the cursor hint shared by both renderings. */
+function buttonParts(p: BaseProps) {
+  const { variant = "primary", size = "md", onPaper = false, className, children } = p;
+  return {
+    classes: cn(buttonClass({ variant, size, onPaper }), className),
+    label: <span className="btn-label">{children}</span>,
+    cursor: variant === "primary" ? "primary" : undefined,
+  };
+}
+
+function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
+  if (typeof ref === "function") ref(value);
+  else if (ref) (ref as { current: T | null }).current = value;
+}
+
+/** The magnetic pull (default on for primary) merged with the caller's ref. */
+function useButtonRef(p: BaseProps, userRef: Ref<HTMLElement> | undefined) {
+  const magneticRef = useMagnetic<HTMLElement>(
+    p.magnetic ?? (p.variant ?? "primary") === "primary",
+  );
+  return useCallback(
+    (node: HTMLElement | null) => {
+      const undo = magneticRef(node);
+      assignRef(userRef, node);
+      return () => {
+        undo?.();
+        assignRef(userRef, null);
+      };
+    },
+    [magneticRef, userRef],
+  );
+}
+
+function LinkButton({ ref, href, ...props }: AsLink) {
+  const { variant, size, onPaper, magnetic, className, children, ...rest } = props;
+  const base = { variant, size, onPaper, magnetic, className, children };
+  const { classes, label, cursor } = buttonParts(base);
+  const attach = useButtonRef(base, ref as Ref<HTMLElement> | undefined);
   return (
-    <button type={type} className={classes} {...rest}>
-      {children}
+    <AppLink href={href} className={classes} data-cursor={cursor} {...rest} ref={attach}>
+      {label}
+    </AppLink>
+  );
+}
+
+function ActionButton({ ref, href: _h, type = "button", ...props }: AsButton) {
+  const { variant, size, onPaper, magnetic, className, children, ...rest } = props;
+  const base = { variant, size, onPaper, magnetic, className, children };
+  const { classes, label, cursor } = buttonParts(base);
+  const attach = useButtonRef(base, ref as Ref<HTMLElement> | undefined);
+  return (
+    <button type={type} className={classes} data-cursor={cursor} {...rest} ref={attach}>
+      {label}
     </button>
   );
 }

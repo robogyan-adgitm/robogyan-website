@@ -66,8 +66,9 @@ export function burstSquares(el: Element, pieces = 28): void {
 
 /**
  * Egg 10 (SIH page): typing "sih" bursts amber squares out of every element matching
- * `selector` (mark the two winner cards with `data-sih-winner`). Reduced motion: a
- * brief kapton outline instead. Returns `fire()` to trigger manually.
+ * `selector` (mark the winner cards with `data-sih-winner`). If none is on screen the
+ * first one is scrolled into view first. Reduced motion: a brief kapton outline instead.
+ * Returns `fire()` to trigger manually.
  */
 export function useSihConfetti({
   selector = "[data-sih-winner]",
@@ -77,15 +78,27 @@ export function useSihConfetti({
   const reduced = useReducedMotion();
   const fire = useCallback(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>(selector));
-    for (const el of els) {
-      if (reduced) {
-        const prev = el.style.outline;
-        el.style.outline = "2px solid var(--color-kapton)";
-        window.setTimeout(() => (el.style.outline = prev), 1200);
-      } else {
-        burstSquares(el, pieces);
+    const burst = () => {
+      for (const el of els) {
+        if (reduced) {
+          const prev = el.style.outline;
+          el.style.outline = "2px solid var(--color-kapton)";
+          window.setTimeout(() => (el.style.outline = prev), 1200);
+        } else {
+          burstSquares(el, pieces);
+        }
       }
+    };
+    const inView = els.some((el) => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    });
+    if (inView || els.length === 0) {
+      burst();
+      return;
     }
+    els[0]?.scrollIntoView({ block: "center", behavior: reduced ? "instant" : "smooth" });
+    window.setTimeout(burst, reduced ? 50 : 700);
   }, [selector, pieces, reduced]);
   useKeySequence("sih", fire, { enabled });
   return { fire };

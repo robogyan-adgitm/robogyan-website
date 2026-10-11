@@ -6,7 +6,7 @@ export function Moments() {
   return (
     <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2">
       {moments.map((m) => (
-        <li key={m.id}>
+        <li key={m.id} className="hover-card">
           <Frame
             src={m.image}
             alt={m.title}
@@ -14,7 +14,9 @@ export function Moments() {
             sizes="(min-width: 1024px) 600px, (min-width: 640px) 50vw, 100vw"
           />
           <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <h3 className="text-xl font-display">{m.title}</h3>
+            <h3 data-card-title className="text-xl font-display">
+              {m.title}
+            </h3>
             {m.badges.map((b) => (
               <Chip key={b}>{b}</Chip>
             ))}

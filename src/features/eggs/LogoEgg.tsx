@@ -25,7 +25,7 @@ export function useLogoEggTrigger(): () => void {
 }
 
 const steps = [
-  ...collegeEras.map((e) => ({ key: e.short, title: e.short, sub: `${eraYears(e)} · ${e.name}` })),
+  ...collegeEras.map((e) => ({ key: e.short, title: e.short, sub: `${e.name}, ${eraYears(e)}` })),
   { key: "lab", title: "Same lab.", sub: `${lab.block}, since ${collegeEras[0]?.from ?? 2009}.` },
 ];
 

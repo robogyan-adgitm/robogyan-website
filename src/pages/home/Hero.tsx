@@ -1,18 +1,21 @@
 import { motion } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/Button";
+import { Chip } from "@/components/Chip";
 import { Ticker } from "@/components/Ticker";
 import { verifiedFacts } from "@/content/facts";
-import { heroVideo, site } from "@/content/site";
+import { heroVideo, lab, site } from "@/content/site";
 import { useFactTicker } from "@/features/eggs/FactCard";
+import { useMedia } from "@/hooks/useMedia";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { cn } from "@/lib/cn";
+import { Wordmark } from "./Wordmark";
 
-/** The name is Robo + gyaan; on narrow screens the mark breaks there. */
-const WORD_PARTS = ["ROBO", "GYAN"] as const;
 const EASE = [0.25, 1, 0.5, 1] as const;
 /** How many facts ride the tape (a 60s loop over 72 facts would be unreadable). */
 const TICKER_COUNT = 28;
+/** Letters finish rising at ~0.85s; the copy follows, then the tape. */
+const COPY_DELAY = 0.45;
+const TAPE_DELAY = 0.75;
 
 /** Fisher–Yates, once per page load. */
 function shuffle<T>(list: T[]): T[] {
@@ -25,121 +28,117 @@ function shuffle<T>(list: T[]): T[] {
 }
 
 /**
- * The one memorable thing on the site: the wordmark cut out of solid ink with the lab
- * video playing through the letters.
- *
- * Knockout: the video sits behind; an ink box with white text is composited with
- * `mix-blend-mode: multiply`, so black stays black and the white letters reveal the
- * video. Reduced motion pauses the video on its poster; if the video fails to load the
- * blend is dropped and the letters stay white.
- *
- * Load sequence (≤ 1.2 s, once): letters rise with a 40 ms stagger, the video fades
- * in behind them, then the kapton ticker slides in from the left.
+ * Lab b-roll as a chamfered panel beside the copy (desktop only; mobile skips the
+ * download entirely and Life at RG still has the video). Reduced motion keeps the
+ * poster; if the file fails the panel falls back to the poster image.
  */
-export function Hero() {
+function LabVideo() {
   const reduced = useReducedMotion();
-  const [videoFailed, setVideoFailed] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const ref = useRef<HTMLVideoElement>(null);
+  const [failed, setFailed] = useState(false);
 
-  // Media `error` events can fire before React's own listener is attached, so check
-  // the element's error state directly as well as listening natively.
+  // Media `error` can fire before React attaches its listener: check the element too.
   useEffect(() => {
-    const v = videoRef.current;
+    const v = ref.current;
     if (!v) return;
-    const fail = () => setVideoFailed(true);
+    const fail = () => setFailed(true);
     if (v.error) fail();
     v.addEventListener("error", fail);
     return () => v.removeEventListener("error", fail);
   }, []);
+
+  return (
+    <motion.figure
+      className="relative aspect-[16/10] overflow-hidden bg-panel chamfer-lg"
+      initial={reduced ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: COPY_DELAY + 0.1, ease: "linear" }}
+    >
+      {failed ? (
+        <img
+          src={heroVideo.poster}
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+          decoding="async"
+        />
+      ) : (
+        <video
+          ref={ref}
+          className="absolute inset-0 size-full object-cover"
+          src={heroVideo.src}
+          poster={heroVideo.poster}
+          muted
+          playsInline
+          loop
+          autoPlay={!reduced}
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+      )}
+      <figcaption className="absolute bottom-3 left-3">
+        <Chip className="bg-ink text-text">{`Lab, ${lab.block}`}</Chip>
+      </figcaption>
+    </motion.figure>
+  );
+}
+
+/**
+ * Home hero: the solid ROBOGYAN wordmark on the dot grid, the tagline and actions
+ * directly under it, the lab video beside them on desktop, and the kapton ticker on
+ * the bottom edge.
+ *
+ * Load sequence (≤ 1.2s, once): letters rise with a 40ms stagger, then the copy and
+ * video panel, then the tape slides in from the left.
+ */
+export function Hero() {
+  const reduced = useReducedMotion();
+  const desktop = useMedia("(min-width: 1024px)");
   const facts = useMemo(() => shuffle(verifiedFacts()).slice(0, TICKER_COUNT), []);
   const { items, card } = useFactTicker(facts);
-  const knockout = !videoFailed;
+
+  const rise = (delay: number) =>
+    reduced
+      ? { initial: false as const }
+      : {
+          initial: { y: 12, opacity: 0 },
+          animate: { y: 0, opacity: 1 },
+          transition: { duration: 0.45, delay, ease: EASE },
+        };
 
   return (
     <section
       aria-labelledby="hero-title"
-      className="relative flex min-h-[92svh] flex-col overflow-hidden bg-ink"
+      className="relative flex min-h-[min(calc(100svh-4rem),52rem)] flex-col overflow-hidden lg:min-h-[min(90svh,64rem)]"
     >
-      {/* The video only lives behind the wordmark band, so object-cover centres on
-          the brightest part of the footage rather than the dark ceiling. */}
-      <div className="relative isolate">
-        {!videoFailed && (
-          <motion.video
-            ref={videoRef}
-            className="absolute inset-0 -z-10 size-full object-cover"
-            src={heroVideo.src}
-            poster={heroVideo.poster}
-            muted
-            playsInline
-            loop
-            autoPlay={!reduced}
-            preload="metadata"
-            aria-hidden="true"
-            tabIndex={-1}
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "linear" }}
-          />
-        )}
+      <div className="flex flex-1 flex-col justify-center px-4 pt-10 pb-10 md:px-6 md:pt-14 lg:pt-10 lg:pb-12">
+        {/* One block: the copy row takes exactly the wordmark's width (w-0 + min-w-full
+            keeps it out of the fit-content sizing), so the tagline starts under the R
+            and the video panel ends under the N. */}
+        <div className="lg:w-fit">
+          <Wordmark />
 
-        {/* Knockout layer: ink everywhere except inside the letters. */}
-        <div
-          className={cn(
-            "bg-ink px-4 pt-10 pb-6 md:px-6 md:pt-14 md:pb-10",
-            knockout && "mix-blend-multiply",
-          )}
-        >
-          <h1
-            id="hero-title"
-            className="font-display text-text lg:text-hero lg:whitespace-nowrap"
-            style={{ letterSpacing: "-0.04em" }}
-          >
-            <span className="sr-only">{site.name}</span>
-            {/* Below md the mark breaks at its etymology (Robo + gyaan) so each half can be
-              twice the size; from lg up it is one line. */}
-            <span aria-hidden="true" className="flex flex-col lg:flex-row">
-              {WORD_PARTS.map((part, p) => (
-                <span
-                  key={part}
-                  className="flex text-[min(34vw,16rem)] leading-[0.85] lg:text-hero lg:leading-[0.85]"
-                >
-                  {part.split("").map((letter, i) => {
-                    const n = p * WORD_PARTS[0]!.length + i;
-                    return (
-                      <motion.span
-                        key={`${letter}-${n}`}
-                        className="inline-block"
-                        initial={reduced ? false : { y: "0.35em", opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.55, delay: n * 0.04, ease: EASE }}
-                      >
-                        {letter}
-                      </motion.span>
-                    );
-                  })}
-                </span>
-              ))}
-            </span>
-          </h1>
-        </div>
-      </div>
-
-      <div className="flex-1" />
-
-      <div className="px-4 pb-12 md:px-6 md:pb-16">
-        <div className="mx-auto w-full max-w-site">
-          <p className="text-2xl font-display md:text-3xl">Experience engineering.</p>
-          <p className="mt-3 max-w-prose text-lg text-text-muted">
-            The oldest technical society of ADGIPS, building robots in Block 5 since{" "}
-            {site.foundedYear}.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/contact" size="lg">
-              Join the lab
-            </Button>
-            <Button href="/sih#results" variant="secondary" size="lg">
-              SIH 2026 results
-            </Button>
+          <div className="mt-8 grid gap-10 md:mt-10 lg:w-0 lg:min-w-full lg:grid-cols-12 lg:items-start lg:gap-8">
+            <motion.div className="lg:col-span-7" {...rise(COPY_DELAY)}>
+              <p className="text-2xl font-display md:text-3xl">Experience engineering.</p>
+              <p className="mt-3 max-w-prose text-lg text-text-muted">
+                The oldest technical society of ADGIPS, building robots in {lab.block} since{" "}
+                {site.foundedYear}.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button href="/contact" size="lg">
+                  Join the lab
+                </Button>
+                <Button href="/sih#results" variant="secondary" size="lg">
+                  SIH 2026 results
+                </Button>
+              </div>
+            </motion.div>
+            {desktop && (
+              <div className="lg:col-span-5">
+                <LabVideo />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -150,7 +149,7 @@ export function Hero() {
         className="-mx-px overflow-hidden"
         initial={reduced ? false : { x: "-100%" }}
         animate={{ x: 0 }}
-        transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
+        transition={{ duration: 0.5, delay: TAPE_DELAY, ease: EASE }}
       >
         <Ticker items={items} speed={100} />
       </motion.div>

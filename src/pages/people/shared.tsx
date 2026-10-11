@@ -27,13 +27,26 @@ export function PersonLinks({
   );
 }
 
-/** Square portrait. No circles anywhere on the people pages. */
+/** The amber role sticker that slides in over a hovered portrait (decorative). */
+export function PortraitTag({ children }: { children: string }) {
+  return (
+    <span aria-hidden="true" className="portrait-tag">
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Square portrait. No circles anywhere on the people pages. Inside a `hover-portrait`
+ * item the photo rises 4px and `tag` (the role) slides in bottom-left.
+ */
 export function Portrait({
   src,
   alt,
   chamfer = "sm",
   position = "center",
   priority,
+  tag,
   className,
 }: {
   src: string;
@@ -41,6 +54,7 @@ export function Portrait({
   chamfer?: "sm" | "lg" | "none";
   position?: string;
   priority?: boolean;
+  tag?: string;
   className?: string;
 }) {
   return (
@@ -52,15 +66,16 @@ export function Portrait({
       chamfer={chamfer}
       priority={priority}
       className={className}
-    />
+      imgClassName="portrait-img"
+    >
+      {tag && <PortraitTag>{tag}</PortraitTag>}
+    </Frame>
   );
 }
 
 /** Small section heading in the datasheet voice (same device as the footer columns). */
 export function GroupHeading({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <h2 className={cn("text-sm font-condensed text-text-muted", className)}>{children}</h2>
-  );
+  return <h2 className={cn("text-sm font-condensed text-text-muted", className)}>{children}</h2>;
 }
 
 /** Condensed list with 1px rules; used for achievements. */
@@ -129,9 +144,15 @@ export function MemberGrid({
       {members.map((m) => {
         const socials = personSocials({ linkedin: m.linkedin });
         return (
-          <li key={m.id} className="min-w-0">
-            <Portrait src={m.image} alt={`Portrait of ${m.name}`} chamfer={large ? "lg" : "sm"} />
+          <li key={m.id} className="hover-portrait min-w-0">
+            <Portrait
+              src={m.image}
+              alt={`Portrait of ${m.name}`}
+              chamfer={large ? "lg" : "sm"}
+              tag={m.position}
+            />
             <h3
+              data-name
               className={cn(
                 "mt-3",
                 large ? "text-lg font-display sm:text-xl" : "text-base leading-snug font-semibold",

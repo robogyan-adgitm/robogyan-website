@@ -13,14 +13,17 @@ const LEADERSHIP = new Set(["President", "Vice President"]);
 /** President and vice president: large square portrait, 32px name. */
 function Leader({ member, priority }: { member: TeamMember; priority?: boolean }) {
   return (
-    <article className="border-t border-line pt-6">
+    <article className="hover-portrait border-t border-line pt-6">
       <Portrait
         src={member.image}
         alt={`Portrait of ${member.name}`}
         chamfer="lg"
         priority={priority}
+        tag={member.role}
       />
-      <h3 className="mt-6 text-2xl font-display">{member.name}</h3>
+      <h3 data-name className="mt-6 text-2xl font-display">
+        {member.name}
+      </h3>
       <p className="mt-1 text-lg font-condensed text-text-muted">{member.role}</p>
       <p className="mt-4 max-w-prose">{member.bio}</p>
       <TechTagList items={member.techStack} className="mt-5" />
@@ -32,10 +35,12 @@ function Leader({ member, priority }: { member: TeamMember; priority?: boolean }
 /** Domain lead: same fields, one step smaller. */
 function Lead({ member }: { member: TeamMember }) {
   return (
-    <article className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-line pt-5 sm:block">
-      <Portrait src={member.image} alt={`Portrait of ${member.name}`} />
+    <article className="hover-portrait grid grid-cols-[7rem_1fr] gap-x-4 border-t border-line pt-5 sm:block">
+      <Portrait src={member.image} alt={`Portrait of ${member.name}`} tag={member.role} />
       <div className="self-end sm:mt-5">
-        <h3 className="text-xl font-display">{member.name}</h3>
+        <h3 data-name className="text-xl font-display">
+          {member.name}
+        </h3>
         <p className="mt-1 font-condensed text-text-muted">{member.role}</p>
       </div>
       <div className="col-span-2">
@@ -71,7 +76,7 @@ export default function TeamPage() {
       />
 
       <Section aria-labelledby="leadership">
-        <h2 id="leadership" className="mb-8 text-sm font-condensed text-text-muted">
+        <h2 id="leadership" className="sr-only">
           President and vice president
         </h2>
         <div className="grid gap-x-6 gap-y-14 md:grid-cols-2">
@@ -82,7 +87,7 @@ export default function TeamPage() {
       </Section>
 
       <Section compact aria-labelledby="leads" className="pt-0 md:pt-0">
-        <h2 id="leads" className="mb-8 text-sm font-condensed text-text-muted">
+        <h2 id="leads" className="mb-8 text-2xl font-display">
           Domain leads
         </h2>
         <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -99,9 +104,9 @@ export default function TeamPage() {
               Want in?
             </h2>
             <p className="mt-4 max-w-prose text-lg text-muted-on-paper">
-              Recruitment happens once a year. Auditions run each autumn in the {lab.block} lab:
-              a short technical and aptitude test, then an interview. Any stream and any year
-              can apply; what we look for is that you want to build things.
+              Recruitment happens once a year. Auditions run each autumn in the {lab.block} lab: a
+              short technical and aptitude test, then an interview. Any stream and any year can
+              apply; what we look for is that you want to build things.
             </p>
             <Button href="/contact" className="mt-8">
               Contact us

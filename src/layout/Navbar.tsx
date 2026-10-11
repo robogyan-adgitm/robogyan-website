@@ -15,16 +15,27 @@ export function isActivePath(location: string, href: string): boolean {
   return location === href || location.startsWith(`${href}/`);
 }
 
-function Logo({ onClick }: { onClick: () => void }) {
+function Logo({ onClick, onHome }: { onClick: () => void; onHome: boolean }) {
   return (
     <Link
       href="/"
+      replace={onHome}
       onClick={onClick}
-      className="flex shrink-0 items-center gap-3"
+      className="group flex shrink-0 items-center gap-3"
       aria-label="Robogyan, home"
     >
-      <img src="/logo.png" alt="Robogyan" width={36} height={36} className="size-9" />
-      <span className="text-xl font-display" aria-hidden="true">
+      {/* Hover: the mark nudges 2px right and the wordmark tracks out 0.02em. */}
+      <img
+        src="/logo.png"
+        alt="Robogyan"
+        width={36}
+        height={36}
+        className="size-9 transition-[translate] duration-150 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5"
+      />
+      <span
+        className="text-xl font-display transition-[translate,letter-spacing] duration-150 group-hover:translate-x-0.5 group-hover:tracking-[-0.01em] group-focus-visible:translate-x-0.5 group-focus-visible:tracking-[-0.01em]"
+        aria-hidden="true"
+      >
         Robogyan
       </span>
     </Link>
@@ -71,8 +82,8 @@ function MobileMenu({
                   onClick={onClose}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-4 py-2 text-3xl font-display",
-                    active ? "text-text" : "text-text-muted hover:text-text",
+                    "flex items-center gap-4 py-2 text-3xl font-display transition-colors",
+                    active ? "text-text" : "text-text-muted hover:text-text active:text-text",
                   )}
                 >
                   {active && <span aria-hidden="true" className="h-1 w-6 bg-kapton" />}
@@ -88,8 +99,9 @@ function MobileMenu({
 }
 
 /**
- * Sticky top bar: logo + wordmark, primary links with a sliding kapton underline,
- * Contact as the kapton CTA. Below 1024px a full-screen menu (native modal dialog:
+ * Sticky top bar: logo + wordmark, primary links with a sliding kapton underline
+ * (hover: label squeeze + a thin text-colour underline),
+ * Contact as an outlined button. Below 1024px a full-screen menu (native modal dialog:
  * focus contained, Esc closes, body scroll locked, closes on route change).
  * Clicking the logo 5× within 3 s triggers the college-names egg.
  */
@@ -119,24 +131,35 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ink">
       <div className="mx-auto flex h-16 w-full max-w-site items-center justify-between gap-6 px-4 md:px-6">
-        <Logo onClick={onLogoClick} />
+        <Logo onClick={onLogoClick} onHome={location === "/"} />
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-7">
             {navItems.map((item) => {
               const active = isActivePath(location, item.href);
               return (
-                <li key={item.href} className="relative">
+                <li key={item.href} className="group relative">
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block py-5 text-[0.9375rem] font-medium transition-colors",
-                      active ? "text-text" : "text-text-muted hover:text-text",
+                      "block py-5 text-[0.9375rem] font-medium transition-colors duration-150",
+                      active
+                        ? "text-text"
+                        : "text-text-muted hover:text-text focus-visible:text-text",
                     )}
                   >
-                    {item.label}
+                    {/* Hover squeezes the label to wdth 90; a wdth-100 ghost keeps the slot steady. */}
+                    <span className="squeeze" data-text={item.label}>
+                      <span>{item.label}</span>
+                    </span>
                   </Link>
+                  {!active && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-3.5 h-px origin-left scale-x-0 bg-text transition-transform duration-200 ease-out group-focus-within:scale-x-100 group-hover:scale-x-100"
+                    />
+                  )}
                   {active && (
                     <motion.span
                       layoutId="nav-mark"
@@ -152,11 +175,13 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Outlined, not kapton: the page's own primary action keeps the one amber per viewport. */}
           <Button
             href={contactNavItem.href}
+            variant="secondary"
             size="sm"
             aria-current={contactActive ? "page" : undefined}
-            className="hidden sm:inline-flex"
+            className={cn("hidden sm:inline-flex", contactActive && "border-text")}
           >
             {contactNavItem.label}
           </Button>

@@ -33,7 +33,17 @@ const cards: RailCard[] = [
     image: w.image,
     alt: `${w.title}: ${w.result}`,
   })),
-  ...trackRecord.map((r) => ({ id: r.id, year: String(r.year), ...splitRecord(r.title) })),
+  ...trackRecord.map((r) => {
+    const { title, result } = splitRecord(r.title);
+    return {
+      id: r.id,
+      year: String(r.year),
+      title,
+      result,
+      image: r.image,
+      alt: r.image ? `${title}: ${result}` : undefined,
+    };
+  }),
 ];
 
 /**
@@ -98,21 +108,23 @@ export function WinsRail() {
           {cards.map((c) => (
             <li
               key={c.id}
-              className="flex w-[min(78vw,20rem)] shrink-0 snap-start flex-col border-t border-line pt-4"
+              className="hover-card flex w-[min(78vw,20rem)] shrink-0 snap-start flex-col border-t border-line pt-4"
             >
               {c.image ? (
                 <Frame src={c.image} alt={c.alt ?? c.title} ratio="16 / 10" sizes="320px" />
               ) : (
                 <div
                   aria-hidden="true"
-                  className="flex aspect-[16/10] items-end bg-panel p-4 text-5xl font-display text-line chamfer"
+                  className="frame-corner relative flex aspect-[16/10] items-end bg-panel p-4 text-4xl font-display text-text-muted chamfer"
                 >
                   {c.year}
                 </div>
               )}
-              <p className="mt-4 text-sm font-condensed text-text-muted">{c.year}</p>
-              <h3 className="mt-1 text-lg font-semibold">{c.title}</h3>
+              <h3 data-card-title className="mt-4 text-lg font-semibold">
+                {c.title}
+              </h3>
               {c.result && <p className="mt-1 text-text-muted">{c.result}</p>}
+              <p className="mt-1 text-sm font-condensed text-text-muted">{c.year}</p>
             </li>
           ))}
         </ul>

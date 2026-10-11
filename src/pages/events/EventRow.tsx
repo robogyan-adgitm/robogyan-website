@@ -15,7 +15,10 @@ function Meta({ label, children }: { label: string; children: string }) {
 export function EventRow({ event }: { event: RgEvent }) {
   const sih = event.registrationUrl === "/sih";
   return (
-    <li className="grid gap-5 border-t border-line py-8 sm:grid-cols-12 sm:gap-6 md:py-10">
+    <li
+      data-rule
+      className="hover-card grid gap-5 border-t border-line py-8 sm:grid-cols-12 sm:gap-6 md:py-10"
+    >
       <div className="sm:col-span-5">
         <Frame
           src={event.image}
@@ -26,7 +29,9 @@ export function EventRow({ event }: { event: RgEvent }) {
       </div>
       <div className="sm:col-span-7">
         <Chip>{event.type}</Chip>
-        <h3 className="mt-3 text-xl font-display md:text-2xl">{event.name}</h3>
+        <h3 data-card-title className="mt-3 text-xl font-display md:text-2xl">
+          {event.name}
+        </h3>
         <p className="mt-3 max-w-prose text-text-muted">{event.description}</p>
         <dl className="mt-5 flex flex-col gap-1.5">
           <Meta label="Date">{formatRange(event.start, event.end)}</Meta>

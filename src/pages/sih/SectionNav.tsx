@@ -55,7 +55,7 @@ export function SectionNav() {
       <Container>
         <ul
           ref={listRef}
-          className="flex gap-6 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex [scrollbar-width:none] gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden"
         >
           {sihSections.map((s) => {
             const isActive = s.id === active;
