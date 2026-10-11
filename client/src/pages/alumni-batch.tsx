@@ -8,6 +8,7 @@ import { Linkedin, Trophy } from "lucide-react";
 
 const getLegacyMessage = (year: string) => {
   const messages: { [key: string]: string } = {
+    "2025-26": "The 2025-26 batch of Robogyan didn't just participate — they won SIH, kept the IITK streak alive, and passed the torch.",
     "2024-25": "The 2024-25 batch of Robogyan didn't just participate — they innovated, led, and inspired.",
     "2023-24": "The 2023-24 batch of Robogyan didn't just participate — they revolutionized, conquered, and transformed.",
     "2022-23": "The 2022-23 batch of Robogyan didn't just participate — they engineered the future, inspired generations.",

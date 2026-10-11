@@ -69,13 +69,15 @@ export default function Team() {
                   
                   <div className="space-y-3 mb-6">
                     <p className="text-sm text-gray-300 leading-relaxed">{president.description}</p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {president.techStack.map((tech, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.2)] text-[hsl(180,100%,50%)]">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
+                    {president.techStack.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {president.techStack.map((tech, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.2)] text-[hsl(180,100%,50%)]">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Social Links */}
@@ -134,13 +136,15 @@ export default function Team() {
                   
                   <div className="space-y-3 mb-6">
                     <p className="text-sm text-gray-300 leading-relaxed">{vicePresident.description}</p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {vicePresident.techStack.map((tech, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(270,100%,70%,0.2)] text-[hsl(270,100%,70%)]">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
+                    {vicePresident.techStack.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {vicePresident.techStack.map((tech, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs bg-[hsl(270,100%,70%,0.2)] text-[hsl(270,100%,70%)]">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Social Links */}
@@ -269,18 +273,20 @@ export default function Team() {
                   
                   <div className="space-y-3 mb-4">
                     <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{member.description}</p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {member.techStack.slice(0, 4).map((tech, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {member.techStack.length > 4 && (
-                        <Badge variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
-                          +{member.techStack.length - 4}
-                        </Badge>
-                      )}
-                    </div>
+                    {member.techStack.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {member.techStack.slice(0, 4).map((tech, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {member.techStack.length > 4 && (
+                          <Badge variant="secondary" className="text-xs bg-[hsl(180,100%,50%,0.1)] text-[hsl(180,100%,50%)]">
+                            +{member.techStack.length - 4}
+                          </Badge>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex justify-center space-x-4">

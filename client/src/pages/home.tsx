@@ -70,17 +70,17 @@ const featuredProjects = [
 
 const coreTeam = [
   {
-    name: "Amogh Saxena",
+    name: "Dev Chandra",
     position: "President",
-    specialization: "Android Specialist",
-    image: "/images/coreTeam/amoghsaxena.jpg",
+    specialization: "Robotics & AI Innovator",
+    image: "/images/coreTeam/dev.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
-    name: "Aditya Goel",
+    name: "Naman",
     position: "Vice President",
-    specialization: "Embedded Master",
-    image: "/images/coreTeam/macle.jpg",
+    specialization: "Bio coming soon",
+    image: "/images/coreTeam/placeholder.svg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {

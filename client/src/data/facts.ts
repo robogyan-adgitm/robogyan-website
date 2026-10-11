@@ -268,6 +268,12 @@ export const facts: Fact[] = [
     url: "https://www.instagram.com/p/DTVbiMAFDQP/",
   },
   {
+    id: "core-2026-27",
+    text: "2026-27: Robogyan's core team is led by President Dev Chandra (robotics/AI) and Vice President Naman.",
+    source: "site",
+    year: 2026,
+  },
+  {
     id: "robocon-2014-meet",
     text: "Robogyan held an open Robocon 2014 team-selection meet and urged fans to watch the 24 Aug 2014 finals live.",
     source: "facebook",

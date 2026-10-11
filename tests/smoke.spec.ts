@@ -11,6 +11,7 @@ const ROUTES = [
   { name: "projects", path: "/projects" },
   { name: "events", path: "/events" },
   { name: "alumni", path: "/alumni" },
+  { name: "alumni-2025-26", path: "/alumni/2025-26" },
   { name: "alumni-2024-25", path: "/alumni/2024-25" },
   { name: "life-at-rg", path: "/life-at-rg" },
   { name: "contact", path: "/contact" },

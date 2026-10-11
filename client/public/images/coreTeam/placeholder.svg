@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Photo coming soon">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(235,85%,65%)"/>
+      <stop offset="1" stop-color="hsl(275,85%,70%)"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="0.5" cy="0.42" r="0.7">
+      <stop offset="0" stop-color="hsl(245,30%,13%)"/>
+      <stop offset="0.6" stop-color="hsl(240,15%,7%)"/>
+      <stop offset="1" stop-color="hsl(240,10%,4%)"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="hsl(255,85%,68%)" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="hsl(255,85%,68%)" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.09"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.02"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <circle cx="200" cy="200" r="150" fill="url(#glow)"/>
+  <circle cx="200" cy="200" r="132" fill="hsl(240,12%,8%)" fill-opacity="0.75"/>
+  <circle cx="200" cy="200" r="132" fill="url(#glass)"/>
+  <circle cx="200" cy="200" r="132" fill="none" stroke="url(#ring)" stroke-width="6"/>
+  <circle cx="200" cy="200" r="146" fill="none" stroke="url(#ring)" stroke-width="1.5" stroke-opacity="0.45" stroke-dasharray="4 10"/>
+  <path d="M134 262V150l12-12h22l70 104V138h28v112l-12 12h-22l-70-104v104z" fill="url(#ring)"/>
+</svg>
