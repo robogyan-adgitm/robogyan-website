@@ -12,6 +12,9 @@ const SPRING = { type: "spring", stiffness: 350, damping: 18, mass: 0.6 } as con
  *
  * Writes the CSS `translate` property (not `transform`), so it composes with Tailwind's
  * `hover:scale-*` and framer-motion's `whileHover` transforms on the same element.
+ * Don't put `transition-all` on a magnetic element: it would also transition
+ * `translate` and smear the spring. List the properties instead, e.g.
+ * `transition-[color,background-color,border-color,opacity,box-shadow,transform]`.
  * Returns a callback ref.
  */
 export function useMagnetic<T extends HTMLElement>(enabled = true) {

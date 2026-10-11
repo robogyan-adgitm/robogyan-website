@@ -57,7 +57,9 @@ function useFollow(source: MotionValue<number>, spring: typeof PUPIL_SPRING, ins
  * - Click / Enter / Space shows a fun fact in a speech bubble.
  *
  * Touch: eyes follow the last tap, otherwise wander. Reduced motion: eyes track
- * instantly, no blinking or wobble.
+ * instantly; no blinking, wobble, look-around or lost drift (a still pose instead).
+ *
+ * Stacks at z-40: under the navbar (z-50), dialogs (z-50), cursor ring, eggs and toasts.
  */
 export default function RoboBuddy() {
   const reduced = useReducedMotion();
@@ -221,8 +223,9 @@ export default function RoboBuddy() {
       }, 700);
     };
 
+    // Reduced motion: no look-around; the eyes keep their last pose.
     const idleCheck = window.setInterval(() => {
-      if (idle || mode.current.lost) return;
+      if (reduced || idle || mode.current.lost) return;
       if (performance.now() - lastMove > IDLE_MS) {
         idle = true;
         setMouth(0);
@@ -244,7 +247,7 @@ export default function RoboBuddy() {
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("mouseout", onOut);
     };
-  }, [blink, look]);
+  }, [blink, look, reduced]);
 
   // Random blinks every 3 to 7 s (slow ones while lost).
   useEffect(() => {
@@ -271,6 +274,11 @@ export default function RoboBuddy() {
   useEffect(() => {
     if (!lost) return;
     setMouth(0);
+    if (reduced) {
+      // One still "lost" pose: eyes down, head drooped.
+      look([0, MAX * 0.85], [0, MAX * 0.85], [-5, 0, 2]);
+      return;
+    }
     let t = 0;
     const drift = () => {
       const x = rand(-MAX, MAX) * 0.8;
@@ -279,7 +287,7 @@ export default function RoboBuddy() {
     };
     drift();
     return () => window.clearTimeout(t);
-  }, [lost, look]);
+  }, [lost, look, reduced]);
 
   // Happy wobble when an egg fires.
   const celebrate = useCallback(() => {
@@ -335,7 +343,7 @@ export default function RoboBuddy() {
       ref={wrapRef}
       data-testid="robo-buddy"
       data-mood={lost ? "lost" : happy ? "happy" : scrolling ? "scroll" : alert ? "alert" : "track"}
-      className="pointer-events-none fixed bottom-4 right-4 z-[58] sm:bottom-6 sm:right-6"
+      className="pointer-events-none fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6"
     >
       <FactCard fact={fact} onClose={close} className="absolute bottom-full right-0 mb-3" />
       <motion.div style={{ rotate: wobble, y: hop }}>

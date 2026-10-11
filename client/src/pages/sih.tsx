@@ -615,7 +615,7 @@ export default function SIHPage() {
               <Button
                 ref={resultsMagnet}
                 size="lg"
-                className="rg-sheen bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-base sm:text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.25)] hover:scale-105 transition-all flex items-center gap-2.5"
+                className="rg-sheen bg-gradient-to-r from-[hsl(150,100%,40%)] to-[hsl(150,100%,50%)] hover:opacity-95 text-black font-bold px-8 py-6 text-base sm:text-lg rounded-xl shadow-xl shadow-[hsl(150,100%,50%,0.25)] hover:scale-105 transition-[color,background-color,border-color,opacity,box-shadow,transform] flex items-center gap-2.5"
               >
                 <Trophy size={20} className="text-black" />
                 <span>View Results &amp; Teams</span>
@@ -627,7 +627,7 @@ export default function SIHPage() {
                 ref={judgesMagnet}
                 size="lg"
                 variant="outline"
-                className="glassmorphism border-white/20 hover:border-[hsl(275,85%,70%)] text-white hover:text-white px-7 py-6 text-base sm:text-lg rounded-xl hover:scale-105 transition-all flex items-center gap-2"
+                className="glassmorphism border-white/20 hover:border-[hsl(275,85%,70%)] text-white hover:text-white px-7 py-6 text-base sm:text-lg rounded-xl hover:scale-105 transition-[color,background-color,border-color,opacity,box-shadow,transform] flex items-center gap-2"
               >
                 <Users size={20} className="text-[hsl(275,85%,70%)]" />
                 <span>Know Your 12 Judges</span>

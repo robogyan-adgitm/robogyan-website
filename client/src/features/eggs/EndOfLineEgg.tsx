@@ -1,10 +1,16 @@
 import { useEffect, useRef } from "react";
+import { isTypingTarget } from "@/hooks/useKeySequence";
 import { eggToast } from "./eggToast";
 
 export const END_OF_LINE_MESSAGE =
   "You've reached the end of the line. The lab is in the basement of Block 5.";
 
-const WINDOW_MS = 2000;
+/** The push must come within this long of reaching the bottom. */
+const WINDOW_MS = 3000;
+/** Pushes this soon after reaching the bottom are the same gesture (or its inertia). */
+const SETTLE_MS = 1000;
+/** A push only counts if the page has not scrolled for this long. */
+const QUIET_MS = 250;
 const COOLDOWN_MS = 30_000;
 
 function atBottom(): boolean {
@@ -12,49 +18,70 @@ function atBottom(): boolean {
   return window.innerHeight + window.scrollY >= doc.scrollHeight - 2;
 }
 
+/** Keys pressed on these mean something else (Space activates a button). */
+function isControlTarget(target: EventTarget | null): boolean {
+  return (
+    isTypingTarget(target) ||
+    (target instanceof Element && target.closest("button, a, [role=button]") !== null)
+  );
+}
+
 /**
- * Hitting the bottom of the page twice within 2 s (arriving there, then pushing on
- * with the wheel, a swipe or End/PageDown/Space) shows "end of the line". 30 s cooldown.
+ * Reaching the bottom of the page, then deliberately pushing on (a fresh wheel
+ * gesture, a swipe, or End/PageDown/Space outside fields and buttons) shows "end of
+ * the line". Trackpad inertia does not count: pushes within 1 s of arriving, while
+ * the page is still scrolling, or inside a continuous wheel stream are ignored.
+ * 30 s cooldown.
  */
 export function EndOfLineEgg() {
-  const hits = useRef<number[]>([]);
+  const reachedAt = useRef(0);
+  const lastScroll = useRef(0);
+  const lastWheel = useRef(0);
   const lastShown = useRef(0);
   const wasAtBottom = useRef(false);
-  const lastPush = useRef(0);
 
   useEffect(() => {
-    const hit = () => {
-      const now = Date.now();
-      hits.current = [...hits.current.filter((t) => now - t < WINDOW_MS), now];
-      if (hits.current.length >= 2 && now - lastShown.current > COOLDOWN_MS) {
-        hits.current = [];
-        lastShown.current = now;
-        eggToast("End of the line", END_OF_LINE_MESSAGE);
-      }
-    };
-    // A "push" while already at the bottom counts at most every 400 ms.
     const push = () => {
-      const now = Date.now();
-      if (!atBottom() || now - lastPush.current < 400) return;
-      lastPush.current = now;
-      hit();
+      const now = performance.now();
+      if (!atBottom() || !reachedAt.current) return;
+      const since = now - reachedAt.current;
+      if (since < SETTLE_MS || since > WINDOW_MS) return;
+      if (now - lastScroll.current < QUIET_MS) return;
+      if (Date.now() - lastShown.current < COOLDOWN_MS) return;
+      lastShown.current = Date.now();
+      reachedAt.current = 0;
+      eggToast("End of the line", END_OF_LINE_MESSAGE);
     };
     const onScroll = () => {
+      const now = performance.now();
+      lastScroll.current = now;
       const bottom = atBottom();
-      if (bottom && !wasAtBottom.current) {
-        lastPush.current = Date.now();
-        hit();
-      }
+      if (bottom && !wasAtBottom.current) reachedAt.current = now;
+      if (!bottom) reachedAt.current = 0;
       wasAtBottom.current = bottom;
     };
-    const onWheel = (e: WheelEvent) => e.deltaY > 0 && push();
+    const onWheel = (e: WheelEvent) => {
+      const now = performance.now();
+      // Only the first event of a new wheel gesture counts; inertia streams are continuous.
+      const fresh = now - lastWheel.current > QUIET_MS;
+      lastWheel.current = now;
+      if (fresh && e.deltaY > 0) push();
+    };
     let touchY = 0;
-    const onTouchStart = (e: TouchEvent) => (touchY = e.touches[0]?.clientY ?? 0);
+    let swiped = false;
+    const onTouchStart = (e: TouchEvent) => {
+      touchY = e.touches[0]?.clientY ?? 0;
+      swiped = false;
+    };
     const onTouchMove = (e: TouchEvent) => {
       const y = e.touches[0]?.clientY ?? 0;
-      if (touchY - y > 30) push();
+      if (!swiped && touchY - y > 30) {
+        swiped = true;
+        push();
+      }
     };
     const onKey = (e: KeyboardEvent) => {
+      if (isControlTarget(e.target)) return;
       if (e.key === "End" || e.key === "PageDown" || (e.key === " " && !e.shiftKey)) push();
     };
     window.addEventListener("scroll", onScroll, { passive: true });

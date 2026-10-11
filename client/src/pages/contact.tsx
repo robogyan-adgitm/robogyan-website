@@ -229,7 +229,7 @@ export default function Contact() {
                   ref={directionsMagnet}
                   variant="outline"
                   size="sm"
-                  className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all text-xs bg-black/90 backdrop-blur-sm"
+                  className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-[color,background-color,border-color,opacity,box-shadow,transform] text-xs bg-black/90 backdrop-blur-sm"
                   onClick={() => window.open('https://www.google.com/maps/place/Robogyan/@28.6778227,77.2606192,20z/data=!4m6!3m5!1s0x390cfd4c405859e3:0x49d11941d9dcf968!8m2!3d28.6779389!4d77.2606176!16s%2Fg%2F11fkth91dr', '_blank')}
                 >
                   <Building className="mr-1" size={12} />

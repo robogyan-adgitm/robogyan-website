@@ -35,6 +35,8 @@ interface Dot {
   layer: number;
   hue: string;
   alpha: number;
+  /** Precomputed canvas fill, e.g. "hsla(235, 85%, 65%, 0.9)". */
+  fill: string;
   phase: number;
   wander: number;
   /** current gravity-well offset */
@@ -53,6 +55,7 @@ function makeDot(w: number, h: number, anywhere: boolean): Dot {
     layer,
     hue,
     alpha: LAYERS[layer].alpha * tone,
+    fill: `hsla(${hue}, ${LAYERS[layer].alpha * tone})`,
     phase: Math.random() * Math.PI * 2,
     wander: 8 + Math.random() * 18,
     ox: 0,
@@ -80,7 +83,7 @@ export default function ParticleField() {
 
     // Pointer, plus a smoothed copy for the parallax.
     let pointer: { x: number; y: number } | null = null;
-    let par = { x: 0, y: 0 };
+    const par = { x: 0, y: 0 };
 
     const target = () => Math.max(22, Math.round((BASE_COUNT * (w * h)) / (1440 * 900)));
 
@@ -114,7 +117,7 @@ export default function ParticleField() {
         const sway = reduced ? 0 : Math.sin(time * 0.5 + d.phase) * d.wander;
         const x = d.x + sway + d.ox - par.x * L.parallax;
         const y = d.y + d.oy - par.y * L.parallax;
-        ctx.fillStyle = `hsla(${d.hue}, ${d.alpha})`;
+        ctx.fillStyle = d.fill;
         ctx.beginPath();
         ctx.arc(x, y, L.size / 2, 0, Math.PI * 2);
         ctx.fill();
@@ -127,7 +130,8 @@ export default function ParticleField() {
       const tx = pointer ? (pointer.x - w / 2) / (w / 2) : 0;
       const ty = pointer ? (pointer.y - h / 2) / (h / 2) : 0;
       const k = 1 - Math.exp(-dt * 3);
-      par = { x: par.x + (tx - par.x) * k, y: par.y + (ty - par.y) * k };
+      par.x += (tx - par.x) * k;
+      par.y += (ty - par.y) * k;
 
       const ease = 1 - Math.exp(-dt * 6);
       for (let i = 0; i < dots.length; i++) {
@@ -159,11 +163,17 @@ export default function ParticleField() {
       }
     };
 
+    // Cap at ~60fps on high-refresh screens. `last` advances in whole 60Hz frames
+    // (carrying the remainder), so 75/90/144Hz displays still average 60fps; the 1ms
+    // slack keeps a 60Hz display from skipping frames on timer jitter.
+    let prevDraw = 0;
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
-      if (now - last < FRAME_MS - 1) return; // cap at 60fps on high-refresh screens
-      const dt = Math.min((now - (last || now)) / 1000, 0.05);
-      last = now;
+      const elapsed = now - last;
+      if (elapsed < FRAME_MS - 1) return;
+      last = elapsed >= FRAME_MS && elapsed < FRAME_MS * 4 ? now - (elapsed % FRAME_MS) : now;
+      const dt = prevDraw ? Math.min((now - prevDraw) / 1000, 0.05) : 1 / 60;
+      prevDraw = now;
       step(dt);
       draw();
     };
@@ -171,6 +181,7 @@ export default function ParticleField() {
     const start = () => {
       if (reduced || raf) return;
       last = 0;
+      prevDraw = 0;
       raf = requestAnimationFrame(frame);
     };
     const stop = () => {

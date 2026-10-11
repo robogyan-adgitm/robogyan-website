@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
   Heart,
@@ -545,6 +546,11 @@ export default function LifeAtRG() {
         {galleryModalOpen && (
           <Dialog open={galleryModalOpen} onOpenChange={setGalleryModalOpen}>
             <DialogContent className="max-w-6xl max-h-[90vh] bg-black/95 border border-white/10 p-0 overflow-hidden fixed">
+              {/* Screen-reader name for the dialog (Radix requires a title). */}
+              <DialogTitle className="sr-only">Robogyan gallery</DialogTitle>
+              <DialogDescription className="sr-only">
+                Photo {selectedGalleryIndex + 1} of {galleryImages.length}
+              </DialogDescription>
               <div className="relative w-full h-[80vh] flex items-center justify-center">
                 {/* Close Button */}
                 <button

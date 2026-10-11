@@ -49,13 +49,45 @@ export function LogoEgg() {
   const [step, setStep] = useState<number | null>(null);
   const reduced = useReducedMotion();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const open = step !== null;
 
   useEggEvent("logo", () => setStep(0));
-  useScrollLock(step !== null);
+  useScrollLock(open);
+
+  // Focus: remember what had it, move it to Close, keep Tab inside, give it back.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeRef.current?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusables = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button, a[href], [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || !dialogRef.current?.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !dialogRef.current?.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      if (previous?.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, [open]);
 
   useEffect(() => {
     if (step === null) return;
-    closeRef.current?.focus({ preventScroll: true });
     const t = window.setTimeout(
       () => setStep((s) => (s === null || s >= steps.length - 1 ? null : s + 1)),
       step === steps.length - 1 ? STEP_MS * 1.8 : STEP_MS,
@@ -75,6 +107,7 @@ export function LogoEgg() {
       {current && (
         <motion.div
           key="logo-egg"
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="Robogyan through the years"

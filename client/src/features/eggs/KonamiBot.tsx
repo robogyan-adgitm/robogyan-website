@@ -32,22 +32,45 @@ export function honk(): void {
     window.AudioContext ??
     (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
   if (!Ctx) return;
+  let ctx: AudioContext;
   try {
-    const ctx = new Ctx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "square";
-    osc.frequency.value = 440;
-    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
-    osc.connect(gain).connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.3);
-    osc.onended = () => void ctx.close();
+    ctx = new Ctx();
   } catch {
-    // Audio is a garnish; ignore failures.
+    return; // Audio is a garnish; ignore failures.
   }
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    ctx.close().catch(() => {});
+  };
+  // Always release the context, even if `ended` never fires (suspended context).
+  window.setTimeout(close, 400);
+  const beep = () => {
+    if (closed) return;
+    // Safari can leave a new context suspended; then there is nothing to play.
+    if (ctx.state !== "running") {
+      close();
+      return;
+    }
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.value = 440;
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+      osc.connect(gain).connect(ctx.destination);
+      osc.onended = close;
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch {
+      close();
+    }
+  };
+  if (ctx.state === "running") beep();
+  else ctx.resume().then(beep, close);
 }
 
 const DRIVE_S = 4;

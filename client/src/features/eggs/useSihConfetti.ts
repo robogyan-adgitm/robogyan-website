@@ -81,6 +81,20 @@ export function burstConfetti(el: Element, pieces = 36): void {
   }
 }
 
+/** Real outline of each element while a reduced-motion highlight is showing. */
+const savedOutline = new WeakMap<HTMLElement, string>();
+
+/** Briefly outline `el` in blue, restoring its own outline afterwards. Re-entrant. */
+function flashOutline(el: HTMLElement): void {
+  if (savedOutline.has(el)) return; // a restore is already pending
+  savedOutline.set(el, el.style.outline);
+  el.style.outline = "2px solid hsl(235, 85%, 65%)";
+  window.setTimeout(() => {
+    el.style.outline = savedOutline.get(el) ?? "";
+    savedOutline.delete(el);
+  }, 1200);
+}
+
 /**
  * SIH page: typing "sih" bursts gradient confetti out of every element matching
  * `selector` (the results header is marked `data-sih-winner`). If none is on screen
@@ -98,9 +112,7 @@ export function useSihConfetti({
     const burst = () => {
       for (const el of els) {
         if (reduced) {
-          const prev = el.style.outline;
-          el.style.outline = "2px solid hsl(235, 85%, 65%)";
-          window.setTimeout(() => (el.style.outline = prev), 1200);
+          flashOutline(el);
         } else {
           burstConfetti(el, pieces);
         }

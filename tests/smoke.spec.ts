@@ -144,14 +144,21 @@ test("desktop interactions: cursor, wordmark, card, robot, eggs", async ({ page 
   await shot(page, "home-gyaan-toast", info.project.name);
   await page.keyboard.press("Escape");
 
-  // Logo egg: 5 clicks on the nav wordmark.
+  // Logo egg: 5 clicks on the nav wordmark. Focus moves to Close, stays inside on
+  // Tab, and returns to the wordmark's link afterwards.
   const logo = page.getByTestId("nav-logo");
   for (let i = 0; i < 5; i++) await logo.click();
   await expect(page.getByTestId("logo-egg")).toBeVisible();
+  const close = page.getByTestId("logo-egg").getByRole("button", { name: "Close" });
+  await expect(close).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(close).toBeFocused();
   await page.waitForTimeout(900);
   await shot(page, "home-logo-egg", info.project.name);
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("logo-egg")).toBeHidden();
+  // The clicked wordmark link had focus before; it gets it back.
+  await expect(page.getByRole("link", { name: "ROBOGYAN" }).first()).toBeFocused();
 
   // Footer year egg.
   const year = page.getByTestId("footer-year");
@@ -168,6 +175,37 @@ test("desktop interactions: cursor, wordmark, card, robot, eggs", async ({ page 
   await page.waitForTimeout(450);
   await shot(page, "sih-confetti", info.project.name);
 
+  // End of the line: reach the bottom, settle, then push on with a fresh wheel gesture.
+  // Space on a focused button does not count.
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(1300);
+  await page.getByTestId("footer-year").focus();
+  await page.keyboard.press(" ");
+  await page.keyboard.press("Escape");
+  await expect(page.getByText("End of the line", { exact: true })).toHaveCount(0);
+  await page.mouse.move(700, 300);
+  await page.mouse.wheel(0, 400);
+  await expect(page.getByText("End of the line", { exact: true })).toBeVisible();
+  await page.keyboard.press("Escape");
+
+  // Gallery dialog on Life at RG: the robot must sit under the overlay.
+  await open(page, "/life-at-rg");
+  const tile = page.locator('img[alt="Robogyan Gallery moment 1"]');
+  await tile.scrollIntoViewIfNeeded();
+  await tile.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.waitForTimeout(400);
+  const hit = await page.getByTestId("robo-face").evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    return !!top && el.contains(top);
+  });
+  expect(hit).toBe(false);
+  await shot(page, "life-at-rg-dialog", info.project.name);
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(page.getByTestId("fact-card")).toHaveCount(0);
+
   // 404: the robot looks lost.
   await open(page, "/nope");
   await expect(page.getByTestId("robo-buddy")).toHaveAttribute("data-mood", "lost");
@@ -181,7 +219,8 @@ test("touch: tapping the robot shows a fact", async ({ page }, info) => {
   await open(page, "/");
   await expect(page.getByTestId("cursor-companion")).toHaveCount(0);
   const face = page.getByTestId("robo-face");
-  expect((await face.boundingBox())!.width).toBeCloseTo(48, 0);
+  // offsetWidth ignores the head's tilt (the bounding box grows when it turns).
+  expect(await face.evaluate((el) => (el as HTMLElement).offsetWidth)).toBe(48);
   await face.tap();
   await expect(page.getByTestId("fact-card")).toBeVisible();
   await page.waitForTimeout(400);
@@ -206,6 +245,11 @@ test("reduced motion: everything still renders", async ({ browser }, info) => {
   await page.mouse.move(1400, 880);
   await page.waitForTimeout(200);
   expect(await pupilTransform(page)).not.toEqual(before);
+  // No look-around while idle: the pupils hold still.
+  await page.waitForTimeout(7000);
+  const idleA = await pupilTransform(page);
+  await page.waitForTimeout(3500);
+  expect(await pupilTransform(page)).toEqual(idleA);
   await shot(page, "home-reduced-motion", "desktop");
   expect(problems).toEqual([]);
   await ctx.close();
