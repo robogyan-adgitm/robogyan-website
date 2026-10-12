@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -254,4 +255,178 @@ test("reduced motion: everything still renders", async ({ browser }, info) => {
   await shot(page, "home-reduced-motion", "desktop");
   expect(problems).toEqual([]);
   await ctx.close();
+});
+
+// ---------------------------------------------------------------------------- PocketBase
+
+/** VITE_PB_URL as the webServer build sees it: the environment first, then the website's .env. */
+function buildPbUrl(): string | undefined {
+  if (process.env.VITE_PB_URL !== undefined) return process.env.VITE_PB_URL;
+  const file = path.resolve(fileURLToPath(new URL("..", import.meta.url)), ".env");
+  if (!fs.existsSync(file)) return undefined;
+  const line = fs.readFileSync(file, "utf8").split(/\r?\n/).find((l) => l.startsWith("VITE_PB_URL="));
+  return line?.slice("VITE_PB_URL=".length);
+}
+
+/** The backend this build talks to, or null. */
+const PB = buildPbUrl()?.trim().replace(/\/+$/, "") || null;
+const MAILPIT = process.env.MAILPIT_URL ?? "http://127.0.0.1:8025";
+
+/** Bundled text each page must show when PocketBase is down. */
+const FALLBACK_TEXT = [
+  { path: "/", text: "Meet Our Core Team" },
+  { path: "/team", text: "Dev Chandra" },
+  { path: "/projects", text: "AgroSmart" },
+  { path: "/events", text: "SIH Internal Hackathon 2026" },
+  { path: "/alumni", text: "Core of 2024-25" },
+  { path: "/alumni/2024-25", text: "Vidhi Gupta" },
+  { path: "/sih", text: "DAVIDPUTRA 1000cc" },
+  { path: "/life-at-rg", text: "Life at Robogyan" },
+  { path: "/contact", text: "robogyan.contact@gmail.com" },
+];
+
+test("content falls back to the bundled data when PocketBase is unreachable", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  // Whatever URL the build has, every request to it fails like a dead host.
+  let blocked = 0;
+  if (PB) {
+    await page.route(
+      (url) => url.href.startsWith(PB),
+      (route) => {
+        blocked++;
+        return route.abort("connectionrefused");
+      },
+    );
+  }
+  for (const r of FALLBACK_TEXT) {
+    await open(page, r.path);
+    await expect(page.getByText(r.text, { exact: false }).first()).toBeVisible();
+  }
+  // The footer shows the bundled settings too.
+  await expect(page.locator("footer").getByText("robogyan.contact@gmail.com")).toBeVisible();
+  if (PB) expect(blocked).toBeGreaterThan(0);
+  expect(errors).toEqual([]);
+});
+
+test("/members shows the sign-in form and the members-only hint", async ({ page }, info) => {
+  const problems = watch(page);
+  await open(page, "/members");
+  await expect(page.getByRole("heading", { name: "Members only" })).toBeVisible();
+  await expect(page.getByTestId("members-hint")).toHaveText(
+    "For Robogyan members. Accounts are created by the team; there is no sign-up.",
+  );
+  if (PB) {
+    await expect(page.getByLabel("Email")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Send code" })).toBeVisible();
+    await page.getByRole("tab", { name: "Password" }).click();
+    await expect(page.getByLabel("Password")).toBeVisible();
+  } else {
+    await expect(page.getByText("Sign-in is not available on this copy of the site")).toBeVisible();
+  }
+  // Linked from the footer.
+  await expect(page.locator("footer").getByRole("link", { name: "Members" })).toBeVisible();
+  await page.waitForTimeout(300);
+  await shot(page, "members-sign-in", info.project.name);
+  expect(problems).toEqual([]);
+});
+
+/** Superuser creds of the local backend (never shipped to the client; test-only). */
+function backendEnv(): Record<string, string> {
+  const file = path.resolve(fileURLToPath(new URL("..", import.meta.url)), "..", "robogyan-backend", ".env");
+  if (!fs.existsSync(file)) return {};
+  return Object.fromEntries(
+    fs
+      .readFileSync(file, "utf8")
+      .split(/\r?\n/)
+      .filter((l) => /^[A-Z_]+=/.test(l))
+      .map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).trim()]),
+  );
+}
+
+const TEST_EMAIL = "website-e2e@robogyan.test";
+
+/** Makes sure the e2e account exists as an admin; returns false when that is not possible. */
+async function ensureTestAdmin(request: APIRequestContext): Promise<boolean> {
+  const env = backendEnv();
+  if (!PB || !env.PB_SUPERUSER_EMAIL || !env.PB_SUPERUSER_PASSWORD) return false;
+  const auth = await request.post(`${PB}/api/collections/_superusers/auth-with-password`, {
+    data: { identity: env.PB_SUPERUSER_EMAIL, password: env.PB_SUPERUSER_PASSWORD },
+  });
+  if (!auth.ok()) return false;
+  const headers = { Authorization: (await auth.json()).token as string };
+  const found = await request.get(`${PB}/api/collections/users/records`, {
+    headers,
+    params: { filter: `email = "${TEST_EMAIL}"` },
+  });
+  const items = (await found.json()).items as { id: string; role: string }[];
+  if (items.length) {
+    if (items[0].role !== "admin") {
+      await request.patch(`${PB}/api/collections/users/records/${items[0].id}`, { headers, data: { role: "admin" } });
+    }
+    return true;
+  }
+  const made = await request.post(`${PB}/api/collections/users/records`, {
+    headers,
+    data: { email: TEST_EMAIL, name: "Website E2E", role: "admin" },
+  });
+  return made.ok();
+}
+
+/** The newest 8-digit code mailed to `to` after `since`, from Mailpit. */
+async function codeFromMailpit(request: APIRequestContext, to: string, since: number): Promise<string> {
+  for (let i = 0; i < 40; i++) {
+    const res = await request.get(`${MAILPIT}/api/v1/search`, { params: { query: `to:"${to}"` } });
+    const msgs = ((await res.json()).messages ?? []) as { ID: string; Created: string }[];
+    const fresh = msgs.find((m) => Date.parse(m.Created) >= since - 2000);
+    if (fresh) {
+      const body = await (await request.get(`${MAILPIT}/api/v1/message/${fresh.ID}`)).json();
+      const match = /\b(\d{8})\b/.exec(`${body.Text ?? ""} ${body.HTML ?? ""}`);
+      if (match) return match[1];
+    }
+    await new Promise((r) => setTimeout(r, 500));
+  }
+  throw new Error("no code arrived in Mailpit");
+}
+
+test("members: email-code sign-in round trip (local PocketBase + Mailpit)", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "desktop", "one run is enough (the backend allows 3 codes per 10 min)");
+  test.skip(!PB, "VITE_PB_URL is not set");
+  const health = await request.get(`${PB}/api/health`).catch(() => null);
+  test.skip(!health?.ok(), `PocketBase at ${PB} is not up`);
+  const mail = await request.get(`${MAILPIT}/api/v1/messages`).catch(() => null);
+  test.skip(!mail?.ok(), "Mailpit is not up");
+  test.skip(!(await ensureTestAdmin(request)), "cannot create the test account (no superuser creds)");
+
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await open(page, "/members");
+  await page.getByLabel("Email").fill(TEST_EMAIL);
+  const since = Date.now();
+  await page.getByRole("button", { name: "Send code" }).click();
+  await expect(page.getByTestId("otp-input")).toBeVisible();
+  const code = await codeFromMailpit(request, TEST_EMAIL, since);
+  await page.getByTestId("otp-input").fill(code);
+
+  // Signed in: profile with the role pill, and the admin panel.
+  await expect(page.getByTestId("profile")).toBeVisible();
+  await expect(page.getByTestId("profile").getByTestId("role-pill")).toHaveText("Admin");
+  await expect(page.getByTestId("members-admin")).toBeVisible();
+  await expect(page.getByTestId("member-row").filter({ hasText: TEST_EMAIL })).toBeVisible();
+  await expect(page.getByTestId("gate-admin")).toBeVisible();
+  // Server errors are shown: adding an email that already has an account is refused (409).
+  const add = page.getByRole("form", { name: "Add a member" });
+  await add.getByLabel("Email").fill(TEST_EMAIL);
+  await add.getByLabel("Name").fill("Duplicate");
+  await add.getByRole("button", { name: "Add member" }).click();
+  await expect(add.getByRole("alert")).toBeVisible();
+  await page.waitForTimeout(600);
+  await shot(page, "members-signed-in", info.project.name);
+
+  // The session survives a reload (LocalAuthStore), and signing out returns to the form.
+  await page.reload();
+  await expect(page.getByTestId("profile")).toBeVisible();
+  await page.getByRole("button", { name: "Sign out" }).click();
+  await expect(page.getByRole("button", { name: "Send code" })).toBeVisible();
+  expect(errors).toEqual([]);
 });
