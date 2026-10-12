@@ -21,6 +21,7 @@ import AlumniBatch from "@/pages/alumni-batch";
 import LifeAtRG from "@/pages/life-at-rg";
 import SIH from "@/pages/sih";
 import Contact from "@/pages/contact";
+import Members from "@/pages/members";
 import NotFound from "@/pages/not-found";
 
 function RouterContent() {
@@ -45,6 +46,7 @@ function RouterContent() {
           <Route path="/alumni/:year" component={AlumniBatch} />
           <Route path="/life-at-rg" component={LifeAtRG} />
           <Route path="/contact" component={Contact} />
+          <Route path="/members" component={Members} />
           <Route component={NotFound} />
         </Switch>
       </main>
