@@ -1,0 +1,27 @@
+import { ConsoleGreeting } from "./ConsoleGreeting";
+import { EndOfLineEgg } from "./EndOfLineEgg";
+import { GyaanEgg } from "./GyaanEgg";
+import { KonamiBot } from "./KonamiBot";
+import { LogoEgg } from "./LogoEgg";
+import { TabTitleEgg } from "./TabTitleEgg";
+import { useFacts } from "@/pb/content";
+
+/**
+ * Mounts every shell-level easter egg once (in App.tsx). Page eggs (LostBot,
+ * useSihConfetti) are used by their pages; FooterYearEgg is rendered by the Footer;
+ * FactCard belongs to RoboBuddy.
+ */
+export function Eggs() {
+  // Load the live facts once; the eggs read them from the cache (currentFacts()).
+  useFacts();
+  return (
+    <>
+      <ConsoleGreeting />
+      <TabTitleEgg />
+      <GyaanEgg />
+      <KonamiBot />
+      <EndOfLineEgg />
+      <LogoEgg />
+    </>
+  );
+}

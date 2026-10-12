@@ -5,12 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { useSiteSettings } from "@/pb/content";
 import {
   Mail,
   Phone,
@@ -89,6 +91,24 @@ const socialLinks = [
 
 
 export default function Contact() {
+  const { data: settings } = useSiteSettings();
+  const info = contactInfo.map((item) =>
+    item.label === "Email"
+      ? { ...item, value: settings.contactEmail }
+      : item.label === "Address"
+        ? { ...item, value: settings.address.replace(/\n/g, " ") }
+        : item.label === "WhatsApp Group"
+          ? { ...item, link: settings.joinUrl }
+          : item,
+  );
+  const socialHref: Record<string, string> = {
+    Instagram: settings.instagram,
+    LinkedIn: settings.linkedin,
+    GitHub: settings.github,
+    YouTube: settings.youtube,
+  };
+  const socials = socialLinks.map((social) => ({ ...social, href: socialHref[social.label] || social.href }));
+  const directionsMagnet = useMagnetic<HTMLButtonElement>();
 
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">
@@ -121,7 +141,7 @@ export default function Contact() {
                   Get in Touch
                 </h3>
                 <div className="space-y-4 md:space-y-6">
-                  {contactInfo.map((info, index) => {
+                  {info.map((info, index) => {
                     const Icon = info.icon;
                     return (
                       <motion.div
@@ -157,7 +177,7 @@ export default function Contact() {
                   Follow Us
                 </h3>
                 <div className="grid grid-cols-1 gap-3 md:gap-4">
-                  {socialLinks.map((social, index) => {
+                  {socials.map((social, index) => {
                     const Icon = social.icon;
                     return (
                       <motion.a
@@ -224,9 +244,10 @@ export default function Contact() {
               {/* Direction button overlay */}
               <div className="absolute bottom-4 right-4">
                 <Button
+                  ref={directionsMagnet}
                   variant="outline"
                   size="sm"
-                  className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-all text-xs bg-black/90 backdrop-blur-sm"
+                  className="border-[hsl(235,75%,65%)] text-[hsl(235,75%,65%)] hover:bg-[hsl(235,75%,65%)] hover:text-white transition-[color,background-color,border-color,opacity,box-shadow,transform] text-xs bg-black/90 backdrop-blur-sm"
                   onClick={() => window.open('https://www.google.com/maps/place/Robogyan/@28.6778227,77.2606192,20z/data=!4m6!3m5!1s0x390cfd4c405859e3:0x49d11941d9dcf968!8m2!3d28.6779389!4d77.2606176!16s%2Fg%2F11fkth91dr', '_blank')}
                 >
                   <Building className="mr-1" size={12} />

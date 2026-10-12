@@ -29,6 +29,11 @@ jobs:
         run: npm install
       - name: Build project
         run: npm run build # This runs the script from your package.json
+        env:
+          # PocketBase URL; override with the VITE_PB_URL repository variable
+          # (Settings > Secrets and variables > Actions > Variables). Must be https.
+          # If the server is unreachable the site still renders from its bundled data.
+          VITE_PB_URL: ${{ vars.VITE_PB_URL || 'https://80.225.251.122.sslip.io' }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

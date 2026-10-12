@@ -3,8 +3,14 @@ import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useMagnetic } from "@/hooks/useMagnetic";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useLogoEggTrigger } from "@/features/eggs/LogoEgg";
+import { useSiteSettings } from "@/pb/content";
 
-const navItems = [
+type NavItem = { label: string; href: string; badge?: string; quiet?: boolean };
+
+const baseNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "SIH 2026", href: "/sih", badge: "Results Out" },
   { label: "Team", href: "/team" },
@@ -13,12 +19,21 @@ const navItems = [
   { label: "Alumni", href: "/alumni" },
   { label: "Life at RG", href: "/life-at-rg" },
   { label: "Contact", href: "/contact" },
+  // Small and dim: for members, not visitors.
+  { label: "Members", href: "/members", quiet: true },
 ];
 
 export default function Navbar() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const logoMagnet = useMagnetic<HTMLDivElement>();
+  const logoEgg = useLogoEggTrigger();
+  const reduced = useReducedMotion();
+  const { data: settings } = useSiteSettings();
+  const navItems = baseNavItems.map((item) =>
+    item.href === "/sih" && !settings.sihResultsOut ? { ...item, badge: undefined } : item,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,8 +69,13 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/">
           <motion.div
+            ref={logoMagnet}
             whileHover={{ scale: 1.05 }}
-            onClick={() => handleNavClick("/")}
+            onClick={() => {
+              handleNavClick("/");
+              logoEgg();
+            }}
+            data-testid="nav-logo"
             className="font-russo text-3xl font-bold gradient-text cursor-pointer"
           >
             ROBOGYAN
@@ -69,12 +89,23 @@ export default function Navbar() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 onClick={() => handleNavClick(item.href)}
-                className={`nav-item flex items-center gap-1.5 cursor-pointer transition-colors ${location === item.href
-                  ? "text-[hsl(235,85%,65%)] active"
-                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                className={`nav-item flex items-center gap-1.5 cursor-pointer transition-colors ${item.quiet ? "text-sm" : ""} ${location === item.href
+                  ? "text-[hsl(235,85%,65%)] nav-item-current"
+                  : item.quiet
+                    ? "text-gray-400 hover:text-[hsl(235,85%,65%)]"
+                    : "text-white hover:text-[hsl(235,85%,65%)]"
                   }`}
               >
                 <span>{item.label}</span>
+                {/* The active underline slides between items. */}
+                {location === item.href && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    aria-hidden="true"
+                    className="nav-underline"
+                    transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }}
+                  />
+                )}
                 {item.badge && (
                   <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-full bg-[hsl(150,100%,50%,0.2)] text-[hsl(150,100%,50%)] border border-[hsl(150,100%,50%,0.4)] animate-pulse">
                     {item.badge}
@@ -113,7 +144,9 @@ export default function Navbar() {
                 }}
                 className={`flex items-center justify-between py-2 cursor-pointer transition-colors ${location === item.href
                   ? "text-[hsl(235,85%,65%)]"
-                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                  : item.quiet
+                    ? "text-sm text-gray-400 hover:text-[hsl(235,85%,65%)]"
+                    : "text-white hover:text-[hsl(235,85%,65%)]"
                   }`}
               >
                 <span>{item.label}</span>

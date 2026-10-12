@@ -1,0 +1,486 @@
+/**
+ * Facts about Robogyan for the easter eggs (Konami toast, the fact card, robogyan.facts()).
+ * `source` says where each one comes from: "site" means it is stated somewhere on this site.
+ */
+export interface Fact {
+  id: string;
+  text: string;
+  source: "site" | "instagram" | "facebook" | "linkedin" | "youtube" | "web";
+  year?: number;
+  url?: string;
+}
+
+export const facts: Fact[] = [
+  {
+    id: "name-meaning",
+    text: "Robogyan = Robo + gyaan (ज्ञान), Hindi for knowledge. Knowledge of robots.",
+    source: "site",
+  },
+  {
+    id: "three-names",
+    text: "Same lab, three college names: NIEC, then ADGITM, now ADGIPS.",
+    source: "site",
+  },
+  {
+    id: "block-5",
+    text: "The Robogyan lab lives in the basement of Block 5.",
+    source: "site",
+  },
+  {
+    id: "tagline",
+    text: "The society's tagline is \"Experience Engineering\".",
+    source: "site",
+  },
+  {
+    id: "sih-two-wins",
+    text: "Robogyan teams are two-time Smart India Hackathon national winners: 2019 and 2025.",
+    source: "site",
+  },
+  {
+    id: "sih-four-finals",
+    text: "Robogyan teams have reached the SIH national finals four times.",
+    source: "site",
+  },
+  {
+    id: "sih-2025-hardware",
+    text: "SIH 2025: a Robogyan team won the Hardware Edition Grand Finale at Manipal University Jaipur.",
+    source: "site",
+    year: 2025,
+  },
+  {
+    id: "sih-2026-internal",
+    text: "The SIH 2026 internal round drew 240+ teams and nearly 1,500 participants.",
+    source: "site",
+    year: 2026,
+  },
+  {
+    id: "sih-2026-results",
+    text: "45 teams selected and 5 waitlisted from the SIH 2026 internal round, judged by a 12-member jury.",
+    source: "site",
+    year: 2026,
+  },
+  {
+    id: "subway-surfers-2026",
+    text: "At Utkarsh 2026 Robogyan ran a camera-controlled Subway Surfers: your body is the controller.",
+    source: "site",
+    year: 2026,
+  },
+  {
+    id: "subway-surfers-2025",
+    text: "The 2025 Subway Surfers build at Utkarsh was two-player.",
+    source: "site",
+    year: 2025,
+  },
+  {
+    id: "techkriti-2025",
+    text: "Techkriti 2025, IIT Kanpur: 1st and 2nd at Galactic Dodger, 2nd at Capture the Flag.",
+    source: "site",
+    year: 2025,
+  },
+  {
+    id: "techkriti-streak",
+    text: "Robogyan teams have won at Techkriti, IIT Kanpur, in several different years.",
+    source: "site",
+  },
+  {
+    id: "hackbmu-6",
+    text: "HackBMU 6.0: 2nd position, with a cash prize.",
+    source: "site",
+    year: 2024,
+  },
+  {
+    id: "robocraze-2026",
+    text: "RoboCraze 2026: 7th in the roborace, with a cash prize.",
+    source: "site",
+    year: 2026,
+  },
+  {
+    id: "xylem-global",
+    text: "The 2023–24 core team were Xylem global winners.",
+    source: "site",
+    year: 2024,
+  },
+  {
+    id: "e-yantra",
+    text: "The 2021–22 core team won e-Yantra, IIT Bombay's robotics challenge.",
+    source: "site",
+    year: 2022,
+  },
+  {
+    id: "tata-crucible",
+    text: "The 2020–21 core team won Tata Crucible.",
+    source: "site",
+    year: 2021,
+  },
+  {
+    id: "agrosmart",
+    text: "AgroSmart pairs an ESP32 with soil moisture and temperature sensors on solar power for smart irrigation.",
+    source: "site",
+    year: 2025,
+  },
+  {
+    id: "deafiator",
+    text: "Deafiator: an ESP32, a vibration motor and a buzzer, built for simple communication.",
+    source: "site",
+    year: 2024,
+  },
+  {
+    id: "hovercrafts",
+    text: "The lab's hovercrafts fly on 2200kV motors and LiPo batteries.",
+    source: "site",
+    year: 2024,
+  },
+  {
+    id: "drone-workshop",
+    text: "In October 2024 the lab hosted a drone workshop with DTown Robotics in the Block 5 Smart Room.",
+    source: "site",
+    year: 2024,
+  },
+  {
+    id: "numbers",
+    text: "130+ active members, 100+ competition wins, 50+ projects.",
+    source: "site",
+  },
+  {
+    id: "ig-bio",
+    text: "The Instagram bio reads: Experience Engineering · IoT | Embedded | Robotics | Android · Learn from Top Mentors.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/robogyan/",
+  },
+  {
+    id: "second-birthday",
+    text: "27 Apr 2013: 'Completed 2 Years of Hard Work, Happy Birthday Robogyan', celebrated with a 'Robo Gyan' cake.",
+    source: "facebook",
+    year: 2013,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "old-tagline",
+    text: "Robogyan's old logo tagline was 'NIEC vision to robo world'.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "never-quit",
+    text: "2016 motto on a Robogyan poster: 'Our strategy is simple: we just never quit!'",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "oldest-ig",
+    text: "2025 Instagram: 'A pure software and hardware-driven robotics society and one of the oldest society of ADGIPS.'",
+    source: "instagram",
+    year: 2025,
+    url: "https://www.instagram.com/p/DPq7Lr4k1t6/",
+  },
+  {
+    id: "best-society",
+    text: "Old hashtag: #bestsocietyofNIECDelhi. The same post added, 'we make our own lightsabers too'.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "team-family",
+    text: "Robogyan-NIEC: 'a team is a family and it is in working together that best results can be achieved.'",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "fb-first-posts",
+    text: "The oldest posts on the Facebook page date to Dec 2012 and are mostly 'Do you know' science trivia.",
+    source: "facebook",
+    year: 2012,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "da-vinci-typo",
+    text: "7 Dec 2012 trivia post: 'Around 1940, Leonardo da Vinci first sketched the plans for a humanoid robot.' (It was ~1495.)",
+    source: "facebook",
+    year: 2012,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "poll-2013",
+    text: "June 2013 FB poll on what to build next: 'Multipurpose Development Board' won 100% of votes.",
+    source: "facebook",
+    year: 2013,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "impostors-2013",
+    text: "Oct 2013: Robogyan warned of impostors running events in its name; its last real event was Arduino, Nov 2012.",
+    source: "facebook",
+    year: 2013,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "lab-block5-basement",
+    text: "The Robogyan Lab is in the 5th Block basement at ADGIPS (Auditions 2025 venue).",
+    source: "facebook",
+    year: 2025,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "lab-block5-2016",
+    text: "In 2016 Robogyan recruited at the Project Lab, 5th Block, 3rd floor. The club has been in Block 5 for at least a decade.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "room-5001",
+    text: "Recruitment 2015: a 20-30 min technical and aptitude test, then an interview, in ECE room 5001.",
+    source: "facebook",
+    year: 2015,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "project-entry",
+    text: "2015 rule: shortlisted recruits had to build a project by August, and mech students had to learn SolidWorks.",
+    source: "facebook",
+    year: 2015,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "dont-call",
+    text: "Robocon 2015 selection post: 'please do not make calls regarding why i am not selected'.",
+    source: "facebook",
+    year: 2014,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "auditions-2025",
+    text: "Auditions 2025 were held on 27 Oct 2025 from 2 PM in the Robogyan Lab.",
+    source: "facebook",
+    year: 2025,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "core-2026",
+    text: "Jan 2026: Amogh Saxena (Android/software) was introduced as President of Robogyan's new core team.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/p/DTVbiMAFDQP/",
+  },
+  {
+    id: "core-2026-27",
+    text: "2026-27: Robogyan's core team is led by President Dev Chandra (robotics/AI) and Vice President Naman.",
+    source: "site",
+    year: 2026,
+  },
+  {
+    id: "robocon-2014-meet",
+    text: "Robogyan held an open Robocon 2014 team-selection meet and urged fans to watch the 24 Aug 2014 finals live.",
+    source: "facebook",
+    year: 2014,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "ti-2015",
+    text: "Nov 2014: RG members were selected for the TI Innovation Challenge India 2015, winning $250 of components.",
+    source: "facebook",
+    year: 2014,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "ninth-chassis",
+    text: "Robocon 2016 build: the mechanical team made nine chassis before the bots were ready to roll.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "robocon-2016-bits",
+    text: "Robocon 2016: Robogyan won its first-round match against BITS Pilani.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "robocon-2017",
+    text: "Robocon 2017 build began with a disc-shooting prototype: 'A journey of a thousand miles begins with one step.'",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "asia-largest",
+    text: "2016 recruitment called ABU Robocon 2017 'Asia's largest robotics competition'. Any stream or year could join.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "pv-sindhu",
+    text: "Olympic medallist P V Sindhu operated Robogyan's badminton robot at the college fest.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "robominton",
+    text: "Robogyan's badminton-playing robot was nicknamed 'ROBOMINTON'.",
+    source: "facebook",
+    year: 2015,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "ps2-car",
+    text: "Feb 2017: Robogyan and Mechanical students drove a real Hyundai Accent with a PlayStation 2 controller.",
+    source: "facebook",
+    year: 2017,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "otto-2020",
+    text: "Lockdown 2020: an Otto DIY humanoid robot danced 'like we would at the first party after lockdown'.",
+    source: "instagram",
+    year: 2020,
+    url: "https://www.instagram.com/p/CGShWItFM7v/",
+  },
+  {
+    id: "taking-off",
+    text: "Feb 2023 reel 'We're taking-off. Are you joining?' has 253 likes, the most of any post sampled.",
+    source: "instagram",
+    year: 2023,
+    url: "https://www.instagram.com/p/CpDiknnuVdj/",
+  },
+  {
+    id: "igdtuw-2016",
+    text: "Oct 2016 at IGDTUW: won Line Follower (LFR) and took 2nd in Mech Software and Arduino Mania. #FirstWinOfTheSeason",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "ev-hackathon-2018",
+    text: "2018: Robogyan members won the EV Hackathon at EMPI B-School (Incubate India) and got a proof of concept from BSES Yamuna.",
+    source: "facebook",
+    year: 2018,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "robosoccer-iiitd",
+    text: "Oct 2025: Team Robogyan competed in RoboSoccer at IIIT Delhi (ESYA'25).",
+    source: "instagram",
+    year: 2025,
+    url: "https://www.instagram.com/p/DPoY7MukwT5/",
+  },
+  {
+    id: "two-wins",
+    text: "SIH 2025: 'Two teams. One stage. Two historic wins.'",
+    source: "instagram",
+    year: 2025,
+    url: "https://www.instagram.com/p/DckzG13vqaD/",
+  },
+  {
+    id: "sih-2025-winners-names",
+    text: "SIH 2025 winners Vaibhav Khanna and Amogh Saxena later mentored the 2026 internal-round teams.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/p/DdCY4ONzOCz/",
+  },
+  {
+    id: "techkriti-2026",
+    text: "Techkriti '26 (IIT Kanpur): 'The streak at IITK continues', with wins from the combat pits to the innovation halls.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/p/DXlyWeOlERF/",
+  },
+  {
+    id: "arduino-sessions",
+    text: "Robogyan ran free Arduino tutorial sessions with hands-on projects for students.",
+    source: "facebook",
+    year: 2016,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "roborace-2024",
+    text: "June 2024: a RoboRace reel showed Robogyan's bots racing a track.",
+    source: "instagram",
+    year: 2024,
+    url: "https://www.instagram.com/p/C8Hl5c9SqZn/",
+  },
+  {
+    id: "sih-2024-internal",
+    text: "SIH 2024 internal hackathon: 6 Sep 2024, registrations closed at midnight on 5 Sep.",
+    source: "instagram",
+    year: 2024,
+    url: "https://www.instagram.com/p/C_fd9y7yM2U/",
+  },
+  {
+    id: "robosoccer-utkarsh25",
+    text: "Utkarsh 2025: 1v1 Robo Soccer near Nescafe, 19-21 Feb, ₹50 entry.",
+    source: "instagram",
+    year: 2025,
+    url: "https://www.instagram.com/p/DGI9XRfTFGU/",
+  },
+  {
+    id: "resume-2025",
+    text: "July 2025: an online resume-building session with Ashish, a Project Associate at the Ministry of Science & Tech.",
+    source: "facebook",
+    year: 2025,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "sih-2025-internal",
+    text: "SIH 2025 internal round: 12-13 Sep 2025. Teams of exactly 6 from ADGIPS, with at least one female member.",
+    source: "facebook",
+    year: 2025,
+    url: "https://www.facebook.com/robogyan/",
+  },
+  {
+    id: "subway-surfers",
+    text: "Utkarsh '26: 'Subway Surfers Live', a camera-tracked game where your body is the controller. ₹30, near Nescafe.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/p/DU5bROKD2ok/",
+  },
+  {
+    id: "sih-2026-director",
+    text: "Sept 2026: the ADGIPS Director appeared in a Robogyan reel urging students to join SIH. It drew 121 likes.",
+    source: "instagram",
+    year: 2026,
+    url: "https://www.instagram.com/p/DcyPKgBvcMc/",
+  },
+  {
+    id: "technoutsav-22",
+    text: "Dec 2022: Robogyan posted highlights from TechnoUtsav'22, the ADGITM tech fest.",
+    source: "instagram",
+    year: 2022,
+    url: "https://www.instagram.com/p/CmlLUFRPZ9C/",
+  },
+  {
+    id: "recap-2024",
+    text: "Year-end 2024 post: '2024: A year of innovation, grit, and glory!' #ExperienceEngineering",
+    source: "facebook",
+    year: 2024,
+    url: "https://www.facebook.com/robogyan/",
+  },
+];
+
+/**
+ * A random fact from `from` (the live list when loaded, see `currentFacts()`); pass
+ * `exclude` (an id) to avoid repeating the last one shown.
+ */
+export function randomFact(exclude?: string, from: Fact[] = facts): Fact {
+  const pool = from.filter((f) => f.id !== exclude);
+  return pool[Math.floor(Math.random() * pool.length)] ?? from[0] ?? facts[0];
+}
+
+/** Human label for a fact source. */
+export function factSourceLabel(source: Fact["source"]): string {
+  return {
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+    facebook: "Facebook",
+    youtube: "YouTube",
+    web: "Web",
+    site: "robogyan.tech",
+  }[source];
+}

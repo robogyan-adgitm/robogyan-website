@@ -8,6 +8,10 @@ import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import ScrollToTop from "@/components/layout/scroll-to-top";
 import ParticleBackground from "@/components/animations/particle-background";
+import CursorCompanion from "@/features/cursor/CursorCompanion";
+import CardSpotlight from "@/features/spotlight/CardSpotlight";
+import RoboBuddy from "@/features/robot/RoboBuddy";
+import { Eggs } from "@/features/eggs";
 import Home from "@/pages/home";
 import Team from "@/pages/team";
 import Projects from "@/pages/projects";
@@ -17,6 +21,7 @@ import AlumniBatch from "@/pages/alumni-batch";
 import LifeAtRG from "@/pages/life-at-rg";
 import SIH from "@/pages/sih";
 import Contact from "@/pages/contact";
+import Members from "@/pages/members";
 import NotFound from "@/pages/not-found";
 
 function RouterContent() {
@@ -41,10 +46,15 @@ function RouterContent() {
           <Route path="/alumni/:year" component={AlumniBatch} />
           <Route path="/life-at-rg" component={LifeAtRG} />
           <Route path="/contact" component={Contact} />
+          <Route path="/members" component={Members} />
           <Route component={NotFound} />
         </Switch>
       </main>
       <Footer />
+      <RoboBuddy />
+      <CardSpotlight />
+      <CursorCompanion />
+      <Eggs />
     </div>
   );
 }

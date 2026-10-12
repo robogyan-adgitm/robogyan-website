@@ -21,6 +21,33 @@ export interface AlumniBatch {
 
 export const alumniBatches: AlumniBatch[] = [
   {
+    year: "2025-26",
+    subtitle: "Core of 2025-26",
+    description: "The team that led Robogyan through 2025-26, from SIH 2025 to Techkriti '26.",
+    image: "",
+    achievements: ["SIH 2025 Grand Finale Winners", "Winners @IITK Techkriti '26", "Hosted the SIH 2026 internal round (240+ teams)"],
+    members: [
+      {
+        id: "31",
+        name: "Amogh Saxena",
+        position: "President",
+        currentCompany: "Updating soon",
+        currentRole: "Btech CSE",
+        image: "/images/alumni/amogh.jpg",
+        linkedin: "https://www.linkedin.com/in/amogh-saxena-aa497a289/",
+      },
+      {
+        id: "32",
+        name: "Macle (Aditya Goel)",
+        position: "Vice President",
+        currentCompany: "Updating soon",
+        currentRole: "Btech CSE",
+        image: "/images/alumni/macle.png",
+        linkedin: "https://www.linkedin.com/in/macle57/",
+      },
+    ],
+  },
+  {
     year: "2024-25",
     subtitle: "Core of 2024-25",
     description: "Meet the innovative team members who made their mark this year.",

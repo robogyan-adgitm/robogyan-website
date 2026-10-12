@@ -274,3 +274,236 @@
     filter: drop-shadow(0 0 0 rgba(99, 102, 241, 0));
   }
 }
+
+/* =========================================================================
+   Interactive layer. Nothing below changes the page at rest: every rule is
+   either driven by the pointer/keyboard or scoped to an element the JS marks.
+   ========================================================================= */
+
+/* Cursor companion (features/cursor) */
+.rg-cursor-glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 360px;
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    hsl(235 85% 65% / 0.1) 0%,
+    hsl(275 85% 70% / 0.06) 38%,
+    transparent 70%
+  );
+}
+
+.rg-cursor-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  border-radius: 9999px;
+}
+
+.rg-cursor-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(235, 85%, 65%), hsl(275, 85%, 70%));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.rg-cursor-fill {
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Hero wordmark letters (features/hero) */
+.rg-letter {
+  position: relative;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card spotlight (features/spotlight). Hosts are marked by JS on first hover
+   (and made position: relative by JS only if they were static). */
+[data-rg-spot-host]::before,
+[data-rg-spot-host]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+/* the 1px border ring */
+[data-rg-spot-host]::before {
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    hsl(235 85% 65% / 0.35),
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* the faint inner fill */
+[data-rg-spot-host]::after {
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    hsl(235 85% 65% / 0.06),
+    transparent 60%
+  );
+}
+
+[data-rg-spot]::before,
+[data-rg-spot]::after {
+  opacity: 1;
+}
+
+/* One diagonal sheen across gradient CTAs per hover */
+:where(.rg-sheen) {
+  position: relative;
+}
+
+.rg-sheen {
+  overflow: hidden;
+}
+
+.rg-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .rg-sheen:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.6s ease;
+  }
+}
+
+/* Easter-egg surfaces */
+.rg-glass-panel {
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Zero specificity so Tailwind's .absolute/.fixed still win */
+:where(.rg-glass-panel) {
+  position: relative;
+}
+
+.rg-glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(235 85% 65% / 0.7), hsl(275 85% 70% / 0.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+dialog.rg-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* RoboBuddy (features/robot): glass behind the SVG head (x 4..60, y 13..65 of 64x72) */
+.rg-robot-glass {
+  position: absolute;
+  left: 6.25%;
+  right: 6.25%;
+  top: 18.06%;
+  bottom: 9.72%;
+  border-radius: 25% / 27%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px hsl(235 85% 65% / 0.12);
+  pointer-events: none;
+}
+
+.rg-robot:focus-visible {
+  outline: 2px solid hsl(235, 85%, 65%);
+  outline-offset: 4px;
+}
+
+/* Speech-bubble tail, bottom right, pointing at the robot */
+.rg-bubble::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  background: rgba(26, 26, 26, 0.95);
+  border-right: 1px solid hsl(275 85% 70% / 0.55);
+  border-bottom: 1px solid hsl(275 85% 70% / 0.55);
+}
+
+@media (max-width: 639px) {
+  .rg-bubble::after {
+    right: 14px;
+  }
+}
+
+/* Easter-egg toasts: glass with a gradient edge, Orbitron title */
+.rg-toast {
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid hsl(235 85% 65% / 0.45);
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px hsl(235 85% 65% / 0.18);
+  color: #fff;
+}
+
+.rg-toast > div > div:first-child {
+  font-family: "Orbitron", monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Nav: the current item's underline is a shared-layout element that slides between
+   items (navbar.tsx); same 2px gradient line as .nav-item::after. */
+.nav-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(235, 85%, 65%), hsl(275, 85%, 70%));
+  pointer-events: none;
+}
+
+.nav-item.nav-item-current::after {
+  display: none;
+}

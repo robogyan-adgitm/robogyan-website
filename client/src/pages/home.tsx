@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import CounterAnimation from "@/components/animations/counter-animation";
 import ImageWithLoader from "@/components/ui/image-with-loader";
+import HeroWordmark from "@/features/hero/HeroWordmark";
+import { useLogoEggTrigger } from "@/features/eggs/LogoEgg";
+import { useMagnetic } from "@/hooks/useMagnetic";
+import { useProjects, useTeam, type Ring } from "@/pb/content";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy, Award, Medal, Star, Zap, Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const achievements = [
@@ -67,17 +71,17 @@ const featuredProjects = [
 
 const coreTeam = [
   {
-    name: "Amogh Saxena",
+    name: "Dev Chandra",
     position: "President",
-    specialization: "Android Specialist",
-    image: "/images/coreTeam/amoghsaxena.jpg",
+    specialization: "Robotics & AI Innovator",
+    image: "/images/coreTeam/dev.jpg",
     borderColor: "border-[hsl(235,75%,65%)]",
   },
   {
-    name: "Aditya Goel",
+    name: "Naman",
     position: "Vice President",
-    specialization: "Embedded Master",
-    image: "/images/coreTeam/macle.jpg",
+    specialization: "Bio coming soon",
+    image: "/images/coreTeam/placeholder.svg",
     borderColor: "border-[hsl(150,45%,60%)]",
   },
   {
@@ -95,6 +99,43 @@ const coreTeam = [
     borderColor: "border-[hsl(220,70%,55%)]",
   },
 ];
+
+const ringBorder: Record<Ring, string> = {
+  cyan: "border-[hsl(180,100%,50%)]",
+  violet: "border-[hsl(275,75%,70%)]",
+  indigo: "border-[hsl(235,75%,65%)]",
+  mint: "border-[hsl(150,45%,60%)]",
+  none: "border-[hsl(220,70%,55%)]",
+};
+
+/**
+ * The first four live team members (in the team's order), keeping the curated tagline and
+ * border for people already on the bundled list. Bundled list as is until live data loads.
+ */
+function useCoreTeam() {
+  const { data, live } = useTeam();
+  if (!live) return coreTeam;
+  return data.slice(0, 4).map((m) => {
+    const curated = coreTeam.find((c) => c.name === m.name);
+    return {
+      name: m.name,
+      position: m.position,
+      specialization: curated?.specialization ?? (m.description.split(/[.,]/)[0] || m.position),
+      image: m.image,
+      borderColor: curated?.borderColor ?? ringBorder[m.ring ?? "none"],
+    };
+  });
+}
+
+/** The curated featured projects, with each one's live image and category when it exists. */
+function useFeaturedProjects() {
+  const { data, live } = useProjects();
+  if (!live) return featuredProjects;
+  return featuredProjects.map((f) => {
+    const p = data.find((x) => x.name === f.title);
+    return p ? { ...f, image: p.image } : f;
+  });
+}
 
 const latestAchievements = [
   {
@@ -128,6 +169,12 @@ const latestAchievements = [
 
 export default function Home() {
   const [currentAchievement, setCurrentAchievement] = useState(0);
+  const joinMagnet = useMagnetic<HTMLButtonElement>();
+  const teamsMagnet = useMagnetic<HTMLButtonElement>();
+  const judgesMagnet = useMagnetic<HTMLButtonElement>();
+  const logoEgg = useLogoEggTrigger();
+  const team = useCoreTeam();
+  const shownProjects = useFeaturedProjects();
 
   // Auto-advance achievement every 5 seconds
   useEffect(() => {
@@ -158,14 +205,11 @@ export default function Home() {
           >
             WELCOME TO
           </motion.h1>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 gradient-text leading-tight"
-          >
-            ROBOGYAN
-          </motion.h2>
+          <HeroWordmark
+            text="ROBOGYAN"
+            onClick={logoEgg}
+            className="font-russo text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black mb-8 leading-tight"
+          />
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -181,8 +225,10 @@ export default function Home() {
           >
             <Link href="/contact">
               <Button
+                ref={joinMagnet}
                 size="lg"
-                className="bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
+                data-testid="hero-join"
+                className="rg-sheen bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] text-white hover:scale-105 transition-transform font-semibold px-8 py-4 text-lg"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 Join Now
@@ -222,8 +268,9 @@ export default function Home() {
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
                   <Link href="/sih#results">
                     <Button
+                      ref={teamsMagnet}
                       size="lg"
-                      className="w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                      className="rg-sheen w-full bg-gradient-to-r from-[hsl(235,85%,65%)] to-[hsl(275,85%,70%)] hover:opacity-90 text-white font-semibold py-6 rounded-xl shadow-lg flex items-center justify-center gap-2"
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
                       View Shortlisted Teams
@@ -231,6 +278,7 @@ export default function Home() {
                   </Link>
                   <Link href="/sih#judges">
                     <Button
+                      ref={judgesMagnet}
                       variant="outline"
                       className="w-full glassmorphism border-white/20 hover:border-[hsl(235,85%,65%)] text-white hover:text-white py-6 rounded-xl flex items-center justify-center gap-2"
                     >
@@ -528,7 +576,7 @@ export default function Home() {
             Featured Projects
           </motion.h3>
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+            {shownProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -583,7 +631,7 @@ export default function Home() {
           </motion.h3>
           <div className="flex justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 max-w-5xl">
-              {coreTeam.slice(0, 4).map((member, index) => (
+              {team.slice(0, 4).map((member, index) => (
                 <motion.div
                   key={member.name}
                   initial={{ opacity: 0, y: 30 }}

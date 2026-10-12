@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
   Heart,
@@ -27,6 +28,7 @@ import {
   X,
   ZoomIn
 } from "lucide-react";
+import { useGallery } from "@/pb/content";
 
 const heroVideo = "/images/heroVideo.mp4";
 
@@ -37,131 +39,6 @@ const achievements = [
   { number: "14", label: "Years of Excellence and Counting..." },
 ];
 
-const moments = [
-  {
-    id: "1",
-    title: "Techkriti 2026 at IIT Kanpur",
-    year: "2026",
-    location: "IIT Kanpur",
-    category: "Competition",
-    description: " Robogyan dominated once more at Techkriti @IITKanpur, keeping the legacy alive and continuing its winning streak with 2nd position in TechInnovation!",
-    image: "/images/lifeatrg/18.jpg",
-    badges: ["2nd Position"]
-  },
-  {
-    id: "2",
-    title: "Smart India Hackathon 2025",
-    year: "2025",
-    location: "Manipal University Jaipur",
-    category: "SIH2025",
-    attendees: "National Hackathon",
-    description: "Team from Robogyan won the Smart India Hackathon 2025 - Hardware Edition, conducted at MUJ, Jaipur.",
-    image: "/images/lifeatrg/sihWin.JPG",
-    badges: []
-  },
-  {
-    id: "3",
-    title: "Smart India Hackathon 2024",
-    year: "2024",
-    location: "ADGIPS",
-    category: "SIH2024",
-    attendees: "300+",
-    description: "Robogyan conducted the SIH2024 Internal round with over 300 participants.",
-    image: "/images/lifeatrg/sih24.jpg",
-    badges: []
-  },
-  {
-    id: "4",
-    title: "HackBMU 6.0 Hackathon",
-    year: "2024",
-    location: "BML Munjal University, Haryana",
-    attendees: "500+",
-    category: "Hackhathon",
-    description: "Achieved 2nd position at HackBMU 6.0 along with a cash prize",
-    image: "/images/lifeatrg/HackBMU.png",
-    badges: ["2nd Runner Up"]
-  },
-  {
-    id: "5",
-    title: "RG Farewell 2025 Batch",
-    year: "2025",
-    location: "Robogyan Lab, Block 5",
-    category: "Lab Event",
-    description: "Robogyan conducted farewell for the 2025 Batch, in presence of some esteemed alumni.",
-    image: "/images/lifeatrg/Farewell2025.jpg",
-    badges: []
-  },
-  {
-    id: "6",
-    title: "Techkriti 2025 at IIT Kanpur",
-    year: "2025",
-    location: "IIT Kanpur",
-    category: "Competition",
-    description: " Robogyan dominated yet again at Techkriti @IITKanpur, winning 1st and 2nd positions at 'Galactic Dodger' and 2nd position at 'Capture the Flag'. ",
-    image: "/images/lifeatrg/Techkriti.jpg",
-    badges: ["Multiple Positions"]
-  }
-];
-
-const activitiesData = [
-  {
-    src: "/images/lifeatrg/workshops.jpg",
-    alt: "Hands-on workshop session with students learning",
-    title: "Workshop Sessions"
-  },
-  {
-    src: "/images/lifeatrg/techtalks.jpg",
-    alt: "Tech talk presentation with industry expert",
-    title: "Tech Talks"
-  },
-  {
-    src: "/images/lifeatrg/hackathons.jpg",
-    alt: "Hackathon in progress with teams working intensively",
-    title: "Hackathons"
-  },
-  {
-    src: "/images/lifeatrg/competition.jpg",
-    alt: "Competition day with participants presenting projects",
-    title: "Competitions"
-  },
-  {
-    src: "/images/lifeatrg/demos.jpg",
-    alt: "Project demonstration and showcase event",
-    title: "Project Demos"
-  },
-  {
-    src: "/images/lifeatrg/teambuilding.jpg",
-    alt: "Team building activity with collaborative challenges",
-    title: "Team Building"
-  }
-];
-
-const galleryImages = [
-  { src: "/images/lifeatrg/18.jpg" },
-  { src: "/images/lifeatrg/19.webp" },
-  { src: "/images/lifeatrg/5.webp" },
-  { src: "/images/lifeatrg/13.webp" },
-  { src: "/images/lifeatrg/14.webp" },
-  { src: "/images/lifeatrg/22.webp" },
-  { src: "/images/lifeatrg/15.webp" },
-  { src: "/images/lifeatrg/16.webp" },
-  { src: "/images/lifeatrg/17.webp" },
-  { src: "/images/lifeatrg/9.webp" },
-  { src: "/images/lifeatrg/10.webp" },
-  { src: "/images/lifeatrg/23.jpg" },
-  { src: "/images/lifeatrg/21.webp" },
-  { src: "/images/lifeatrg/20.webp" },
-  { src: "/images/lifeatrg/11.webp" },
-  { src: "/images/lifeatrg/12.webp" },
-  { src: "/images/lifeatrg/6.webp" },
-  { src: "/images/lifeatrg/7.webp" },
-  { src: "/images/lifeatrg/8.webp" },
-  { src: "/images/lifeatrg/1.webp" },
-  { src: "/images/lifeatrg/2.webp" },
-  { src: "/images/lifeatrg/3.webp" },
-  { src: "/images/lifeatrg/4.webp" },
-];
-
 const categories = [
   { id: "gallery", label: "Gallery", icon: Images, color: "text-[hsl(150,70%,55%)]" },
   { id: "moments", label: "Moments", icon: Heart, color: "text-[hsl(235,85%,65%)]" },
@@ -169,6 +46,9 @@ const categories = [
 ];
 
 export default function LifeAtRG() {
+  const {
+    data: { gallery: galleryImages, moments, activities: activitiesData },
+  } = useGallery();
   const [activeCategory, setActiveCategory] = useState("gallery");
   const [currentMoment, setCurrentMoment] = useState(0);
   const [galleryModalOpen, setGalleryModalOpen] = useState(false);
@@ -181,10 +61,10 @@ export default function LifeAtRG() {
       const prev = (selectedGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
 
       const img1 = new Image();
-      img1.src = galleryImages[next].src;
+      img1.src = galleryImages[next].image;
 
       const img2 = new Image();
-      img2.src = galleryImages[prev].src;
+      img2.src = galleryImages[prev].image;
     }
   }, [galleryModalOpen, selectedGalleryIndex]);
 
@@ -435,7 +315,7 @@ export default function LifeAtRG() {
                     onClick={() => openGalleryModal(index)}
                   >
                     <ImageWithLoader
-                      src={image.src}
+                      src={image.image}
                       alt={`Robogyan Gallery moment ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading={index < 8 ? "eager" : "lazy"}
@@ -545,6 +425,11 @@ export default function LifeAtRG() {
         {galleryModalOpen && (
           <Dialog open={galleryModalOpen} onOpenChange={setGalleryModalOpen}>
             <DialogContent className="max-w-6xl max-h-[90vh] bg-black/95 border border-white/10 p-0 overflow-hidden fixed">
+              {/* Screen-reader name for the dialog (Radix requires a title). */}
+              <DialogTitle className="sr-only">Robogyan gallery</DialogTitle>
+              <DialogDescription className="sr-only">
+                Photo {selectedGalleryIndex + 1} of {galleryImages.length}
+              </DialogDescription>
               <div className="relative w-full h-[80vh] flex items-center justify-center">
                 {/* Close Button */}
                 <button
@@ -563,7 +448,7 @@ export default function LifeAtRG() {
                   className="relative w-full h-full flex items-center justify-center p-8"
                 >
                   <img
-                    src={galleryImages[selectedGalleryIndex].src}
+                    src={galleryImages[selectedGalleryIndex]?.image}
                     alt={`Gallery image ${selectedGalleryIndex + 1}`}
                     className="max-w-full max-h-full object-contain rounded-xl"
                   />

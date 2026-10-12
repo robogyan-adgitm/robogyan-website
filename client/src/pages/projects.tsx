@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { projects } from "@/data/projects-data";
+import { useProjects } from "@/pb/content";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -88,6 +88,7 @@ const ActionButton = ({ url, icon: Icon, label, color }: {
 };
 
 export default function Projects() {
+  const { data: projects } = useProjects();
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">
       <div className="container mx-auto">
