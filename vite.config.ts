@@ -11,6 +11,8 @@ export default defineConfig({
     },
   },
   root: path.resolve(__dirname, "client"),
+  // .env lives next to package.json (VITE_PB_URL, see .env.example), not in client/.
+  envDir: __dirname,
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
