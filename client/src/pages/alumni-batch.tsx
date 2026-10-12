@@ -1,6 +1,6 @@
 import { useParams } from "wouter";
 import { motion } from "framer-motion";
-import { alumniBatches } from "@/data/alumni-data";
+import { useAlumni } from "@/pb/content";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Badge } from "@/components/ui/badge";
 import ImageWithLoader from "@/components/ui/image-with-loader";
@@ -20,6 +20,7 @@ const getLegacyMessage = (year: string) => {
 
 export default function AlumniBatch() {
   const { year } = useParams<{ year: string }>();
+  const { data: alumniBatches } = useAlumni();
 
   // Find the batch data
   const batch = alumniBatches.find((b) => b.year === year);

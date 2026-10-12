@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { teamMembers } from "@/data/team-data";
+import { isPresident, isVicePresident, useTeam } from "@/pb/content";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,11 +8,10 @@ import { Mail, Phone, Linkedin, Github, Twitter, Instagram, Cog } from "lucide-r
 
 export default function Team() {
   // Filter leadership and general members
-  const president = teamMembers.find(member => member.position === "President");
-  const vicePresident = teamMembers.find(member => member.position === "Vice President");
-  const generalMembers = teamMembers.filter(
-    member => member.position !== "President" && member.position !== "Vice President"
-  );
+  const { data: teamMembers } = useTeam();
+  const president = teamMembers.find(isPresident);
+  const vicePresident = teamMembers.find(isVicePresident);
+  const generalMembers = teamMembers.filter((member) => member !== president && member !== vicePresident);
 
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">

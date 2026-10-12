@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { facts } from "@/data/facts";
+import { currentFacts } from "@/pb/content";
 
 const BANNER = String.raw`
  ██████╗
@@ -30,6 +30,7 @@ declare global {
 export function installConsoleApi(): void {
   window.robogyan = {
     facts() {
+      const facts = currentFacts();
       console.table(facts.map((f) => ({ fact: f.text, year: f.year ?? "", source: f.source })));
       return facts.map((f) => f.text);
     },
@@ -57,7 +58,7 @@ export function ConsoleGreeting() {
       "background:#0a0a0a;color:hsl(235,85%,65%);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;line-height:1.2;padding:8px 12px;border-left:3px solid hsl(275,85%,70%);",
     );
     console.log(
-      `%cHello, engineer. ${facts.length} facts on board. Try robogyan.facts(), robogyan.motto(), robogyan.join()`,
+      `%cHello, engineer. ${currentFacts().length} facts on board. Try robogyan.facts(), robogyan.motto(), robogyan.join()`,
       "background:linear-gradient(135deg,hsl(235,85%,65%),hsl(275,85%,70%));color:#fff;padding:4px 8px;border-radius:6px;font-weight:600;",
     );
   }, []);

@@ -464,10 +464,13 @@ export const facts: Fact[] = [
   },
 ];
 
-/** A random fact; pass `exclude` (an id) to avoid repeating the last one shown. */
-export function randomFact(exclude?: string): Fact {
-  const pool = facts.filter((f) => f.id !== exclude);
-  return pool[Math.floor(Math.random() * pool.length)] ?? facts[0];
+/**
+ * A random fact from `from` (the live list when loaded, see `currentFacts()`); pass
+ * `exclude` (an id) to avoid repeating the last one shown.
+ */
+export function randomFact(exclude?: string, from: Fact[] = facts): Fact {
+  const pool = from.filter((f) => f.id !== exclude);
+  return pool[Math.floor(Math.random() * pool.length)] ?? from[0] ?? facts[0];
 }
 
 /** Human label for a fact source. */

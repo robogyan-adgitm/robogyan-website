@@ -56,22 +56,8 @@ import {
   Pause,
   Quote,
 } from "lucide-react";
-import {
-  sihOverview,
-  sihTimeline,
-  sihThemes,
-  sampleProblemStatements,
-  pptSlideGuides,
-  sihFAQs,
-  sihWinnerStories,
-  ProblemStatement,
-} from "@/data/sih-data";
-import {
-  sihSelectedTeams,
-  sihWaitlistedTeams,
-  sihJudgesData,
-  sihJudgeImages,
-} from "@/data/sih-results-data";
+import { sihOverview, sihWinnerStories, ProblemStatement } from "@/data/sih-data";
+import { useSih, useSiteSettings } from "@/pb/content";
 
 // Map theme icon string to Lucide component
 const themeIconMap: Record<string, React.ElementType> = {
@@ -90,6 +76,19 @@ const themeIconMap: Record<string, React.ElementType> = {
 };
 
 export default function SIHPage() {
+  const { data: sih } = useSih();
+  const { data: settings } = useSiteSettings();
+  const {
+    problemStatements: sampleProblemStatements,
+    themes: sihThemes,
+    timeline: sihTimeline,
+    pptGuides: pptSlideGuides,
+    faqs: sihFAQs,
+    selected: sihSelectedTeams,
+    waitlisted: sihWaitlistedTeams,
+    judges: sihJudgesData,
+  } = sih;
+  const sihJudgeImages = useMemo(() => sihJudgesData.map((j) => j.image ?? ""), [sihJudgesData]);
   // Easter egg: type "sih" (or click the announcement chip) for confetti on the results.
   const { fire: celebrateResults } = useSihConfetti();
   const resultsMagnet = useMagnetic<HTMLButtonElement>();
@@ -109,7 +108,7 @@ export default function SIHPage() {
       setCurrentJudge((prev) => (prev + 1) % sihJudgesData.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, [isJudgePaused]);
+  }, [isJudgePaused, sihJudgesData.length]);
 
   const nextJudge = () => {
     setCurrentJudge((prev) => (prev + 1) % sihJudgesData.length);
@@ -125,7 +124,7 @@ export default function SIHPage() {
       const img = new Image();
       img.src = src;
     });
-  }, []);
+  }, [sihJudgeImages]);
 
   // Filtered Results List
   const filteredResults = useMemo(() => {
@@ -146,7 +145,7 @@ export default function SIHPage() {
         t.teamName.toLowerCase().includes(query) ||
         t.leaderName.toLowerCase().includes(query)
     );
-  }, [resultsTab, resultsSearch]);
+  }, [resultsTab, resultsSearch, sihSelectedTeams, sihWaitlistedTeams]);
 
   // State for Problem Statements Search & Filtering
   const [psSearch, setPsSearch] = useState("");
@@ -184,7 +183,7 @@ export default function SIHPage() {
 
       return matchesSearch && matchesCategory && matchesTheme;
     });
-  }, [psSearch, selectedCategory, selectedTheme]);
+  }, [psSearch, selectedCategory, selectedTheme, sampleProblemStatements]);
 
   // Validation status for Team Checker
   const isTeamValid = teamSize === 6 && femaleMembers >= 1 && isSameCollege;
@@ -193,7 +192,7 @@ export default function SIHPage() {
   const filteredFaqs = useMemo(() => {
     if (faqCategory === "All") return sihFAQs;
     return sihFAQs.filter((faq) => faq.category === faqCategory);
-  }, [faqCategory]);
+  }, [faqCategory, sihFAQs]);
 
   // State for SIH Track Record Winner Stories Carousel
   const [currentWinnerStory, setCurrentWinnerStory] = useState(0);
@@ -348,6 +347,7 @@ export default function SIHPage() {
           */}
 
           {/* ================= RESULTS OUT SHOWCASE ================= */}
+          {settings.sihResultsOut && (
           <motion.div
             id="results-section"
             initial={{ opacity: 0, y: 25 }}
@@ -392,13 +392,13 @@ export default function SIHPage() {
                     <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
                       <span className="text-xs text-gray-400 block font-mono">Nominated</span>
                       <span className="text-base sm:text-lg font-bold font-orbitron text-[hsl(150,100%,50%)]">
-                        45 Teams
+                        {sihSelectedTeams.length} Teams
                       </span>
                     </div>
                     <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
                       <span className="text-xs text-gray-400 block font-mono">Waitlist</span>
                       <span className="text-base sm:text-lg font-bold font-orbitron text-amber-400">
-                        05 Teams
+                        {String(sihWaitlistedTeams.length).padStart(2, "0")} Teams
                       </span>
                     </div>
                     <div className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-center">
@@ -422,7 +422,7 @@ export default function SIHPage() {
                           : "text-gray-300 hover:text-white"
                       }`}
                     >
-                      Selected Teams (45)
+                      Selected Teams ({sihSelectedTeams.length})
                     </button>
                     <button
                       onClick={() => setResultsTab("waitlisted")}
@@ -432,7 +432,7 @@ export default function SIHPage() {
                           : "text-gray-300 hover:text-white"
                       }`}
                     >
-                      Waitlisted (5)
+                      Waitlisted ({sihWaitlistedTeams.length})
                     </button>
                     <button
                       onClick={() => setResultsTab("all")}
@@ -442,7 +442,7 @@ export default function SIHPage() {
                           : "text-gray-300 hover:text-white"
                       }`}
                     >
-                      All (50)
+                      All ({sihSelectedTeams.length + sihWaitlistedTeams.length})
                     </button>
                   </div>
 
@@ -552,12 +552,18 @@ export default function SIHPage() {
                   </div>
                   <span className="font-mono text-[11px] text-gray-400 shrink-0">
                     Showing {filteredResults.length} of{" "}
-                    {resultsTab === "selected" ? 45 : resultsTab === "waitlisted" ? 5 : 50} teams
+                    {resultsTab === "selected"
+                      ? sihSelectedTeams.length
+                      : resultsTab === "waitlisted"
+                        ? sihWaitlistedTeams.length
+                        : sihSelectedTeams.length + sihWaitlistedTeams.length}{" "}
+                    teams
                   </span>
                 </div>
               </div>
             </div>
           </motion.div>
+          )}
 
           {/* =========================================================================
               NEXT YEAR REUSE: Key Quick CTAs (Register, PPT, PS Buttons)
@@ -735,7 +741,7 @@ export default function SIHPage() {
                         className="absolute inset-0 w-full h-full flex items-center justify-center"
                       >
                         <img
-                          src={sihJudgeImages[currentJudge]}
+                          src={sihJudgeImages[currentJudge % sihJudgeImages.length]}
                           alt={`SIH 2026 Judge ${currentJudge + 1}`}
                           className="w-full h-full object-cover rounded-3xl select-none pointer-events-none"
                           loading="eager"

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { factSourceLabel, randomFact, type Fact } from "@/data/facts";
+import { currentFacts } from "@/pb/content";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/utils";
 
@@ -100,7 +101,7 @@ export function useFactTicker() {
   const [fact, setFact] = useState<Fact | null>(null);
   const last = useRef<string | undefined>(undefined);
   const show = useCallback(() => {
-    const next = randomFact(last.current);
+    const next = randomFact(last.current, currentFacts());
     last.current = next.id;
     setFact(next);
   }, []);

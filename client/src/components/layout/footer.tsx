@@ -2,8 +2,10 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Instagram, Linkedin, Github, Twitter, Youtube } from "lucide-react";
 import { FooterYearEgg } from "@/features/eggs/FooterYearEgg";
+import { useSiteSettings } from "@/pb/content";
 
 export default function Footer() {
+  const { data: settings } = useSiteSettings();
   const quickLinks = [
     { label: "SIH Portal", href: "/sih" },
     { label: "Team", href: "/team" },
@@ -15,12 +17,13 @@ export default function Footer() {
     { label: "Alumni", href: "/alumni" },
     { label: "Life at RG", href: "/life-at-rg" },
     { label: "Contact", href: "/contact" },
+    { label: "Members", href: "/members" },
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/robogyan", color: "text-[hsl(275,75%,70%)]" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/robogyan/", color: "text-[hsl(220,70%,55%)]" },
-    { icon: Youtube, href: "https://www.youtube.com/@robogyan_official", color: "text-[hsl(0,80%,60%)]" },
+    { icon: Instagram, href: settings.instagram, color: "text-[hsl(275,75%,70%)]" },
+    { icon: Linkedin, href: settings.linkedin, color: "text-[hsl(220,70%,55%)]" },
+    { icon: Youtube, href: settings.youtube, color: "text-[hsl(0,80%,60%)]" },
   ];
 
   return (
@@ -36,7 +39,7 @@ export default function Footer() {
               ROBOGYAN
             </motion.div>
             <p className="text-gray-400 mb-4">
-              Experience Engineering!
+              {settings.tagline}
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => {
@@ -105,16 +108,17 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-center space-x-2">
                 <Mail size={16} className="text-[hsl(235,75%,65%)]" />
-                <span>robogyan.contact@gmail.com</span>
+                <span>{settings.contactEmail}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <MapPin size={18} className="text-[hsl(150,45%,60%)] mt-0.5" />
                 <span>
-                  Basement, 5th Block
-                  <br />
-                  Dr. Akhilesh Das Gupta Institute of Professional Studies
-                  <br />
-                  Shastri Park, Delhi-110053
+                  {settings.address.split("\n").map((line, i) => (
+                    <span key={i}>
+                      {i > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
                 </span>
               </li>
             </ul>

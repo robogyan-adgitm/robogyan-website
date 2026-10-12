@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { upcomingEvents, pastEvents } from "@/data/events-data";
+import { useEvents } from "@/pb/content";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +22,9 @@ const typeColors = {
 };
 
 export default function Events() {
+  const {
+    data: { upcoming: upcomingEvents, past: pastEvents },
+  } = useEvents();
   return (
     <div className="min-h-screen pt-24 pb-20 px-6">
       <div className="container mx-auto">

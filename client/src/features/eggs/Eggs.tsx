@@ -4,6 +4,7 @@ import { GyaanEgg } from "./GyaanEgg";
 import { KonamiBot } from "./KonamiBot";
 import { LogoEgg } from "./LogoEgg";
 import { TabTitleEgg } from "./TabTitleEgg";
+import { useFacts } from "@/pb/content";
 
 /**
  * Mounts every shell-level easter egg once (in App.tsx). Page eggs (LostBot,
@@ -11,6 +12,8 @@ import { TabTitleEgg } from "./TabTitleEgg";
  * FactCard belongs to RoboBuddy.
  */
 export function Eggs() {
+  // Load the live facts once; the eggs read them from the cache (currentFacts()).
+  useFacts();
   return (
     <>
       <ConsoleGreeting />

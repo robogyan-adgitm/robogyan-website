@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { alumniBatches } from "@/data/alumni-data";
+import { useAlumni } from "@/pb/content";
 import GlassmorphismCard from "@/components/ui/glassmorphism-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,7 @@ import { ChevronRight, ExternalLink, Linkedin, Github, Twitter, MapPin, Building
 
 export default function Alumni() {
   const [expandedBatch, setExpandedBatch] = useState<string | null>(null);
+  const { data: alumniBatches } = useAlumni();
 
   // Founding members data (separate from main alumni batches)
   const foundingMembers = [

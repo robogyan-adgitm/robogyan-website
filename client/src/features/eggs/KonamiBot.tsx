@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { randomFact } from "@/data/facts";
+import { currentFacts } from "@/pb/content";
 import { useKeySequence } from "@/hooks/useKeySequence";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { emitEgg, hasUserInteracted, useEggEvent } from "./bus";
@@ -76,7 +77,7 @@ export function honk(): void {
 const DRIVE_S = 4;
 
 function factToast() {
-  eggToast("Beep. A fact from the lab", randomFact().text, 8000);
+  eggToast("Beep. A fact from the lab", randomFact(undefined, currentFacts()).text, 8000);
 }
 
 /**

@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { useSiteSettings } from "@/pb/content";
 import {
   Mail,
   Phone,
@@ -90,6 +91,23 @@ const socialLinks = [
 
 
 export default function Contact() {
+  const { data: settings } = useSiteSettings();
+  const info = contactInfo.map((item) =>
+    item.label === "Email"
+      ? { ...item, value: settings.contactEmail }
+      : item.label === "Address"
+        ? { ...item, value: settings.address.replace(/\n/g, " ") }
+        : item.label === "WhatsApp Group"
+          ? { ...item, link: settings.joinUrl }
+          : item,
+  );
+  const socialHref: Record<string, string> = {
+    Instagram: settings.instagram,
+    LinkedIn: settings.linkedin,
+    GitHub: settings.github,
+    YouTube: settings.youtube,
+  };
+  const socials = socialLinks.map((social) => ({ ...social, href: socialHref[social.label] || social.href }));
   const directionsMagnet = useMagnetic<HTMLButtonElement>();
 
   return (
@@ -123,7 +141,7 @@ export default function Contact() {
                   Get in Touch
                 </h3>
                 <div className="space-y-4 md:space-y-6">
-                  {contactInfo.map((info, index) => {
+                  {info.map((info, index) => {
                     const Icon = info.icon;
                     return (
                       <motion.div
@@ -159,7 +177,7 @@ export default function Contact() {
                   Follow Us
                 </h3>
                 <div className="grid grid-cols-1 gap-3 md:gap-4">
-                  {socialLinks.map((social, index) => {
+                  {socials.map((social, index) => {
                     const Icon = social.icon;
                     return (
                       <motion.a

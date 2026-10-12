@@ -9,6 +9,7 @@ import ImageWithLoader from "@/components/ui/image-with-loader";
 import HeroWordmark from "@/features/hero/HeroWordmark";
 import { useLogoEggTrigger } from "@/features/eggs/LogoEgg";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { useProjects, useTeam, type Ring } from "@/pb/content";
 import { Rocket, Users, Cog, Brain, Target, Lightbulb, ArrowRight, Github, ExternalLink, Trophy, Award, Medal, Star, Zap, Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const achievements = [
@@ -99,6 +100,43 @@ const coreTeam = [
   },
 ];
 
+const ringBorder: Record<Ring, string> = {
+  cyan: "border-[hsl(180,100%,50%)]",
+  violet: "border-[hsl(275,75%,70%)]",
+  indigo: "border-[hsl(235,75%,65%)]",
+  mint: "border-[hsl(150,45%,60%)]",
+  none: "border-[hsl(220,70%,55%)]",
+};
+
+/**
+ * The first four live team members (in the team's order), keeping the curated tagline and
+ * border for people already on the bundled list. Bundled list as is until live data loads.
+ */
+function useCoreTeam() {
+  const { data, live } = useTeam();
+  if (!live) return coreTeam;
+  return data.slice(0, 4).map((m) => {
+    const curated = coreTeam.find((c) => c.name === m.name);
+    return {
+      name: m.name,
+      position: m.position,
+      specialization: curated?.specialization ?? (m.description.split(/[.,]/)[0] || m.position),
+      image: m.image,
+      borderColor: curated?.borderColor ?? ringBorder[m.ring ?? "none"],
+    };
+  });
+}
+
+/** The curated featured projects, with each one's live image and category when it exists. */
+function useFeaturedProjects() {
+  const { data, live } = useProjects();
+  if (!live) return featuredProjects;
+  return featuredProjects.map((f) => {
+    const p = data.find((x) => x.name === f.title);
+    return p ? { ...f, image: p.image } : f;
+  });
+}
+
 const latestAchievements = [
   {
     icon: Crown,
@@ -135,6 +173,8 @@ export default function Home() {
   const teamsMagnet = useMagnetic<HTMLButtonElement>();
   const judgesMagnet = useMagnetic<HTMLButtonElement>();
   const logoEgg = useLogoEggTrigger();
+  const team = useCoreTeam();
+  const shownProjects = useFeaturedProjects();
 
   // Auto-advance achievement every 5 seconds
   useEffect(() => {
@@ -536,7 +576,7 @@ export default function Home() {
             Featured Projects
           </motion.h3>
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+            {shownProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -591,7 +631,7 @@ export default function Home() {
           </motion.h3>
           <div className="flex justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 max-w-5xl">
-              {coreTeam.slice(0, 4).map((member, index) => (
+              {team.slice(0, 4).map((member, index) => (
                 <motion.div
                   key={member.name}
                   initial={{ opacity: 0, y: 30 }}

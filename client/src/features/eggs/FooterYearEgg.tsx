@@ -13,7 +13,7 @@ export function FooterYearEgg({ year }: { year: number }) {
 
   useEffect(() => {
     if (!open) return;
-    // The data modules load only when the egg fires (see footerStats.ts).
+    // Reads cached live data or the bundle; never waits on the network (see footerStats.ts).
     let live = true;
     void import("./footerStats").then((m) => live && setLines(m.footerStats()));
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);

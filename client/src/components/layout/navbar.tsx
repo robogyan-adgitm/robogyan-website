@@ -6,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useLogoEggTrigger } from "@/features/eggs/LogoEgg";
+import { useSiteSettings } from "@/pb/content";
 
-const navItems = [
+type NavItem = { label: string; href: string; badge?: string; quiet?: boolean };
+
+const baseNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "SIH 2026", href: "/sih", badge: "Results Out" },
   { label: "Team", href: "/team" },
@@ -16,6 +19,8 @@ const navItems = [
   { label: "Alumni", href: "/alumni" },
   { label: "Life at RG", href: "/life-at-rg" },
   { label: "Contact", href: "/contact" },
+  // Small and dim: for members, not visitors.
+  { label: "Members", href: "/members", quiet: true },
 ];
 
 export default function Navbar() {
@@ -25,6 +30,10 @@ export default function Navbar() {
   const logoMagnet = useMagnetic<HTMLDivElement>();
   const logoEgg = useLogoEggTrigger();
   const reduced = useReducedMotion();
+  const { data: settings } = useSiteSettings();
+  const navItems = baseNavItems.map((item) =>
+    item.href === "/sih" && !settings.sihResultsOut ? { ...item, badge: undefined } : item,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,9 +89,11 @@ export default function Navbar() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 onClick={() => handleNavClick(item.href)}
-                className={`nav-item flex items-center gap-1.5 cursor-pointer transition-colors ${location === item.href
+                className={`nav-item flex items-center gap-1.5 cursor-pointer transition-colors ${item.quiet ? "text-sm" : ""} ${location === item.href
                   ? "text-[hsl(235,85%,65%)] nav-item-current"
-                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                  : item.quiet
+                    ? "text-gray-400 hover:text-[hsl(235,85%,65%)]"
+                    : "text-white hover:text-[hsl(235,85%,65%)]"
                   }`}
               >
                 <span>{item.label}</span>
@@ -133,7 +144,9 @@ export default function Navbar() {
                 }}
                 className={`flex items-center justify-between py-2 cursor-pointer transition-colors ${location === item.href
                   ? "text-[hsl(235,85%,65%)]"
-                  : "text-white hover:text-[hsl(235,85%,65%)]"
+                  : item.quiet
+                    ? "text-sm text-gray-400 hover:text-[hsl(235,85%,65%)]"
+                    : "text-white hover:text-[hsl(235,85%,65%)]"
                   }`}
               >
                 <span>{item.label}</span>
