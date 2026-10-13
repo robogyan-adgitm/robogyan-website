@@ -20,6 +20,8 @@ export const Collections = {
 	GateCodes: "gate_codes",
 	GateSettings: "gate_settings",
 	GateSyncs: "gate_syncs",
+	GateTickets: "gate_tickets",
+	JoinRequests: "join_requests",
 	Projects: "projects",
 	SihFaq: "sih_faq",
 	SihJudges: "sih_judges",
@@ -240,6 +242,8 @@ export type GateCodesRecord = {
 export type GateSettingsRecord = {
 	created: IsoAutoDateString
 	id: string
+	password_enabled?: boolean
+	ticket_hours: number
 	updated: IsoAutoDateString
 	validity_seconds: number
 }
@@ -251,6 +255,54 @@ export type GateSyncsRecord<Tsummary = unknown> = {
 	summary?: null | Tsummary
 	updated: IsoAutoDateString
 	user: RecordIdString
+}
+
+export const GateTicketsPermsOptions = {
+	"u": "u",
+	"a": "a",
+} as const
+export type GateTicketsPermsOptions = typeof GateTicketsPermsOptions[keyof typeof GateTicketsPermsOptions]
+export type GateTicketsRecord = {
+	created: IsoAutoDateString
+	expires_at: IsoDateString
+	id: string
+	perms: GateTicketsPermsOptions
+	updated: IsoAutoDateString
+	user: RecordIdString
+}
+
+export const JoinRequestsRequestedRoleOptions = {
+	"member": "member",
+	"admin": "admin",
+} as const
+export type JoinRequestsRequestedRoleOptions = typeof JoinRequestsRequestedRoleOptions[keyof typeof JoinRequestsRequestedRoleOptions]
+
+export const JoinRequestsStatusOptions = {
+	"unverified": "unverified",
+	"pending": "pending",
+	"approved": "approved",
+	"rejected": "rejected",
+} as const
+export type JoinRequestsStatusOptions = typeof JoinRequestsStatusOptions[keyof typeof JoinRequestsStatusOptions]
+export type JoinRequestsRecord = {
+	about?: string
+	attempts?: number
+	code_expires?: IsoDateString
+	code_hash?: string
+	code_salt?: string
+	created: IsoAutoDateString
+	decision_note?: string
+	email: string
+	id: string
+	name: string
+	picture?: FileNameString
+	requested_role: JoinRequestsRequestedRoleOptions
+	reviewed_at?: IsoDateString
+	reviewed_by?: RecordIdString
+	status: JoinRequestsStatusOptions
+	updated: IsoAutoDateString
+	user?: RecordIdString
+	verified_at?: IsoDateString
 }
 
 export const ProjectsStatusOptions = {
@@ -439,15 +491,18 @@ export const UsersRoleOptions = {
 } as const
 export type UsersRoleOptions = typeof UsersRoleOptions[keyof typeof UsersRoleOptions]
 export type UsersRecord = {
+	about?: string
 	created: IsoAutoDateString
 	email: string
 	emailVisibility?: boolean
+	gate_access?: boolean
 	id: string
 	member_of?: RecordIdString
 	name?: string
 	notes?: string
 	password: string
 	password_set?: boolean
+	picture?: FileNameString
 	role: UsersRoleOptions
 	tokenKey: string
 	updated: IsoAutoDateString
@@ -469,6 +524,8 @@ export type GateCardsResponse<Texpand = unknown> = Required<GateCardsRecord> & B
 export type GateCodesResponse<Texpand = unknown> = Required<GateCodesRecord> & BaseSystemFields<Texpand>
 export type GateSettingsResponse<Texpand = unknown> = Required<GateSettingsRecord> & BaseSystemFields<Texpand>
 export type GateSyncsResponse<Tsummary = unknown, Texpand = unknown> = Required<GateSyncsRecord<Tsummary>> & BaseSystemFields<Texpand>
+export type GateTicketsResponse<Texpand = unknown> = Required<GateTicketsRecord> & BaseSystemFields<Texpand>
+export type JoinRequestsResponse<Texpand = unknown> = Required<JoinRequestsRecord> & BaseSystemFields<Texpand>
 export type ProjectsResponse<Ttech_stack = unknown, Texpand = unknown> = Required<ProjectsRecord<Ttech_stack>> & BaseSystemFields<Texpand>
 export type SihFaqResponse<Texpand = unknown> = Required<SihFaqRecord> & BaseSystemFields<Texpand>
 export type SihJudgesResponse<Texpand = unknown> = Required<SihJudgesRecord> & BaseSystemFields<Texpand>
@@ -498,6 +555,8 @@ export type CollectionRecords = {
 	gate_codes: GateCodesRecord
 	gate_settings: GateSettingsRecord
 	gate_syncs: GateSyncsRecord
+	gate_tickets: GateTicketsRecord
+	join_requests: JoinRequestsRecord
 	projects: ProjectsRecord
 	sih_faq: SihFaqRecord
 	sih_judges: SihJudgesRecord
@@ -526,6 +585,8 @@ export type CollectionResponses = {
 	gate_codes: GateCodesResponse
 	gate_settings: GateSettingsResponse
 	gate_syncs: GateSyncsResponse
+	gate_tickets: GateTicketsResponse
+	join_requests: JoinRequestsResponse
 	projects: ProjectsResponse
 	sih_faq: SihFaqResponse
 	sih_judges: SihJudgesResponse
