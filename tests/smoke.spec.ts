@@ -331,6 +331,31 @@ test("/members shows the sign-in form and the members-only hint", async ({ page 
   expect(problems).toEqual([]);
 });
 
+test("members: an email without an account is told to request access in the app", async ({ page }) => {
+  test.skip(!PB, "VITE_PB_URL is not set");
+  // What the backend's request-otp hook answers when the email has no account and no team card.
+  await page.route(
+    (url) => url.href.startsWith(PB!) && url.pathname.endsWith("/api/collections/users/request-otp"),
+    (route) =>
+      route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({
+          status: 404,
+          message: "No account for this email yet. Request access from the app.",
+          data: {},
+        }),
+      }),
+  );
+  await open(page, "/members");
+  await page.getByLabel("Email").fill("stranger@robogyan.test");
+  await page.getByRole("button", { name: "Send code" }).click();
+  await expect(page.getByTestId("form-error")).toHaveText(
+    "No account for this email yet. Request access in the Robogyan app, then sign in here once it's approved.",
+  );
+  await expect(page.getByTestId("otp-input")).toHaveCount(0);
+});
+
 /** Superuser creds of the local backend (never shipped to the client; test-only). */
 function backendEnv(): Record<string, string> {
   const file = path.resolve(fileURLToPath(new URL("..", import.meta.url)), "..", "robogyan-backend", ".env");

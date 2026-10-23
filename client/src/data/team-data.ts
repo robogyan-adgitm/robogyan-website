@@ -35,7 +35,7 @@ export const teamMembers: TeamMember[] = [
     period: "2026-2027",
     description: "Bio coming soon.",
     techStack: [],
-    email: "",
+    email: "namandobriyal2007@gmail.com",
     social: {},
     image: "/images/coreTeam/placeholder.svg",
   },

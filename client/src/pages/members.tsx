@@ -90,7 +90,12 @@ function SignIn() {
         setSentTo(email.trim());
         setCode("");
       } catch (err) {
-        setError(errorMessage(err));
+        // 404: no account and no team card for this email (backend request-otp hook).
+        setError(
+          isStatus(err, 404)
+            ? "No account for this email yet. Request access in the Robogyan app, then sign in here once it's approved."
+            : errorMessage(err),
+        );
       }
     });
   };
