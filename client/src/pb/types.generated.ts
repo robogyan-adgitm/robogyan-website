@@ -492,6 +492,11 @@ export const UsersRoleOptions = {
 export type UsersRoleOptions = typeof UsersRoleOptions[keyof typeof UsersRoleOptions]
 export type UsersRecord = {
 	about?: string
+	can_add_cards?: boolean
+	can_claim_cards?: boolean
+	can_delete_cards?: boolean
+	can_toggle_cards?: boolean
+	can_view_cards?: boolean
 	created: IsoAutoDateString
 	email: string
 	emailVisibility?: boolean

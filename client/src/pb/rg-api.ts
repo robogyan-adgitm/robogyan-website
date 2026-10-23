@@ -10,8 +10,8 @@
  * This file has no imports so it can be copied next to the generated types under any name.
  * RgRole, RgCodePurpose, RgJoinRole, RgJoinStatus and RgTicketPerms mirror the select options of
  * the generated file (UsersRoleOptions, GateCodesPurposeOptions, JoinRequestsRequestedRoleOptions,
- * JoinRequestsStatusOptions, GateTicketsPermsOptions); types/drift.check.ts (part of
- * `npm run check`) fails if they drift apart.
+ * JoinRequestsStatusOptions, GateTicketsPermsOptions), and CARD_FLAGS the can_*_cards fields of
+ * UsersRecord; types/drift.check.ts (part of `npm run check`) fails if they drift apart.
  */
 export type RgRole = "pending" | "member" | "admin" | "owner";
 export type RgCodePurpose = "self" | "share";
@@ -20,6 +20,20 @@ export type RgJoinRole = "member" | "admin";
 export type RgJoinStatus = "unverified" | "pending" | "approved" | "rejected";
 /** Gate ticket permissions: "u" unlock only, "a" every admin command (GATE_PROTOCOL.md 9.1). */
 export type RgTicketPerms = "u" | "a";
+
+/**
+ * Card permissions on a users record (booleans, default false). Admins and owners can do all of
+ * this without any flag. Accounts created or promoted to member/admin/owner get can_view_cards and
+ * can_claim_cards unless the request sets them. Nobody changes their own flags.
+ * - can_view_cards: list/view every gate_cards row (without it: only cards whose user is you)
+ * - can_add_cards: create gate_cards rows (user empty or yourself; on_gate/synced_at are ignored)
+ * - can_delete_cards: delete gate_cards rows
+ * - can_toggle_cards: change `enabled` (and nothing else) on any card
+ * - can_claim_cards: set `user` from empty to yourself, or from yourself to empty
+ * add, delete and toggle also earn an "a" gate ticket (see GateTicketResponse).
+ */
+export const CARD_FLAGS = ["can_view_cards", "can_add_cards", "can_delete_cards", "can_toggle_cards", "can_claim_cards"] as const;
+export type RgCardFlag = (typeof CARD_FLAGS)[number];
 
 /** Paths of the custom routes, relative to the PocketBase base URL. */
 export const RgRoutes = {
@@ -65,8 +79,12 @@ export interface IssueCodeResponse {
 }
 
 // ---------------------------------------------------------------------------
-// POST /api/rg/gate-ticket  (auth: member+ or gate_access; GATE_PROTOCOL.md section 9)
-// Body {} (no fields). 403 when the account may not unlock, 429 after 30 tickets in an hour.
+// POST /api/rg/gate-ticket  (auth: member+, gate_access or a card-management flag; GATE_PROTOCOL.md 9)
+// Body {} (no fields). 403 when the account gets neither perms, 429 after 30 tickets in an hour.
+// The firmware only knows "u" (unlock) and "a" (every admin command), so card management on the
+// gate (add, delete, enable/disable) needs an "a" ticket: an account with can_add_cards,
+// can_delete_cards or can_toggle_cards gets "a" like an admin, which on the gate also allows the
+// other admin commands. can_view_cards and can_claim_cards do not change the ticket.
 
 export type GateTicketRequest = Record<string, never>;
 
@@ -77,7 +95,10 @@ export interface GateTicketResponse {
   key: string;
   /** Unix seconds: now + gate_settings.ticket_hours * 3600 (also encoded in the ticket). */
   expiresAt: number;
-  /** "a" for admin/owner, "u" for member or gate_access. */
+  /**
+   * "a" for admin/owner or an account with can_add_cards, can_delete_cards or can_toggle_cards;
+   * otherwise "u" for member+ or gate_access.
+   */
   perms: RgTicketPerms;
 }
 
@@ -101,9 +122,13 @@ export interface SetPasswordResponse<TUser = Record<string, unknown>> {
 
 // ---------------------------------------------------------------------------
 // Members administration (auth: admin+). Guards (BACKEND.md section 1) apply:
-// nobody changes their own role, only owners grant or revoke admin/owner,
-// admins only move accounts between pending and member and cannot edit
+// nobody changes their own role, gate_access or card flags, only owners grant or revoke
+// admin/owner, admins only move accounts between pending and member and cannot edit
 // admins or owners, the last owner cannot be demoted.
+//
+// Accounts edit their own profile through the collection API instead:
+// PATCH /api/collections/users/records/{own id} with only name, about and picture (JSON or
+// multipart; "picture-" removes the file). Any other field is a 400 with a field error.
 
 export interface RgMember {
   id: string;
@@ -124,6 +149,16 @@ export interface RgMember {
    * PocketBase file API (collection "users", this record's id, this name).
    */
   picture: string;
+  /** List/view every gate_cards row (without it only cards assigned to the account). */
+  can_view_cards: boolean;
+  /** Create gate_cards rows (user empty or the account itself). Earns an "a" gate ticket. */
+  can_add_cards: boolean;
+  /** Delete gate_cards rows. Earns an "a" gate ticket. */
+  can_delete_cards: boolean;
+  /** Change `enabled` on any card (nothing else). Earns an "a" gate ticket. */
+  can_toggle_cards: boolean;
+  /** Set a card's `user` from empty to the account, or from the account to empty. */
+  can_claim_cards: boolean;
   created: string;
   updated: string;
 }
@@ -133,7 +168,11 @@ export interface ListMembersResponse {
   items: RgMember[];
 }
 
-/** POST /api/rg/members  -> RgMember (201). 409 if the email already has an account. */
+/**
+ * POST /api/rg/members  -> RgMember (201). 409 if the email already has an account.
+ * Card flags left out default to false, except can_view_cards and can_claim_cards, which default
+ * to true when the role is member, admin or owner.
+ */
 export interface CreateMemberRequest {
   email: string;
   name: string;
@@ -144,12 +183,24 @@ export interface CreateMemberRequest {
   gate_access?: boolean;
   /** Up to 500 chars. */
   about?: string;
+  /** List/view every gate_cards row (without it only cards assigned to the account). */
+  can_view_cards?: boolean;
+  /** Create gate_cards rows (user empty or the account itself). Earns an "a" gate ticket. */
+  can_add_cards?: boolean;
+  /** Delete gate_cards rows. Earns an "a" gate ticket. */
+  can_delete_cards?: boolean;
+  /** Change `enabled` on any card (nothing else). Earns an "a" gate ticket. */
+  can_toggle_cards?: boolean;
+  /** Set a card's `user` from empty to the account, or from the account to empty. */
+  can_claim_cards?: boolean;
 }
 
 /**
  * PATCH /api/rg/members/{id}  -> RgMember. Send only the fields to change.
  * Every field follows the role-change target rules (admins: pending/member accounts and
- * themselves; owners: anyone); nobody changes their own role or gate_access.
+ * themselves; owners: anyone); nobody changes their own role, gate_access or card flags (403).
+ * Promoting a pending account to member/admin/owner turns on can_view_cards and can_claim_cards
+ * unless the same request sets them.
  */
 export interface UpdateMemberRequest {
   name?: string;
@@ -159,6 +210,16 @@ export interface UpdateMemberRequest {
   gate_access?: boolean;
   /** Up to 500 chars. */
   about?: string;
+  /** List/view every gate_cards row (without it only cards assigned to the account). */
+  can_view_cards?: boolean;
+  /** Create gate_cards rows (user empty or the account itself). Earns an "a" gate ticket. */
+  can_add_cards?: boolean;
+  /** Delete gate_cards rows. Earns an "a" gate ticket. */
+  can_delete_cards?: boolean;
+  /** Change `enabled` on any card (nothing else). Earns an "a" gate ticket. */
+  can_toggle_cards?: boolean;
+  /** Set a card's `user` from empty to the account, or from the account to empty. */
+  can_claim_cards?: boolean;
 }
 
 // ---------------------------------------------------------------------------
